@@ -1,0 +1,11 @@
+D:\source-code\stock\stock\WebApplication\bin\Debug\netcoreapp2.0\WebApplication.deps.json
+D:\source-code\stock\stock\WebApplication\bin\Debug\netcoreapp2.0\WebApplication.runtimeconfig.json
+D:\source-code\stock\stock\WebApplication\bin\Debug\netcoreapp2.0\WebApplication.runtimeconfig.dev.json
+D:\source-code\stock\stock\WebApplication\bin\Debug\netcoreapp2.0\WebApplication.dll
+D:\source-code\stock\stock\WebApplication\bin\Debug\netcoreapp2.0\WebApplication.pdb
+D:\source-code\stock\stock\WebApplication\obj\Debug\netcoreapp2.0\WebApplication.csprojResolveAssemblyReference.cache
+D:\source-code\stock\stock\WebApplication\obj\Debug\netcoreapp2.0\WebApplication.csproj.CoreCompileInputs.cache
+D:\source-code\stock\stock\WebApplication\obj\Debug\netcoreapp2.0\WebApplication.AssemblyInfoInputs.cache
+D:\source-code\stock\stock\WebApplication\obj\Debug\netcoreapp2.0\WebApplication.AssemblyInfo.cs
+D:\source-code\stock\stock\WebApplication\obj\Debug\netcoreapp2.0\WebApplication.dll
+D:\source-code\stock\stock\WebApplication\obj\Debug\netcoreapp2.0\WebApplication.pdb

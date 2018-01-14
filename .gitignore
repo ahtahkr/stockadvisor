@@ -1,1 +1,6 @@
-# Add any directories, files, or patterns you don't want to be tracked by version control
+# Add any directories, files, or patterns you don't want to be tracked by ve
+stock\stock\.vs
+stock\WebApplication\bin
+stock\WebApplication\obj
+stock\stock\bin
+stock\stock\obj
