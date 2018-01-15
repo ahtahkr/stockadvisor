@@ -1,0 +1,25 @@
+Microsoft Visual Studio Solution File, Format Version 7.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyNewService", "MyNewService.csproj", "{70E55E6E-6A36-4321-B150-8ECE2F5E3C14}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "DoDyServiceSetup", "..\DoDyServiceSetup\DoDyServiceSetup.vdproj", "{4E1C5E44-43DD-4349-88D0-C08F7099A72E}"
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		ConfigName.0 = Debug
+		ConfigName.1 = Release
+	EndGlobalSection
+	GlobalSection(ProjectDependencies) = postSolution
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{70E55E6E-6A36-4321-B150-8ECE2F5E3C14}.Debug.ActiveCfg = Debug|.NET
+		{70E55E6E-6A36-4321-B150-8ECE2F5E3C14}.Debug.Build.0 = Debug|.NET
+		{70E55E6E-6A36-4321-B150-8ECE2F5E3C14}.Release.ActiveCfg = Release|.NET
+		{70E55E6E-6A36-4321-B150-8ECE2F5E3C14}.Release.Build.0 = Release|.NET
+		{4E1C5E44-43DD-4349-88D0-C08F7099A72E}.Debug.ActiveCfg = Debug
+		{4E1C5E44-43DD-4349-88D0-C08F7099A72E}.Release.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal
