@@ -1,0 +1,16 @@
+﻿-- Create a event. Run in Powershell in admin mode.
+if ([System.Diagnostics.EventLog]::SourceExists("AustinWindowsService") -eq $false) { [System.Diagnostics.EventLog]::CreateEventSource("AustinWindowsService", "AustinWindowsLog") }
+
+-- List the available logs
+Get-EventLog -List
+
+-- Install the windows service without using an installer in the application.
+SC CREATE A001_WinSer binPath= D:\EXE\Production\Austin_Service_Process_Borg_Postings_newest\AndAlerts.exe
+
+SC START A001_WinSer
+SC STOP A001_WinSer
+SC DELETE A001_WinSer
+
+Remove-EventLog -LogName "AustinWindowsLog"
+Remove-EventLog -Source "AustinWindowsService"
+

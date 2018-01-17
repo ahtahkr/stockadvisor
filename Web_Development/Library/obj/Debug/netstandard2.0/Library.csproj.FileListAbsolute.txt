@@ -1,0 +1,8 @@
+F:\features\stock\Web_Development\Library\bin\Debug\netstandard2.0\Library.deps.json
+F:\features\stock\Web_Development\Library\bin\Debug\netstandard2.0\Library.dll
+F:\features\stock\Web_Development\Library\bin\Debug\netstandard2.0\Microsoft.IdentityModel.Protocols.dll
+F:\features\stock\Web_Development\Library\bin\Debug\netstandard2.0\Microsoft.IdentityModel.Protocols.xml
+F:\features\stock\Web_Development\Library\obj\Debug\netstandard2.0\Library.csprojResolveAssemblyReference.cache
+F:\features\stock\Web_Development\Library\obj\Debug\netstandard2.0\Library.csproj.CoreCompileInputs.cache
+F:\features\stock\Web_Development\Library\obj\Debug\netstandard2.0\Library.AssemblyInfoInputs.cache
+F:\features\stock\Web_Development\Library\obj\Debug\netstandard2.0\Library.AssemblyInfo.cs

@@ -1,8 +1,0 @@
-D:\source-code\stock\stock\ClassLibrary\bin\Debug\netstandard2.0\ClassLibrary.deps.json
-D:\source-code\stock\stock\ClassLibrary\bin\Debug\netstandard2.0\ClassLibrary.dll
-D:\source-code\stock\stock\ClassLibrary\bin\Debug\netstandard2.0\Microsoft.Extensions.Configuration.Abstractions.dll
-D:\source-code\stock\stock\ClassLibrary\bin\Debug\netstandard2.0\Microsoft.Extensions.Configuration.Abstractions.xml
-D:\source-code\stock\stock\ClassLibrary\obj\Debug\netstandard2.0\ClassLibrary.csprojResolveAssemblyReference.cache
-D:\source-code\stock\stock\ClassLibrary\obj\Debug\netstandard2.0\ClassLibrary.csproj.CoreCompileInputs.cache
-D:\source-code\stock\stock\ClassLibrary\obj\Debug\netstandard2.0\ClassLibrary.AssemblyInfoInputs.cache
-D:\source-code\stock\stock\ClassLibrary\obj\Debug\netstandard2.0\ClassLibrary.AssemblyInfo.cs

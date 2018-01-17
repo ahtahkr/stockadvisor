@@ -1,0 +1,6 @@
+F:\features\stock\Web_Development\WindowsService\WindowsService\bin\Debug\WindowsService.exe.config
+F:\features\stock\Web_Development\WindowsService\WindowsService\bin\Debug\WindowsService.exe
+F:\features\stock\Web_Development\WindowsService\WindowsService\bin\Debug\WindowsService.pdb
+F:\features\stock\Web_Development\WindowsService\WindowsService\obj\Debug\WindowsService.csproj.CoreCompileInputs.cache
+F:\features\stock\Web_Development\WindowsService\WindowsService\obj\Debug\WindowsService.exe
+F:\features\stock\Web_Development\WindowsService\WindowsService\obj\Debug\WindowsService.pdb
