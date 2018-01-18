@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 
-namespace AustinFirstProject.StockAdvisor.WindowsService
+namespace AustinsFirstProject.StockAdvisor.WindowsService
 {
     public partial class Service1 : ServiceBase
     {

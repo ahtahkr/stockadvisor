@@ -6,13 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 
-namespace AustinFirstProject.StockAdvisor.WindowsService
+namespace AustinsFirstProject.StockAdvisor.WindowsService
 {
     public partial class Service1 : ServiceBase
     {
         private void Get_Companies(object sender = null, ElapsedEventArgs e = null)
         {
-            eventLog_i_am_active.WriteEntry(DateTime.Now + " : " + "AustinFirstProject.StockAdvisor.WindowsService.Get_Companies");
+            eventLog_i_am_active.WriteEntry(DateTime.Now + " : " + "AustinsFirstProject.StockAdvisor.WindowsService.Get_Companies");
         }
     }
 }

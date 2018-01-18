@@ -5,7 +5,7 @@ using System.ServiceProcess;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AustinFirstProject.StockAdvisor.WindowsService
+namespace AustinsFirstProject.StockAdvisor.WindowsService
 {
     static class Program
     {

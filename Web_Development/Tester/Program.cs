@@ -1,16 +1,35 @@
-﻿using AustinFirstProject.Library;
-using AustinFirstProject.Library.Intrinio;
+﻿using AustinsFirstProject.Library;
+using AustinsFirstProject.Library.Intrinio;
+using Library.Stock;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 
-namespace AustinFirstProject.Tester
+namespace AustinsFirstProject.Tester
 {
     class Program
     {
-
         static void Main(string[] args)
         {
-            
+            List<Ticker_Class> tk = Library.Intrinio.Utility.Database.Get_Tickers();
+
+            string url;
+            string result;
+
+            string batch = "";
+            int length = 5;
+            for (int a = 0; a < tk.Count; a++)
+            {
+                if (a < length) { batch += tk[a].Ticker; }
+                if (a < (length - 1)) //(tk.Count - 1))
+                {
+                    batch += ",";
+                }
+            }
+
+            url = "https://www.alphavantage.co/query?function=BATCH_STOCK_QUOTES&symbols=" + batch + "&apikey=9BTE2MLIE1VPTO4I";
+            result = HttpRequestUtility.GetRequest(url);
+            Logger.Log_Error(result);
         }
 
         private static void Get_Companies()

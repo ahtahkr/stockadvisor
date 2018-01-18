@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AustinFirstProject.Library
+namespace AustinsFirstProject.Library
 {
     public static class Utility
     {

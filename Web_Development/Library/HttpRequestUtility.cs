@@ -4,7 +4,7 @@ using System.IO;
 using System.Net;
 using System.Text;
 
-namespace AustinFirstProject.Library
+namespace AustinsFirstProject.Library
 {
     public static class HttpRequestUtility
     {
