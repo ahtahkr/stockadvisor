@@ -9,3 +9,14 @@ D:\source-code\stock\stock\WebApplication\obj\Debug\netcoreapp2.0\WebApplication
 D:\source-code\stock\stock\WebApplication\obj\Debug\netcoreapp2.0\WebApplication.AssemblyInfo.cs
 D:\source-code\stock\stock\WebApplication\obj\Debug\netcoreapp2.0\WebApplication.dll
 D:\source-code\stock\stock\WebApplication\obj\Debug\netcoreapp2.0\WebApplication.pdb
+F:\features\stock\Web_Development\WebApplication\bin\Debug\netcoreapp2.0\WebApplication.deps.json
+F:\features\stock\Web_Development\WebApplication\bin\Debug\netcoreapp2.0\WebApplication.runtimeconfig.json
+F:\features\stock\Web_Development\WebApplication\bin\Debug\netcoreapp2.0\WebApplication.runtimeconfig.dev.json
+F:\features\stock\Web_Development\WebApplication\bin\Debug\netcoreapp2.0\WebApplication.dll
+F:\features\stock\Web_Development\WebApplication\bin\Debug\netcoreapp2.0\WebApplication.pdb
+F:\features\stock\Web_Development\WebApplication\obj\Debug\netcoreapp2.0\WebApplication.csprojResolveAssemblyReference.cache
+F:\features\stock\Web_Development\WebApplication\obj\Debug\netcoreapp2.0\WebApplication.csproj.CoreCompileInputs.cache
+F:\features\stock\Web_Development\WebApplication\obj\Debug\netcoreapp2.0\WebApplication.AssemblyInfoInputs.cache
+F:\features\stock\Web_Development\WebApplication\obj\Debug\netcoreapp2.0\WebApplication.AssemblyInfo.cs
+F:\features\stock\Web_Development\WebApplication\obj\Debug\netcoreapp2.0\WebApplication.dll
+F:\features\stock\Web_Development\WebApplication\obj\Debug\netcoreapp2.0\WebApplication.pdb

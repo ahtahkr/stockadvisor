@@ -12,7 +12,7 @@ namespace WebApplication.Areas.Index.Controllers
     {
         public string Index()
         {
-            return "Index";
+            return "Index()";
         }
 
         [Route("[action]/{page:int?}")]

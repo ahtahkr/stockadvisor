@@ -6,29 +6,30 @@ using System.Text;
 
 namespace AustinFirstProject.Library
 {
-    class HttpRequestUtility
+    public static class HttpRequestUtility
     {
-        public string GetRequest(String uri, string username = "", string password = "")
+        public static string GetRequest(String uri, string username = "", string password = "")
         {
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create(uri);
+            HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(uri);
             httpWebRequest.Method = "GET";
             httpWebRequest.MaximumAutomaticRedirections = 3;
             httpWebRequest.Timeout = 5000;
 
-            if (String.IsNullOrEmpty(username) && String.IsNullOrEmpty(password))
+            if (!String.IsNullOrEmpty(username) && !String.IsNullOrEmpty(password))
             { 
-                httpWebRequest.Credentials = new NetworkCredential("Mehrdad", "Password");
+                httpWebRequest.Credentials = new NetworkCredential(username, password);
             }
 
             Console.WriteLine("Sending HTTP Request");
             var httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+            HttpStatusCode a = httpWebResponse.StatusCode;
             var responseStream = httpWebResponse.GetResponseStream();
             string response = "";
             if (responseStream != null)
             {
                 var streamReader = new StreamReader(responseStream);
-                Console.WriteLine("HTTP Response is: ");
-                Console.WriteLine(streamReader.ReadToEnd());
+                //Console.WriteLine("HTTP Response is: ");
+                //Console.WriteLine(streamReader.ReadToEnd());
                 response += streamReader.ReadToEnd();
             }
             if (responseStream != null) { responseStream.Close(); }

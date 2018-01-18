@@ -6,7 +6,7 @@ using System.Text;
 
 namespace AustinFirstProject.Library
 {
-    static class Database
+    public static class Database
     {
         public static SqlDataReader ExecuteProcedure_Get(string commandName, Dictionary<string, object> parameters)
         { 

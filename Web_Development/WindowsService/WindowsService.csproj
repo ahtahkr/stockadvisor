@@ -42,6 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Jobs\Get_Companies.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Jobs\I_AM_ACTIVE.cs">
       <SubType>Component</SubType>
     </Compile>

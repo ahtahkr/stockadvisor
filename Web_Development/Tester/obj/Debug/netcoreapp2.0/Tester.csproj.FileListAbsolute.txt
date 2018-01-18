@@ -1,0 +1,13 @@
+F:\features\stock\Web_Development\Tester\bin\Debug\netcoreapp2.0\Tester.deps.json
+F:\features\stock\Web_Development\Tester\bin\Debug\netcoreapp2.0\Tester.runtimeconfig.json
+F:\features\stock\Web_Development\Tester\bin\Debug\netcoreapp2.0\Tester.runtimeconfig.dev.json
+F:\features\stock\Web_Development\Tester\bin\Debug\netcoreapp2.0\Tester.dll
+F:\features\stock\Web_Development\Tester\bin\Debug\netcoreapp2.0\Tester.pdb
+F:\features\stock\Web_Development\Tester\bin\Debug\netcoreapp2.0\Library.dll
+F:\features\stock\Web_Development\Tester\bin\Debug\netcoreapp2.0\Library.pdb
+F:\features\stock\Web_Development\Tester\obj\Debug\netcoreapp2.0\Tester.csprojResolveAssemblyReference.cache
+F:\features\stock\Web_Development\Tester\obj\Debug\netcoreapp2.0\Tester.csproj.CoreCompileInputs.cache
+F:\features\stock\Web_Development\Tester\obj\Debug\netcoreapp2.0\Tester.AssemblyInfoInputs.cache
+F:\features\stock\Web_Development\Tester\obj\Debug\netcoreapp2.0\Tester.AssemblyInfo.cs
+F:\features\stock\Web_Development\Tester\obj\Debug\netcoreapp2.0\Tester.dll
+F:\features\stock\Web_Development\Tester\obj\Debug\netcoreapp2.0\Tester.pdb
