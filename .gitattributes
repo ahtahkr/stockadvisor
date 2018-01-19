@@ -1,3 +1,11 @@
+Web_Development/WindowsService/obj/
+Web_Development/WebApplication/obj/
+Web_Development/Tester/obj/
+Web_Development/Tester/bin/
+Web_Development/Library/obj/
+Web_Development/Library/bin/
+Web_Development/.vs/
+
 ###############################################################################
 # Set default behavior to automatically normalize line endings.
 ###############################################################################
@@ -60,4 +68,8 @@
 #*.pdf   diff=astextplain
 #*.PDF   diff=astextplain
 #*.rtf   diff=astextplain
+
+
 #*.RTF   diff=astextplain
+
+Web_Development/WindowsService/obj/

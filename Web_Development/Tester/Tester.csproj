@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AlphaVantage\AlphaVantage.csproj" />
     <ProjectReference Include="..\Library\Library.csproj" />
   </ItemGroup>
 

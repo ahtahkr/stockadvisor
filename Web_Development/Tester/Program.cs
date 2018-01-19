@@ -1,5 +1,7 @@
 ﻿using AustinsFirstProject.Library;
+using AustinsFirstProject.AlphaVantage;
 using AustinsFirstProject.Library.Intrinio;
+using AustinsFirstProject.Library.DatabaseTable;
 using Library.Stock;
 using Newtonsoft.Json;
 using System;
@@ -11,25 +13,35 @@ namespace AustinsFirstProject.Tester
     {
         static void Main(string[] args)
         {
-            List<Ticker_Class> tk = Library.Intrinio.Utility.Database.Get_Tickers();
+            string apikey = "9BTE2MLIE1VPTO4I";
+            List<Ticker_Class> tk;
 
-            string url;
-            string result;
+            tk = Library.Intrinio.Utility.Database.Get_Tickers();
+            string result = TIME_SERIES_DAILY.GET(tk[0].Ticker, apikey);
 
-            string batch = "";
-            int length = 5;
-            for (int a = 0; a < tk.Count; a++)
+           // Console.WriteLine(result);
+           // Console.ReadLine();
+
+            List<Share> shares = JsonConvert.DeserializeObject<List<Share>>(result);
+
+           Console.WriteLine(JsonConvert.SerializeObject(shares));
+           Console.ReadLine();
+
+            for (int i = 0; i < shares.Count; i++)
             {
-                if (a < length) { batch += tk[a].Ticker; }
-                if (a < (length - 1)) //(tk.Count - 1))
-                {
-                    batch += ",";
-                }
+                Console.WriteLine(shares[i].Save_in_Database());
             }
 
-            url = "https://www.alphavantage.co/query?function=BATCH_STOCK_QUOTES&symbols=" + batch + "&apikey=9BTE2MLIE1VPTO4I";
-            result = HttpRequestUtility.GetRequest(url);
-            Logger.Log_Error(result);
+            //Console.ReadLine();
+
+            //while (true) //(!String.IsNullOrEmpty(result))
+            //{
+            //    tk = Library.Intrinio.Utility.Database.Get_Tickers();
+            //    result = TIME_SERIES_DAILY.GET(tk[0].Ticker, apikey);
+            //    Console.WriteLine(result);
+            //};
+            //result = HttpRequestUtility.GetRequest(url);
+            //Logger.Log_Error(result);
         }
 
         private static void Get_Companies()

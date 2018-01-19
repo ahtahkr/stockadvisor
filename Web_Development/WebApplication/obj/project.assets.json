@@ -13116,7 +13116,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\aadhikari\\.nuget\\packages\\": {},
+    "C:\\Users\\adhikari\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
@@ -13125,17 +13125,17 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "F:\\features\\stock\\Web_Development\\WebApplication\\WebApplication.csproj",
+      "projectUniqueName": "D:\\source-code\\stock\\Web_Development\\WebApplication\\WebApplication.csproj",
       "projectName": "WebApplication",
-      "projectPath": "F:\\features\\stock\\Web_Development\\WebApplication\\WebApplication.csproj",
-      "packagesPath": "C:\\Users\\aadhikari\\.nuget\\packages\\",
-      "outputPath": "F:\\features\\stock\\Web_Development\\WebApplication\\obj\\",
+      "projectPath": "D:\\source-code\\stock\\Web_Development\\WebApplication\\WebApplication.csproj",
+      "packagesPath": "C:\\Users\\adhikari\\.nuget\\packages\\",
+      "outputPath": "D:\\source-code\\stock\\Web_Development\\WebApplication\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\aadhikari\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\adhikari\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

@@ -26,7 +26,9 @@ namespace AustinsFirstProject.Library
         {
             var result = new Dictionary<string, object>();
             foreach (var col in cols)
+            {
                 result.Add(col, reader[col]);
+            }
             return result;
         }
 

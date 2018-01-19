@@ -996,6 +996,19 @@
           "lib/netstandard1.3/System.Xml.XmlDocument.dll": {}
         }
       },
+      "AlphaVantage/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "Library": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/AlphaVantage.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/AlphaVantage.dll": {}
+        }
+      },
       "Library/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
@@ -1579,13 +1592,11 @@
       ]
     },
     "Newtonsoft.Json/10.0.3": {
-      "sha512": "wBM7i7i3U2WX0ecor4zdVGvgrwFUjuigBoHKiL+nH39fCOpCPjBY3RDqJM32edvdyTAVdjzlccHsg41+/+zpSA==",
+      "sha512": "hSXaFmh7hNCuEoC4XNY5DrRkLDzYHqPx/Ik23R4J86Z7PE/Y6YidhG602dFVdLBRSdG6xp9NabH3dXpcoxWvww==",
       "type": "package",
       "path": "newtonsoft.json/10.0.3",
       "files": [
         "LICENSE.md",
-        "Newtonsoft.Json.10.0.3.nupkg.sha512",
-        "Newtonsoft.Json.nuspec",
         "lib/net20/Newtonsoft.Json.dll",
         "lib/net20/Newtonsoft.Json.xml",
         "lib/net35/Newtonsoft.Json.dll",
@@ -1602,6 +1613,8 @@
         "lib/portable-net40+sl5+win8+wp8+wpa81/Newtonsoft.Json.xml",
         "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.dll",
         "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.xml",
+        "newtonsoft.json.10.0.3.nupkg.sha512",
+        "newtonsoft.json.nuspec",
         "tools/install.ps1"
       ]
     },
@@ -4084,6 +4097,11 @@
         "ref/xamarinwatchos10/_._"
       ]
     },
+    "AlphaVantage/1.0.0": {
+      "type": "project",
+      "path": "../AlphaVantage/AlphaVantage.csproj",
+      "msbuildProject": "../AlphaVantage/AlphaVantage.csproj"
+    },
     "Library/1.0.0": {
       "type": "project",
       "path": "../Library/Library.csproj",
@@ -4092,13 +4110,14 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
+      "AlphaVantage >= 1.0.0",
       "Library >= 1.0.0",
       "Microsoft.NETCore.App >= 2.0.0",
       "System.Data.SqlClient >= 4.4.2"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\aadhikari\\.nuget\\packages\\": {},
+    "C:\\Users\\adhikari\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
@@ -4107,17 +4126,17 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "F:\\features\\stock\\Web_Development\\Tester\\Tester.csproj",
+      "projectUniqueName": "D:\\source-code\\stock\\Web_Development\\Tester\\Tester.csproj",
       "projectName": "Tester",
-      "projectPath": "F:\\features\\stock\\Web_Development\\Tester\\Tester.csproj",
-      "packagesPath": "C:\\Users\\aadhikari\\.nuget\\packages\\",
-      "outputPath": "F:\\features\\stock\\Web_Development\\Tester\\obj\\",
+      "projectPath": "D:\\source-code\\stock\\Web_Development\\Tester\\Tester.csproj",
+      "packagesPath": "C:\\Users\\adhikari\\.nuget\\packages\\",
+      "outputPath": "D:\\source-code\\stock\\Web_Development\\Tester\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\aadhikari\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\adhikari\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -4130,8 +4149,11 @@
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "F:\\features\\stock\\Web_Development\\Library\\Library.csproj": {
-              "projectPath": "F:\\features\\stock\\Web_Development\\Library\\Library.csproj"
+            "D:\\source-code\\stock\\Web_Development\\Library\\Library.csproj": {
+              "projectPath": "D:\\source-code\\stock\\Web_Development\\Library\\Library.csproj"
+            },
+            "D:\\source-code\\stock\\Web_Development\\AlphaVantage\\AlphaVantage.csproj": {
+              "projectPath": "D:\\source-code\\stock\\Web_Development\\AlphaVantage\\AlphaVantage.csproj"
             }
           }
         }

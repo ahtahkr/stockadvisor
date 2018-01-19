@@ -1,0 +1,13 @@
+D:\source-code\stock\Web_Development\AlphaVantage\bin\Debug\netstandard2.0\AlphaVantage.deps.json
+D:\source-code\stock\Web_Development\AlphaVantage\bin\Debug\netstandard2.0\AlphaVantage.dll
+D:\source-code\stock\Web_Development\AlphaVantage\bin\Debug\netstandard2.0\AlphaVantage.pdb
+D:\source-code\stock\Web_Development\AlphaVantage\bin\Debug\netstandard2.0\Library.dll
+D:\source-code\stock\Web_Development\AlphaVantage\bin\Debug\netstandard2.0\System.Data.SqlClient.dll
+D:\source-code\stock\Web_Development\AlphaVantage\bin\Debug\netstandard2.0\Library.pdb
+D:\source-code\stock\Web_Development\AlphaVantage\bin\Debug\netstandard2.0\System.Data.SqlClient.xml
+D:\source-code\stock\Web_Development\AlphaVantage\obj\Debug\netstandard2.0\AlphaVantage.csprojResolveAssemblyReference.cache
+D:\source-code\stock\Web_Development\AlphaVantage\obj\Debug\netstandard2.0\AlphaVantage.csproj.CoreCompileInputs.cache
+D:\source-code\stock\Web_Development\AlphaVantage\obj\Debug\netstandard2.0\AlphaVantage.AssemblyInfoInputs.cache
+D:\source-code\stock\Web_Development\AlphaVantage\obj\Debug\netstandard2.0\AlphaVantage.AssemblyInfo.cs
+D:\source-code\stock\Web_Development\AlphaVantage\obj\Debug\netstandard2.0\AlphaVantage.dll
+D:\source-code\stock\Web_Development\AlphaVantage\obj\Debug\netstandard2.0\AlphaVantage.pdb
