@@ -20,7 +20,6 @@ namespace AustinsFirstProject.AlphaVantage
 
                 int count = 0;
                 string[] _date;
-                int fgh;
 
                 foreach (JToken result in abc.Children())
                 {
@@ -31,10 +30,12 @@ namespace AustinsFirstProject.AlphaVantage
                             foreach (JToken result_three in result_two.Children())
                             {
                                 _date = result_three.ToString().Split('"');
-                                JObject jObject = new JObject();
-                                jObject.Add("_date", _date[1]);
-                                jObject.Add("ticker", ticker);
-                                
+                                JObject jObject = new JObject
+                                {
+                                    { "_date", _date[1] },
+                                    { "ticker", ticker }
+                                };
+
                                 foreach (JToken result_four in result_three.Children())
                                 {
                                     int _count = 0;

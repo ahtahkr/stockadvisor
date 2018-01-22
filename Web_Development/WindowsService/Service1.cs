@@ -16,6 +16,10 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
         private static int i_am_active_interval = 1; // seconds
         private Timer i_am_active_timer = new Timer(i_am_active_interval * 1000);
 
+
+        private static int update_share_interval = 60; // seconds
+        private Timer update_share_timer = new Timer(update_share_interval * 1000);
+
         public Service1()
         {
             InitializeComponent();
@@ -26,8 +30,10 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
         {
             eventLog_i_am_active.WriteEntry("Austin Stock Windows Service started.");
 
-            this.i_am_active_timer.Elapsed += I_AM_ACTIVE;
+            this.update_share_timer.Elapsed += Update_Share;
+            this.update_share_timer.Enabled = true;
 
+            this.i_am_active_timer.Elapsed += I_AM_ACTIVE;
             this.i_am_active_timer.Enabled = true;
         }
 
@@ -35,18 +41,21 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
         {
             eventLog_i_am_active.WriteEntry("Austin Stock Windows Service stopped.");
 
+            this.update_share_timer.Enabled = false;
             this.i_am_active_timer.Enabled = false;
         }
         protected override void OnPause()
         {
             eventLog_i_am_active.WriteEntry("Austin Stock Windows Service paused.");
 
+            this.update_share_timer.Enabled = false;
             this.i_am_active_timer.Enabled = false;
         }
         protected override void OnContinue()
         {
             eventLog_i_am_active.WriteEntry("Austin Stock Windows Service continued.");
 
+            this.update_share_timer.Enabled = true;
             this.i_am_active_timer.Enabled = true;
         }
 
@@ -54,7 +63,7 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
         {
             if (!System.Diagnostics.EventLog.SourceExists("AustinWindowsService"))
             {
-                System.Diagnostics.EventLog.CreateEventSource("AustinWindowsService", "AustinLog");
+                System.Diagnostics.EventLog.CreateEventSource("AustinWindowsService", "AustinWindowsLog");
             }
             eventLog_i_am_active.Source = "AustinWindowsService";
             eventLog_i_am_active.Log = "AustinWindowsLog";
