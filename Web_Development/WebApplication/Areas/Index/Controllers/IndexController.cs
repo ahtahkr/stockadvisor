@@ -4,6 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Configuration;
+using Microsoft.Extensions.Configuration;
+using AustinsFirstProject.StockAdvisor.WebApplication.Helper;
+using System.IO;
 
 namespace WebApplication.Areas.Index.Controllers
 {
@@ -11,9 +14,12 @@ namespace WebApplication.Areas.Index.Controllers
     [Route("index")]
     public class IndexController : Controller
     {
+        private IConfigurationRoot configRoot;
+
         public string Index()
         {
-            return "Index()";
+            configRoot = ConfigurationHelper.GetConfiguration(Directory.GetCurrentDirectory());
+            return configRoot.GetConnectionString("DefaultConnection");
         }
 
         [Route("[action]/{page:int?}")]
