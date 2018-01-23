@@ -11,6 +11,8 @@ namespace AustinsFirstProject.AlphaVantage
     {
         private const string url = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=";
 
+        // https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=AGFS&apikey=9BTE2MLIE1VPTO4I
+
         public static string GET(string ticker, string apikey)
         {
             try

@@ -33,7 +33,7 @@ namespace AustinsFirstProject.Library
             string base_directory;
             string filename;
 
-            if (!String.IsNullOrEmpty(_filename))
+            if (!String.IsNullOrEmpty(folder))
             {
                 base_directory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs", folder);
             } else
@@ -43,7 +43,7 @@ namespace AustinsFirstProject.Library
 
             if (!String.IsNullOrEmpty(_filename))
             {
-                filename = _filename + ".log";
+                filename = _filename + "_" + DateTime.Now.ToString("yyyy_MM_dd") + ".log";
             } else
             {
                 filename = "Log.log";
