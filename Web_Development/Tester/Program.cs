@@ -23,13 +23,13 @@ namespace AustinsFirstProject.Tester
            // Console.ReadLine();
 
             List<Share> shares = JsonConvert.DeserializeObject<List<Share>>(result);
-
-           Console.WriteLine(JsonConvert.SerializeObject(shares));
-           Console.ReadLine();
+            
 
             for (int i = 0; i < shares.Count; i++)
             {
                 Console.WriteLine(shares[i].Save_in_Database());
+
+                Console.ReadLine();
             }
 
             //Console.ReadLine();

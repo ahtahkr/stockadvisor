@@ -17,7 +17,7 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
         private Timer i_am_active_timer = new Timer(i_am_active_interval * 1000);
 
 
-        private static int update_share_interval = 60; // seconds
+        private static int update_share_interval = 10; // seconds
         private Timer update_share_timer = new Timer(update_share_interval * 1000);
 
         public Service1()

@@ -55,13 +55,18 @@ namespace AustinsFirstProject.Library
                     comm.Parameters.Add(new SqlParameter(kvp.Key, kvp.Value));
                 }
             }
-            return JsonConvert.SerializeObject(Serialize(comm.ExecuteReader(CommandBehavior.CloseConnection)));
+            string result = JsonConvert.SerializeObject(Serialize(comm.ExecuteReader()));
+            conn.Close();
+            conn.Dispose();
+            SqlConnection.ClearPool(conn);
+            return result;
         }
 
 
         public static int ExecuteProcedure_Post(string commandName, Dictionary<string, object> parameters)
         {
             SqlConnection conn = new SqlConnection(ConnectionString.Get());
+
             conn.Open();
             SqlCommand comm = conn.CreateCommand();
             comm.CommandType = CommandType.StoredProcedure;
@@ -83,6 +88,8 @@ namespace AustinsFirstProject.Library
                 Logger.Log_Error("ExecuteProcedure_Post failed. Message: " + ex.Message);
             }
             conn.Close();
+            conn.Dispose();
+            SqlConnection.ClearPool(conn);
 
             return a;
         }

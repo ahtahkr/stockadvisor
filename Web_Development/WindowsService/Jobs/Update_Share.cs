@@ -20,53 +20,61 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
         {
             List<Ticker_Class> tk = null;
             string result = "Before TRY.";
-            //string _dates = "";
+
             try
             {
                 eventLog_i_am_active.WriteEntry(DateTime.Now + " : " + "AustinsFirstProject.StockAdvisor.WindowsService.Update_Shares");
 
-                string detail_log = ConfigurationManager.AppSettings["log_detail_update_share_success"]; ;
+                DateTime current_time = DateTime.Now;
+                int current_hour_min = (current_time.Hour * 60) + current_time.Minute;
                 
+                int hour = Convert.ToInt32(ConfigurationManager.AppSettings["update_share_hour"]);
+                int minute = Convert.ToInt32(ConfigurationManager.AppSettings["update_share_minute"]);
+                string log = ConfigurationManager.AppSettings["log_update_share"];
                 string apikey = ConfigurationManager.AppSettings["intrino_api_key"];
 
-                tk = Library.Intrinio.Utility.Database.Get_Tickers();
+                int hour_min = (hour * 60) + minute;
                 
-                if (detail_log == "true")
+                if (current_hour_min >= hour_min)
                 {
-                    Logger.Log("Starting Update Share.", tk[0].Ticker, tk[0].Ticker);
-                    Logger.Log("Ticker Processing: " + JsonConvert.SerializeObject(tk), tk[0].Ticker, tk[0].Ticker);
-                }
-                result = TIME_SERIES_DAILY.GET(tk[0].Ticker, apikey);
+                    tk = Library.Intrinio.Utility.Database.Get_Tickers();
 
-                List<Share> shares = JsonConvert.DeserializeObject<List<Share>>(result);
-
-                for (int i = 0; i < shares.Count; i++)
-                {
-                    shares[i].Save_in_Database();
-                    //_dates += shares[i]._date;
-                    if (detail_log == "true")
+                    if (tk.Count > 0)
                     {
-                        Logger.Log("Share successfully processed for date: " + shares[i]._date, tk[0].Ticker, tk[0].Ticker);
+                        List<string> date_list = new List<string>();
+                        date_list.Add(DateTime.Now.ToString("yyyy-MM-dd"));
+                        result = TIME_SERIES_DAILY.GET(tk[0].Ticker, apikey, date_list);
+
+                        List<Share> shares = JsonConvert.DeserializeObject<List<Share>>(result);
+
+                        object save_in_db_tracker;
+                        for (int i = 0; i < shares.Count; i++)
+                        {
+                            save_in_db_tracker = shares[i].Save_in_Database();
+                            if (log == "true")
+                            {
+                                Logger.Log("Share successfully processed for date: " + shares[i]._date + ". Result: " + save_in_db_tracker.ToString(), tk[0].Ticker, tk[0].Ticker);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (log == "true")
+                        {
+                            Logger.Log("No Tickers to process.", tk[0].Ticker, tk[0].Ticker);
+                        }
+                    }
+                } else
+                {
+                    if (log == "true")
+                    {
+                        Logger.Log("Not a good time to run the process. system_hour = " + current_time.Hour + " config_file_hour = " + hour + ". system_minute = " + current_time.Minute + " config_file_minute = " + minute);
                     }
                 }
-
-                string success = ConfigurationManager.AppSettings["log_update_share_success"];
-                if (success == "true")
-                {
-                    /*foreach (var item in tk)
-                    {
-                    }*/
-                    Logger.Log("Update_Share successful. Ticker: " + JsonConvert.SerializeObject(tk), tk[0].Ticker, tk[0].Ticker);
-                }
-
             } catch (Exception ex)
             {
                 Logger.Log("Windows Service Failed. Ticker: | " + tk[0].Ticker + " | Result: | " + result + " | Error: [" + ex.Message + "]", tk[0].Ticker, tk[0].Ticker);
-            } finally
-            {
-                
-
-            }
+            } finally {}
         }
     }
 }

@@ -13,7 +13,7 @@ namespace AustinsFirstProject.AlphaVantage
 
         // https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=AGFS&apikey=9BTE2MLIE1VPTO4I
 
-        public static string GET(string ticker, string apikey)
+        public static string GET(string ticker, string apikey, List<string> dates = null)
         {
             try
             {
@@ -32,6 +32,21 @@ namespace AustinsFirstProject.AlphaVantage
                             foreach (JToken result_three in result_two.Children())
                             {
                                 _date = result_three.ToString().Split('"');
+
+                                if (dates != null && dates.Count > 0)
+                                {
+                                    // Logger.Log("Dates: " + JsonConvert.SerializeObject(dates));
+                                    if (!dates.Contains(_date[1]))
+                                    {
+                                        // Logger.Log("Dates: " + JsonConvert.SerializeObject(dates) + " does not contains " + _date[1] + ".");
+                                        break;
+                                    } else
+                                    {
+                                        // Logger.Log("Dates: " + JsonConvert.SerializeObject(dates) + " contains " + _date[1] + ".");
+                                    }
+
+                                }
+
                                 JObject jObject = new JObject
                                 {
                                     { "_date", _date[1] },

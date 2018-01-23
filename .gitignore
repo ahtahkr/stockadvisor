@@ -1,6 +1,15 @@
 # Add any directories, files, or patterns you don't want to be tracked by ve
-stock\stock\.vs
-stock\WebApplication\bin
-stock\WebApplication\obj
-stock\stock\bin
-stock\stock\obj
+Web_Development/Library/obj/*
+Web_Development/Library/bin/*
+Web_Development/WindowsService/bin/*
+Web_Development/WindowsService/obj/*
+Web_Development/WebApplication/obj/*
+Web_Development/WebApplication/bin/*
+Web_Development/Tester/obj/*
+Web_Development/Tester/bin/*
+Web_Development/AlphaVantage/obj/*
+Web_Development/AlphaVantage/bin/*
+Web_Development/packages/*
+Web_Development/.vs/*
+Web_Development/Tester/obj/*
+Web_Development/WebApplication/obj/*

@@ -20,7 +20,6 @@ namespace AustinsFirstProject.Library
                 httpWebRequest.Credentials = new NetworkCredential(username, password);
             }
 
-            Console.WriteLine("Sending HTTP Request");
             var httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse();
             HttpStatusCode a = httpWebResponse.StatusCode;
             var responseStream = httpWebResponse.GetResponseStream();

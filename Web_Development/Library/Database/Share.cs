@@ -15,7 +15,7 @@ namespace AustinsFirstProject.Library.DatabaseTable
         public int volume { get; set; }
         public string ticker { get; set; }
 
-        public int Save_in_Database()
+        public object Save_in_Database()
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>();
 
@@ -27,7 +27,8 @@ namespace AustinsFirstProject.Library.DatabaseTable
             parameters.Add("close", close);
             parameters.Add("volume", volume);
 
-            return Database.ExecuteProcedure_Post(DB_STORED_PROCEDURE, parameters);
+            return Database.ExecuteProcedure_Get(DB_STORED_PROCEDURE, parameters);
+            
         }
     }
 }

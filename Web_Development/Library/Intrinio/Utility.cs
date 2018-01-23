@@ -9,15 +9,30 @@ namespace AustinsFirstProject.Library.Intrinio
 {
     public static class Utility
     {
+
         public static class Database
         {
             public static List<Ticker_Class> Get_Tickers()
             {
-                string tickers = Library.Database.ExecuteProcedure_Get("[dbo].[Company_Get_Unique_Ticker]", new Dictionary<string, object>());
+                string tickers = "";
+                try
+                {
+                    tickers = Library.Database.ExecuteProcedure_Get("[dbo].[Company_Get_Unique_Ticker]", new Dictionary<string, object>());
 
-                List<Ticker_Class> tk = JsonConvert.DeserializeObject<List<Ticker_Class>>(tickers);
-
-                return tk;
+                    if ( String.IsNullOrEmpty(tickers) || tickers.Contains("\"ticker\":\"null\""))
+                    {
+                        return new List<Ticker_Class>();
+                    }
+                    else
+                    {
+                        return JsonConvert.DeserializeObject<List<Ticker_Class>>(tickers);
+                    }
+                } catch (Exception ex)
+                {
+                    Logger.Log_Error("tickers: " + tickers + ". Get_Tickers failed. Message: " + ex.Message);
+                    return new List<Ticker_Class>();
+                }
+                
             }
         }
     }
