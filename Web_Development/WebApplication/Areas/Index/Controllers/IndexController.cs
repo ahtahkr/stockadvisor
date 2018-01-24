@@ -9,6 +9,7 @@ using AustinsFirstProject.StockAdvisor.WebApplication.Helper;
 using System.IO;
 using AustinsFirstProject.Library;
 using AustinsFirstProject.CoreLibrary.Database;
+using Newtonsoft.Json;
 
 namespace WebApplication.Areas.Index.Controllers
 {
@@ -22,7 +23,14 @@ namespace WebApplication.Areas.Index.Controllers
         {
             //configRoot = ConfigurationHelper.GetConfiguration(Directory.GetCurrentDirectory());
             //return configRoot.GetConnectionString("DefaultConnection");
-            var share = new Share { Ticker = "abcd" };
+            Shares shares = new Shares();
+            shares._shares.Add(new Share("abcd" ));
+            shares._shares.Add(new Share("cdef"));
+            shares._shares.Add(new Share("asdfdf"));
+            shares._shares.Add(new Share("65135"));
+            shares._shares.Add(new Share("65131"));
+            //var share = JsonConvert.SerializeObject(shares);
+            var share = new Shares { _shares = shares._shares };
             return View(share);
         }
 
