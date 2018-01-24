@@ -16,10 +16,11 @@ namespace WebApplication.Areas.Index.Controllers
     {
         private IConfigurationRoot configRoot;
 
-        public string Index()
+        public IActionResult Index()
         {
-            configRoot = ConfigurationHelper.GetConfiguration(Directory.GetCurrentDirectory());
-            return configRoot.GetConnectionString("DefaultConnection");
+            //configRoot = ConfigurationHelper.GetConfiguration(Directory.GetCurrentDirectory());
+            //return configRoot.GetConnectionString("DefaultConnection");
+            return View();
         }
 
         [Route("[action]/{page:int?}")]
