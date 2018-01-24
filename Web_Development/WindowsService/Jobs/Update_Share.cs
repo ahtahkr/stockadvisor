@@ -32,6 +32,7 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
                 int minute = Convert.ToInt32(ConfigurationManager.AppSettings["update_share_minute"]);
                 string log = ConfigurationManager.AppSettings["log_update_share"];
                 string apikey = ConfigurationManager.AppSettings["intrino_api_key"];
+                string date_to_process = ConfigurationManager.AppSettings["update_share_date_to_process"];
 
                 int hour_min = (hour * 60) + minute;
                 
@@ -42,7 +43,11 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
                     if (tk.Count > 0)
                     {
                         List<string> date_list = new List<string>();
-                        date_list.Add(DateTime.Now.ToString("yyyy-MM-dd"));
+
+                        if (date_to_process == "today")
+                        {
+                            date_list.Add(DateTime.Now.ToString("yyyy-MM-dd"));
+                        }
                         result = TIME_SERIES_DAILY.GET(tk[0].Ticker, apikey, date_list);
 
                         List<Share> shares = JsonConvert.DeserializeObject<List<Share>>(result);
