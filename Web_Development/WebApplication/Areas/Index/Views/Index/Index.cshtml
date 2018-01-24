@@ -4,26 +4,30 @@
     ViewData["Title"] = "Index";
 }
 
+
+
 <h2>Index</h2>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
 <table class="table">
     <thead>
         <tr>
-            <th>@Model._shares.Count</th>
+            <th>Shares</th>
         </tr>
     </thead>
-    <tbody>
-@foreach (var item in Model._shares) {
+    <tbody>        
+
+    @foreach (var item in Model._shares) {
         <tr>
             <td>
-                @item.Ticker @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink(@item.Ticker, "Ticker", new { ticker = item.Ticker })
             </td>
         </tr>
 }
     </tbody>
 </table>
+
+

@@ -1,0 +1,70 @@
+﻿@model AustinsFirstProject.CoreLibrary.Database.Shares
+
+@{
+    ViewData["Title"] = "Ticker";
+}
+
+<head>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+
+<h2>Ticker</h2>
+
+<div>
+    <h4>Shares</h4>
+    <hr />
+    <dl class="dl-horizontal">
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Back", "", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Ticker</th>
+            <th>Date</th>
+            <th>Open</th>
+            <th>Low</th>
+            <th>High</th>
+            <th>Close</th>
+            <th>Volume</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model._shares)
+        {
+            <tr>
+                <td>
+                    @item.Ticker
+                </td>
+                <td>
+                    @item.date
+                </td>
+                <td>
+                    @item.open
+                </td>
+                <td>
+                    @item.low
+                </td>
+                <td>
+                    @item.high
+                </td>
+                <td>
+                    @item.close
+                </td>
+                <td>
+                    @item.volume
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

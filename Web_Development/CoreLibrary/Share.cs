@@ -1,10 +1,16 @@
-﻿using System;
+﻿using AustinsFirstProject.Library;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace AustinsFirstProject.CoreLibrary.Database
 {
     public class Shares
     {
+        private const string DB_STORED_PROCEDURE_GET_ALL_SHARES = "[dbo].[Share_Get]";
+        private const string DB_STORED_PROCEDURE_GET_TICKER = "[dbo].[Share_Get_Ticker]";
+        public string Database_Connection_String;
+
         public List<Share> _shares { get; set; }
 
         public Shares()
@@ -12,6 +18,20 @@ namespace AustinsFirstProject.CoreLibrary.Database
             this._shares = new List<Share>();
         }
         public int Shares_Count() { return this._shares.Count;  }
+
+        public void Get_Ticker(string ticker)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("ticker", ticker);
+            string All_Shares = Library.Database.ExecuteProcedure_Get(DB_STORED_PROCEDURE_GET_TICKER, parameters, Database_Connection_String);
+            this._shares = JsonConvert.DeserializeObject<List<Share>>(All_Shares);
+        }
+
+        public void Get_All_Shares()
+        {
+            string All_Shares = Library.Database.ExecuteProcedure_Get(DB_STORED_PROCEDURE_GET_ALL_SHARES, new Dictionary<string, object>(), Database_Connection_String);
+            this._shares = JsonConvert.DeserializeObject<List<Share>>(All_Shares);
+        }
     }
 
     public class Share

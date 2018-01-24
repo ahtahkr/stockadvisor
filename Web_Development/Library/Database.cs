@@ -32,9 +32,17 @@ namespace AustinsFirstProject.Library
             return result;
         }
 
-        public static string ExecuteProcedure_Get(string commandName, Dictionary<string, object> parameters)
-        { 
-            SqlConnection conn = new SqlConnection(ConnectionString.Get());
+        public static string ExecuteProcedure_Get(string commandName, Dictionary<string, object> parameters, string connection_string = null)
+        {
+            SqlConnection conn;
+
+            if (String.IsNullOrEmpty(connection_string))
+            {
+                conn = new SqlConnection(ConnectionString.Get());
+            } else
+            {
+                conn = new SqlConnection(connection_string);
+            }
 
             try
             {

@@ -21,28 +21,46 @@ namespace WebApplication.Areas.Index.Controllers
 
         public IActionResult Index()
         {
-            //configRoot = ConfigurationHelper.GetConfiguration(Directory.GetCurrentDirectory());
-            //return configRoot.GetConnectionString("DefaultConnection");
+            configRoot = ConfigurationHelper.GetConfiguration(Directory.GetCurrentDirectory());
+            
             Shares shares = new Shares();
-            shares._shares.Add(new Share("abcd" ));
-            shares._shares.Add(new Share("cdef"));
-            shares._shares.Add(new Share("asdfdf"));
-            shares._shares.Add(new Share("65135"));
-            shares._shares.Add(new Share("65131"));
-            //var share = JsonConvert.SerializeObject(shares);
+            shares.Database_Connection_String = configRoot.GetConnectionString("DefaultConnection");
+            shares.Get_All_Shares();
+
             var share = new Shares { _shares = shares._shares };
+            return View(share);
+        }
+
+        [Route("[action]")]
+        [Route("[action]/{ticker}")]
+        public IActionResult Ticker(string ticker)
+        {
+            // /index/ticker
+            // /index/ticker/5
+
+            configRoot = ConfigurationHelper.GetConfiguration(Directory.GetCurrentDirectory());
+
+            Shares shares = new Shares();
+            shares.Database_Connection_String = configRoot.GetConnectionString("DefaultConnection");
+            shares.Get_Ticker(ticker);
+
+            var share = shares;
+
             return View(share);
         }
 
         [Route("[action]/{page:int?}")]
         public string Orders()
         {
+            // /index/orders
+            // /index/orders/5
             return "Orders";
         }
 
         [Route("[action]")]
         public string Shop()
         {
+            // /index/shop
             return "Shop";
         }
 
