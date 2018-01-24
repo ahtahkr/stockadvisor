@@ -1,0 +1,8 @@
+D:\source-code\stock\Web_Development\CoreLibrary\bin\Debug\netcoreapp2.0\CoreLibrary.deps.json
+D:\source-code\stock\Web_Development\CoreLibrary\bin\Debug\netcoreapp2.0\CoreLibrary.dll
+D:\source-code\stock\Web_Development\CoreLibrary\bin\Debug\netcoreapp2.0\CoreLibrary.pdb
+D:\source-code\stock\Web_Development\CoreLibrary\obj\Debug\netcoreapp2.0\CoreLibrary.csproj.CoreCompileInputs.cache
+D:\source-code\stock\Web_Development\CoreLibrary\obj\Debug\netcoreapp2.0\CoreLibrary.AssemblyInfoInputs.cache
+D:\source-code\stock\Web_Development\CoreLibrary\obj\Debug\netcoreapp2.0\CoreLibrary.AssemblyInfo.cs
+D:\source-code\stock\Web_Development\CoreLibrary\obj\Debug\netcoreapp2.0\CoreLibrary.dll
+D:\source-code\stock\Web_Development\CoreLibrary\obj\Debug\netcoreapp2.0\CoreLibrary.pdb

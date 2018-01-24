@@ -7,6 +7,8 @@ using System.Configuration;
 using Microsoft.Extensions.Configuration;
 using AustinsFirstProject.StockAdvisor.WebApplication.Helper;
 using System.IO;
+using AustinsFirstProject.Library;
+using AustinsFirstProject.CoreLibrary.Database;
 
 namespace WebApplication.Areas.Index.Controllers
 {
@@ -20,7 +22,8 @@ namespace WebApplication.Areas.Index.Controllers
         {
             //configRoot = ConfigurationHelper.GetConfiguration(Directory.GetCurrentDirectory());
             //return configRoot.GetConnectionString("DefaultConnection");
-            return View();
+            var share = new Share { Ticker = "abcd" };
+            return View(share);
         }
 
         [Route("[action]/{page:int?}")]
