@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AlphaVantage\AlphaVantage.csproj" />
+    <ProjectReference Include="..\CoreLibrary\CoreLibrary.csproj" />
     <ProjectReference Include="..\Library\Library.csproj" />
   </ItemGroup>
 

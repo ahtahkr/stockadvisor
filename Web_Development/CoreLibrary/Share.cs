@@ -1,5 +1,7 @@
-﻿using AustinsFirstProject.Library;
+﻿using AustinsFirstProject.CoreLibrary.Modal;
+using AustinsFirstProject.Library;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 
@@ -10,6 +12,7 @@ namespace AustinsFirstProject.CoreLibrary.Database
         private const string DB_STORED_PROCEDURE_GET_ALL_SHARES = "[dbo].[Share_Get]";
         private const string DB_STORED_PROCEDURE_GET_TICKER = "[dbo].[Share_Get_Ticker]";
         public string Database_Connection_String;
+        public string Identity;
 
         public List<Share> _shares { get; set; }
 
@@ -18,6 +21,24 @@ namespace AustinsFirstProject.CoreLibrary.Database
             this._shares = new List<Share>();
         }
         public int Shares_Count() { return this._shares.Count;  }
+
+        public string Shares_Date_Close()
+        {
+            List<DataPoint> data_points = new List<DataPoint>();
+            JArray result = new JArray();
+
+            for (int a = 0; a < this._shares.Count; a++)
+            {
+
+                data_points.Add(
+                    new DataPoint(
+                            (Convert.ToInt64(this._shares[a].Unix_Timestamp) * 1000)
+                            , Convert.ToDouble(this._shares[a].close.ToString())
+                        )
+                    );
+            }
+            return JsonConvert.SerializeObject(data_points);
+        }
 
         public void Get_Ticker(string ticker)
         {
@@ -37,6 +58,7 @@ namespace AustinsFirstProject.CoreLibrary.Database
     public class Share
     {
         public Share(string _ticker
+                        , int _unix_timestamp = 0
                         , int _id = 0
                         , DateTime _date = new DateTime()
                         , decimal _open = 0
@@ -52,6 +74,7 @@ namespace AustinsFirstProject.CoreLibrary.Database
             this.low = _low;
             this.close = _close;
             this.volume = _volume;
+            this.Unix_Timestamp = _unix_timestamp;
         }
         private const string DB_STORED_PROCEDURE_GET = "[dbo].[Share_Insert_Update]";
 
@@ -63,5 +86,7 @@ namespace AustinsFirstProject.CoreLibrary.Database
         public decimal close { get; set; }
         public int volume { get; set; }
         public string Ticker { get; set; }
+
+        public int Unix_Timestamp { get; set; }
     }
 }

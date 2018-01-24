@@ -6,6 +6,7 @@ using Library.Stock;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using AustinsFirstProject.CoreLibrary.Database;
 
 namespace AustinsFirstProject.Tester
 {
@@ -13,35 +14,16 @@ namespace AustinsFirstProject.Tester
     {
         static void Main(string[] args)
         {
-            string apikey = "9BTE2MLIE1VPTO4I";
-            List<Ticker_Class> tk;
+            Get_All_Shares();
+        }
 
-            tk = Library.Intrinio.Utility.Database.Get_Tickers();
-            string result = TIME_SERIES_DAILY.GET(tk[0].Ticker, apikey);
-
-           // Console.WriteLine(result);
-           // Console.ReadLine();
-
-            List<Share> shares = JsonConvert.DeserializeObject<List<Share>>(result);
-            
-
-            for (int i = 0; i < shares.Count; i++)
-            {
-                Console.WriteLine(shares[i].Save_in_Database());
-
-                Console.ReadLine();
-            }
-
-            //Console.ReadLine();
-
-            //while (true) //(!String.IsNullOrEmpty(result))
-            //{
-            //    tk = Library.Intrinio.Utility.Database.Get_Tickers();
-            //    result = TIME_SERIES_DAILY.GET(tk[0].Ticker, apikey);
-            //    Console.WriteLine(result);
-            //};
-            //result = HttpRequestUtility.GetRequest(url);
-            //Logger.Log_Error(result);
+        private static void Get_All_Shares()
+        {
+            Shares shares = new Shares();
+            shares.Database_Connection_String = "Data Source=AADHIKARI10\\SQLEXPRESS;Initial Catalog=austin_stock_processor;Persist Security Info=True;User ID=developer;Password=developer";
+            shares.Get_Ticker("VCOR");
+            Console.WriteLine(shares.Shares_Date_Close());
+            Console.ReadLine();
         }
 
         private static void Get_Companies()

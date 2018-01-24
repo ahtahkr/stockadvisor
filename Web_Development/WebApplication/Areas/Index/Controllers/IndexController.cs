@@ -26,7 +26,7 @@ namespace WebApplication.Areas.Index.Controllers
             Shares shares = new Shares();
             shares.Database_Connection_String = configRoot.GetConnectionString("DefaultConnection");
             shares.Get_All_Shares();
-
+            shares.Identity = "Shares";
             var share = new Shares { _shares = shares._shares };
             return View(share);
         }
@@ -37,12 +37,14 @@ namespace WebApplication.Areas.Index.Controllers
         {
             // /index/ticker
             // /index/ticker/5
+            
 
             configRoot = ConfigurationHelper.GetConfiguration(Directory.GetCurrentDirectory());
 
             Shares shares = new Shares();
             shares.Database_Connection_String = configRoot.GetConnectionString("DefaultConnection");
             shares.Get_Ticker(ticker);
+            shares.Identity = ticker;
 
             var share = shares;
 

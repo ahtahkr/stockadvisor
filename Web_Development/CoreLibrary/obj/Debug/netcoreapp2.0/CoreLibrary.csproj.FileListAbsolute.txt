@@ -7,3 +7,16 @@ D:\source-code\stock\Web_Development\CoreLibrary\obj\Debug\netcoreapp2.0\CoreLib
 D:\source-code\stock\Web_Development\CoreLibrary\obj\Debug\netcoreapp2.0\CoreLibrary.AssemblyInfo.cs
 D:\source-code\stock\Web_Development\CoreLibrary\obj\Debug\netcoreapp2.0\CoreLibrary.dll
 D:\source-code\stock\Web_Development\CoreLibrary\obj\Debug\netcoreapp2.0\CoreLibrary.pdb
+F:\features\stock\Web_Development\CoreLibrary\bin\Debug\netcoreapp2.0\CoreLibrary.deps.json
+F:\features\stock\Web_Development\CoreLibrary\bin\Debug\netcoreapp2.0\CoreLibrary.dll
+F:\features\stock\Web_Development\CoreLibrary\bin\Debug\netcoreapp2.0\CoreLibrary.pdb
+F:\features\stock\Web_Development\CoreLibrary\bin\Debug\netcoreapp2.0\Library.dll
+F:\features\stock\Web_Development\CoreLibrary\bin\Debug\netcoreapp2.0\System.Data.SqlClient.dll
+F:\features\stock\Web_Development\CoreLibrary\bin\Debug\netcoreapp2.0\Library.pdb
+F:\features\stock\Web_Development\CoreLibrary\bin\Debug\netcoreapp2.0\System.Data.SqlClient.xml
+F:\features\stock\Web_Development\CoreLibrary\obj\Debug\netcoreapp2.0\CoreLibrary.csprojResolveAssemblyReference.cache
+F:\features\stock\Web_Development\CoreLibrary\obj\Debug\netcoreapp2.0\CoreLibrary.csproj.CoreCompileInputs.cache
+F:\features\stock\Web_Development\CoreLibrary\obj\Debug\netcoreapp2.0\CoreLibrary.AssemblyInfoInputs.cache
+F:\features\stock\Web_Development\CoreLibrary\obj\Debug\netcoreapp2.0\CoreLibrary.AssemblyInfo.cs
+F:\features\stock\Web_Development\CoreLibrary\obj\Debug\netcoreapp2.0\CoreLibrary.dll
+F:\features\stock\Web_Development\CoreLibrary\obj\Debug\netcoreapp2.0\CoreLibrary.pdb
