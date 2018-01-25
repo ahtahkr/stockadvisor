@@ -3,6 +3,7 @@
 
 @{
     ViewData["Title"] = "Index";
+    string robinhood = "";
 }
 
 <h2>Index</h2>
@@ -21,12 +22,16 @@
 
             @foreach (var item in Model._companies)
             {
+
+                @if(item.Robinhood) { robinhood = "#4CAF50"; } else { robinhood = "#f44336"; }
                 <tr>
                     @*<td>@JsonConvert.SerializeObject(@item))</td>*@
                     <td>
                         @Html.ActionLink(@item.Ticker, "Index", "Ticker", new { area = "Index" , ticker = item.Ticker })
                     </td>
-                    <td></td>
+                    <td>
+                        <button style="background-color: @robinhood;">Robinhood</button>
+                    </td>
                 </tr>
             }
         </tbody>
