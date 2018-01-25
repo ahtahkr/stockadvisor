@@ -1,0 +1,34 @@
+﻿@using Newtonsoft.Json;
+@model AustinsFirstProject.CoreLibrary.Database.Companies
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<div>
+    <h4>Companies</h4>
+</div>
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Shares</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model._companies)
+            {
+                <tr>
+                    @*<td>@JsonConvert.SerializeObject(@item))</td>*@
+                    <td>
+                        @Html.ActionLink(@item.Ticker, "Index", "Ticker", new { area = "Index" , ticker = item.Ticker })
+                    </td>
+                    <td></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

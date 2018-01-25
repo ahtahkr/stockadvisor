@@ -65,7 +65,8 @@ namespace AustinsFirstProject.CoreLibrary.Database
                         , decimal _high = 0
                         , decimal _low = 0
                         , decimal _close = 0
-                        , int _volume = 0)
+                        , int _volume = 0
+                        , bool _robinhood = false)
         {
             this.Ticker = _ticker;
             this.ID = ID;
@@ -75,6 +76,7 @@ namespace AustinsFirstProject.CoreLibrary.Database
             this.close = _close;
             this.volume = _volume;
             this.Unix_Timestamp = _unix_timestamp;
+            this.Robinhood = _robinhood;
         }
         private const string DB_STORED_PROCEDURE_GET = "[dbo].[Share_Insert_Update]";
 
@@ -88,5 +90,6 @@ namespace AustinsFirstProject.CoreLibrary.Database
         public string Ticker { get; set; }
 
         public int Unix_Timestamp { get; set; }
+        public bool Robinhood { get; set; }
     }
 }
