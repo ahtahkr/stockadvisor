@@ -12,5 +12,5 @@ Web_Development/AlphaVantage/bin/*
 Web_Development/packages/*
 Web_Development/.vs/*
 Web_Development/Tester/obj/*
-Web_Development/WebApplication/obj/*
-Web_Development/WebApplication/obj
+Web_Development/CoreLibrary/bin/
+Web_Development/CoreLibrary/obj/

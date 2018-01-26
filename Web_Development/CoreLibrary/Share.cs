@@ -11,6 +11,7 @@ namespace AustinsFirstProject.CoreLibrary.Database
     {
         private const string DB_STORED_PROCEDURE_GET_ALL_SHARES = "[dbo].[Share_Get]";
         private const string DB_STORED_PROCEDURE_GET_TICKER = "[dbo].[Share_Get_Ticker]";
+        private const string DB_STORED_PROCEDURE_SHARE_GET_ROBINHOOD = "[dbo].[Share_Get_Robinhood]";
         public string Database_Connection_String;
         public string Identity;
 
@@ -51,6 +52,12 @@ namespace AustinsFirstProject.CoreLibrary.Database
         public void Get_All_Shares()
         {
             string All_Shares = Library.Database.ExecuteProcedure_Get(DB_STORED_PROCEDURE_GET_ALL_SHARES, new Dictionary<string, object>(), Database_Connection_String);
+            this._shares = JsonConvert.DeserializeObject<List<Share>>(All_Shares);
+        }
+
+        public void Get_Share_Robinhood()
+        {
+            string All_Shares = Library.Database.ExecuteProcedure_Get(DB_STORED_PROCEDURE_SHARE_GET_ROBINHOOD, new Dictionary<string, object>(), Database_Connection_String);
             this._shares = JsonConvert.DeserializeObject<List<Share>>(All_Shares);
         }
     }
