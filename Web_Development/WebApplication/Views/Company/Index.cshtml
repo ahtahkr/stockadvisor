@@ -1,10 +1,38 @@
 ﻿@using Newtonsoft.Json;
-@model AustinsFirstProject.CoreLibrary.Database.Companies
+@using AustinsFirstProject.CoreLibrary.Database;
+@model AustinsFirstProject.CoreLibrary.Database.Companies;
 
 @{
     ViewData["Title"] = "Index";
     string robinhood = "";
 }
+
+<head>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>
+        function GetMessage(counter, _company) {
+            //console.log(counter);
+            //console.log(_company);
+            //$.get("/Company/GetMessage", function (data) {
+            //    $("p").html(data);
+            //});
+            $.post("/Company/Update_Robinhood", { company: _company })
+                .error(function () { alert('Error') })
+                .success(function (result) {
+                    if (result == "0") {
+                        var button_color = document.getElementById("robinhood_button_" + counter).style.backgroundColor;
+
+                        if (button_color == "rgb(244, 67, 54)") {
+                            button_color = "rgb(76, 175, 80)";
+                        } else {
+                            button_color = "rgb(244, 67, 54)";
+                        }
+                        document.getElementById("robinhood_button_" + counter).style.backgroundColor = button_color;
+                    }
+                });
+        }
+    </script>
+</head>
 
 <h2>Index</h2>
 
@@ -19,18 +47,20 @@
             </tr>
         </thead>
         <tbody>
-
+            @{ var counter = 0; var button_id = "";}
             @foreach (var item in Model._companies)
             {
 
-                @if(item.Robinhood) { robinhood = "#4CAF50"; } else { robinhood = "#f44336"; }
-                <tr>
+                @if (item.Robinhood) { robinhood = "#4CAF50"; } else { robinhood = "#f44336"; }
+                <tr> 
                     @*<td>@JsonConvert.SerializeObject(@item))</td>*@
                     <td>
-                        @Html.ActionLink(@item.Ticker, "Index", "Ticker", new { area = "Index" , ticker = item.Ticker })
+                        @Html.ActionLink(@item.Ticker, "Index", "Ticker", new { area = "Index", ticker = item.Ticker })
                     </td>
                     <td>
-                        <button style="background-color: @robinhood;">Robinhood</button>
+                        @{ button_id = "robinhood_button_" + counter; }
+                        <button class="robinhood_button" id="@button_id" style="background-color: @robinhood;" onclick="GetMessage('@counter', '@JsonConvert.SerializeObject(@item)')">Robinhood</button>
+                       @{ counter++; }
                     </td>
                 </tr>
             }

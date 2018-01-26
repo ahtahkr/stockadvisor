@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using AustinsFirstProject.Library;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -25,6 +26,8 @@ namespace AustinsFirstProject.CoreLibrary.Database
 
     public class Company
     {
+        public const string DB_STORED_PROCEDURE_UPDATE_ROBINHOOD = "[dbo].[Company_Update_Robinhood]";
+        public string Database_Connection_String { get; set; }
         public int ID { get; set; }
         public string Ticker { get; set; }
         public string Name { get; set; }
@@ -35,5 +38,28 @@ namespace AustinsFirstProject.CoreLibrary.Database
         public int Update_Timestamp { get; set; }
         public int Share_Updated { get; set; }
         public bool Robinhood { get; set; }
+
+        public int Update_Robinhood()
+        {
+            try
+            {
+                Dictionary<string, object> param = new Dictionary<string, object>();
+                param.Add("Ticker", this.Ticker);
+                string result = Library.Database.ExecuteProcedure_Get(
+                    DB_STORED_PROCEDURE_UPDATE_ROBINHOOD
+                    , param
+                    , Database_Connection_String);
+                if (result.Contains("\"Result\":0"))
+                {
+                    return 0;
+                } else
+                {
+                    return 1;
+                }
+                //this.Robinhood = !this.Robinhood;
+            } catch (Exception ex) { }
+
+            return 1;
+        }            
     }
 }
