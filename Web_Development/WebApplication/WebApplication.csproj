@@ -5,11 +5,26 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Company\**" />
+    <Content Remove="Areas\Company\**" />
+    <EmbeddedResource Remove="Areas\Company\**" />
+    <None Remove="Areas\Company\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Areas\Company\Controllers\CompanyController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Areas\Company\Data\" />
     <Folder Include="Areas\Company\Models\" />
     <Folder Include="Areas\Index\Data\" />
     <Folder Include="Areas\Index\Models\" />
     <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Areas\Company\Views\Company\Index.cshtml" />
   </ItemGroup>
 
   <ItemGroup>

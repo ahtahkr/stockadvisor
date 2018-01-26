@@ -2,45 +2,81 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Configuration;
+using Microsoft.Extensions.Configuration;
+using AustinsFirstProject.StockAdvisor.WebApplication.Helper;
+using System.IO;
+using AustinsFirstProject.Library;
+using AustinsFirstProject.CoreLibrary.Database;
+using Newtonsoft.Json;
 
-namespace WebApplication.Areas.Company.Controllers
+namespace WebApplication.Areas.Index.Controllers
 {
-    [Produces("application/json")]
-    [Route("api/Company")]
+    [Area("Company")]
+    [Route("Company")]
     public class CompanyController : Controller
     {
-        // GET: api/Company
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private IConfigurationRoot configRoot;
+
+        [Route("")]
+        public IActionResult Index()
         {
-            return new string[] { "value1", "value2" };
+            configRoot = ConfigurationHelper.GetConfiguration(Directory.GetCurrentDirectory());
+
+            Companies companies = new Companies();
+            companies.Database_Connection_String = configRoot.GetConnectionString("DefaultConnection");
+            companies.Get_Company_Filed();
+            var company = new Companies { _companies = companies._companies };
+
+            return View(company);
         }
 
-        // GET: api/Company/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
-        {
-            return "value";
-        }
+        //public ActionResult GetMessage()
+        //{
+        //    string message = "Welcome";
+        //    return new JsonResult(message);
+        //}
         
-        // POST: api/Company
-        [HttpPost]
-        public void Post([FromBody]string value)
+        [Route("[action]")]
+        public int Update_Robinhood(string company)
         {
+            configRoot = ConfigurationHelper.GetConfiguration(Directory.GetCurrentDirectory());
+
+            AustinsFirstProject.CoreLibrary.Database.Company _company
+                = JsonConvert.DeserializeObject<AustinsFirstProject.CoreLibrary.Database.Company>(company);
+            _company.Database_Connection_String = configRoot.GetConnectionString("DefaultConnection");
+
+            return _company.Update_Robinhood();
         }
-        
-        // PUT: api/Company/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+
+        [Route("[action]")]
+        [Route("[action]/{ticker}")]
+        public string Ticker()
         {
+
+            return "Company Tickers";
         }
-        
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+
+        [Route("[action]/{page:int?}")]
+        public string Orders()
         {
+            // /index/orders
+            // /index/orders/5
+            return "Company Orders";
+        }
+
+        [Route("[action]")]
+        public string Shop()
+        {
+            // /index/shop
+            return "Shop";
+        }
+
+        [Route("[action]/newest")]
+        public string Payments()
+        {
+            return "Company Payments";
         }
     }
 }
