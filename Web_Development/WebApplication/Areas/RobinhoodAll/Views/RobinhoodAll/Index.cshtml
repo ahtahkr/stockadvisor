@@ -1,4 +1,5 @@
 ﻿@using Newtonsoft.Json;
+@using AustinsFirstProject.CoreLibrary.Database;
 
 @model AustinsFirstProject.CoreLibrary.Database.Companies
 
@@ -6,6 +7,42 @@
     ViewData["Title"] = "Index";
 }
 
+<head>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
+    <script src="~/js/canvasjs.min.js"></script>
+
+@*@section scripts {*@
+
+    <script type="text/javascript">
+        function Render_All_Canvas(div_id, data) {
+            //window.onload = function () {
+                return new CanvasJS.Chart(div_id,
+                    {
+                        zoomEnabled: true,
+
+                        title: {
+                            text: "Chart With Date-Time Stamps Inputs"
+                        },
+
+                        data: [
+                            {
+                                type: "line",
+                                xValueType: "dateTime",
+                                dataPoints: data
+                            @*@Html.Raw(Model.Shares_Date_Close())*@
+                        }
+                        ]
+                    }).render();                
+            }
+        //}
+    </script>
+
+</head>
 <h2>Index</h2>
 
 <div>
@@ -15,23 +52,49 @@
     </dl>
 </div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Shares</th>
-        </tr>
-    </thead>
-    <tbody>
-        <div>@*@JsonConvert.SerializeObject(@Model._shares)*@</div>
-
+        @{ var counter = 0; var chart_id = "";}
         @foreach (var item in Model._companies)
         {
-            <tr>
+            <p>@item.Ticker - @item.Name - @Model.Database_Connection_String</p>
+            chart_id = "chartContainer_" + counter;
+
+            <div id="@chart_id"></div>
+            <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+            counter++;
+
+
+            var shares = new @Shares();
+            shares.Database_Connection_String = @Model.Database_Connection_String;
+            shares.Get_Ticker(item.Ticker);
+
+
+            <script> Render_All_Canvas(@chart_id, @Html.Raw(shares.Shares_Date_Close())).render() </script>
+
+            @*<script>
+                var chart = new CanvasJS.Chart(@chart_id,
+                    {
+                        zoomEnabled: true,
+
+                        title: {
+                            text: "Chart With Date-Time Stamps Inputs"
+                        },
+
+                        data: [
+                            {
+                                type: "line",
+                                xValueType: "dateTime",
+                                dataPoints: @Html.Raw(shares.Shares_Date_Close())
+                        }
+                        ]
+                    });
+
+                chart.render();
+            </script>*@
+
+            @*<tr>
                 <td>
                     @Html.ActionLink(@item.Ticker, "Ticker", new { ticker = item.Ticker })
                 </td>
                 <td></td>
-            </tr>
+            </tr>*@
         }
-    </tbody>
-</table>

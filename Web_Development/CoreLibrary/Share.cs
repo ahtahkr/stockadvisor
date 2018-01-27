@@ -42,10 +42,18 @@ namespace AustinsFirstProject.CoreLibrary.Database
 
         public void Get_Ticker(string ticker)
         {
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
-            parameters.Add("ticker", ticker);
-            string All_Shares = Library.Database.ExecuteProcedure_Get(DB_STORED_PROCEDURE_GET_TICKER, parameters, Database_Connection_String);
-            this._shares = JsonConvert.DeserializeObject<List<Share>>(All_Shares);
+            string All_Shares = "Before TRY";
+            try
+            {
+                Dictionary<string, object> parameters = new Dictionary<string, object>();
+                parameters.Add("ticker", ticker);
+                All_Shares = Library.Database.ExecuteProcedure_Get(DB_STORED_PROCEDURE_GET_TICKER, parameters, Database_Connection_String);
+                this._shares = JsonConvert.DeserializeObject<List<Share>>(All_Shares);
+                
+            } catch (Exception ex)
+            {
+                Logger.Log("Get_Ticker failed. Ticker: " + ticker + " Message: " + ex.Message + " All_Shares: " + All_Shares, "Get_Ticker");
+            }
         }
 
         public void Get_All_Shares()

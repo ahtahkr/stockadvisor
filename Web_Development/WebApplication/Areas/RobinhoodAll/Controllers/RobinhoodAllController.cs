@@ -24,7 +24,7 @@ namespace WebApplication.Areas.RobinhoodAll.Controllers
             Companies companies = new Companies();
             companies.Database_Connection_String = configRoot.GetConnectionString("DefaultConnection");
             companies.Get_Company_Robinhood();
-            var company = new Companies { _companies = companies._companies };
+            var company = new Companies { _companies = companies._companies, Database_Connection_String = companies.Database_Connection_String };
 
             return View(company);
         }
