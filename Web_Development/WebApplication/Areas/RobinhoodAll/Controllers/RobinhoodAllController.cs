@@ -21,13 +21,12 @@ namespace WebApplication.Areas.RobinhoodAll.Controllers
         {
             configRoot = ConfigurationHelper.GetConfiguration(Directory.GetCurrentDirectory());
 
-            Shares shares = new Shares();
-            shares.Database_Connection_String = configRoot.GetConnectionString("DefaultConnection");
-            shares.Get_Share_Robinhood();
-            shares.Identity = "Shares";
-            var share = new Shares { _shares = shares._shares };
+            Companies companies = new Companies();
+            companies.Database_Connection_String = configRoot.GetConnectionString("DefaultConnection");
+            companies.Get_Company_Robinhood();
+            var company = new Companies { _companies = companies._companies };
 
-            return View(share);
+            return View(company);
         }
     }
 }

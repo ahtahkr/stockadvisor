@@ -1,6 +1,6 @@
 ﻿@using Newtonsoft.Json;
 
-@model AustinsFirstProject.CoreLibrary.Database.Shares
+@model AustinsFirstProject.CoreLibrary.Database.Companies
 
 @{
     ViewData["Title"] = "Index";
@@ -24,7 +24,7 @@
     <tbody>
         <div>@*@JsonConvert.SerializeObject(@Model._shares)*@</div>
 
-        @foreach (var item in Model._shares)
+        @foreach (var item in Model._companies)
         {
             <tr>
                 <td>

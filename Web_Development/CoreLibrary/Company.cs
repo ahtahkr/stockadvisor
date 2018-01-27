@@ -9,6 +9,7 @@ namespace AustinsFirstProject.CoreLibrary.Database
     public class Companies
     {
         private const string DB_STORED_PROCEDURE_GET_COMPANIES = "[dbo].[Company_Get_Filed]";
+        private const string DB_STORED_PROCEDURE_GET_COMPANY_ROBINHOOD = "[dbo].[Company_Get_Robinhood]";
         public List<Company> _companies { get; set; }
         public string Database_Connection_String { get; set; }
 
@@ -21,6 +22,12 @@ namespace AustinsFirstProject.CoreLibrary.Database
         {
             string companies = Library.Database.ExecuteProcedure_Get(DB_STORED_PROCEDURE_GET_COMPANIES, new Dictionary<string, object>(), Database_Connection_String);
             this._companies = JsonConvert.DeserializeObject<List<Company>>(companies);
+        }
+
+        public void Get_Company_Robinhood()
+        {
+            string All_Shares = Library.Database.ExecuteProcedure_Get( DB_STORED_PROCEDURE_GET_COMPANY_ROBINHOOD, new Dictionary<string, object>(), Database_Connection_String);
+            this._companies = JsonConvert.DeserializeObject<List<Company>>(All_Shares);
         }
     }
 
