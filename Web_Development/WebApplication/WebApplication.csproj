@@ -22,11 +22,11 @@
     <Folder Include="Areas\Index\Models\" />
     <Folder Include="Areas\RobinhoodAll\Data\" />
     <Folder Include="Areas\RobinhoodAll\Models\" />
-    <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="Areas\Company\Views\Company\Index.cshtml" />
+    <None Include="wwwroot\js\canvasjs.min.js" />
   </ItemGroup>
 
   <ItemGroup>
