@@ -17,28 +17,29 @@ namespace WebApplication.Areas.RobinhoodAll.Controllers
         private IConfigurationRoot configRoot;
         private Companies companies;
 
-        public RobinhoodAllController()
+        [Route("")]
+        [Route("{page:int?}")]
+        [Route("[action]/{page:int?}")]
+        public IActionResult Index(int page)
         {
             configRoot = ConfigurationHelper.GetConfiguration(Directory.GetCurrentDirectory());
 
             companies = new Companies();
             companies.Database_Connection_String = configRoot.GetConnectionString("DefaultConnection");
             companies.Get_Company_Robinhood();
-        }
 
-        [Route("")]
-        [Route("{page:int?}")]
-        [Route("[action]/{page:int?}")]
-        public IActionResult Index(int page)
-        {
             Companies _company = new Companies();
-            string test = "";
+            //string test = "";
             for (int a = (page * 5); a <= ((page*5)+4); a++)
             {
-                test += a + ", ";
-                _company._companies.Add(this.companies._companies[a]);
+                
+                if ( this.companies._companies.Count > a)
+                {
+                    //test += a + ", ";
+                    _company._companies.Add(this.companies._companies[a]);
+                }
             }
-            
+            //test += "[" + this.companies._companies.Count + "]";
             var company = new Companies { _companies = _company._companies, Database_Connection_String = companies.Database_Connection_String };
             //return test;
             return View(company);

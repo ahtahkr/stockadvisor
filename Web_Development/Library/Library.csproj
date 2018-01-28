@@ -47,6 +47,7 @@
     <Compile Include="Check.cs" />
     <Compile Include="ConnectionString.cs" />
     <Compile Include="Database.cs" />
+    <Compile Include="DatabaseUpdateHelper.cs" />
     <Compile Include="Database\Share.cs" />
     <Compile Include="HttpRequestUtility.cs" />
     <Compile Include="Intrinio\Companies.cs" />

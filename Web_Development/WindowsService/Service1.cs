@@ -65,8 +65,14 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
             {
                 System.Diagnostics.EventLog.CreateEventSource("AustinWindowsService", "AustinWindowsLog");
             }
+
+            if (!System.Diagnostics.EventLog.SourceExists("IAMACTIVE")) { System.Diagnostics.EventLog.CreateEventSource("IAMACTIVE", "IAMACTIVE_Log"); }
+
             eventLog_i_am_active.Source = "AustinWindowsService";
             eventLog_i_am_active.Log = "AustinWindowsLog";
+
+            //eventLog_update_share.Source = "AustinWindowsService";
+            //eventLog_update_share.Log = "AustinWindowsLog";
         }
     }
 }

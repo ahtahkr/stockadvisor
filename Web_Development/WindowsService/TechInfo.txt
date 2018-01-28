@@ -1,6 +1,8 @@
 ﻿-- Create a event. Run in Powershell in admin mode.
 if ([System.Diagnostics.EventLog]::SourceExists("AustinWindowsService") -eq $false) { [System.Diagnostics.EventLog]::CreateEventSource("AustinWindowsService", "AustinWindowsLog") }
 
+if ([System.Diagnostics.EventLog]::SourceExists("IAMACTIVE") -eq $false) { [System.Diagnostics.EventLog]::CreateEventSource("IAMACTIVE", "IAMACTIVE_Log") }
+
 -- List the available logs
 Get-EventLog -List
 

@@ -29,16 +29,22 @@
         private void InitializeComponent()
         {
             this.eventLog_i_am_active = new System.Diagnostics.EventLog();
+            //this.eventLog_update_share = new System.Diagnostics.EventLog();
+
             ((System.ComponentModel.ISupportInitialize)(this.eventLog_i_am_active)).BeginInit();
+            //((System.ComponentModel.ISupportInitialize)(this.eventLog_update_share)).BeginInit();
 
             /* components = new System.ComponentModel.Container(); */
 
             this.ServiceName = "Austin_Stock_WindowsService";
             ((System.ComponentModel.ISupportInitialize)(this.eventLog_i_am_active)).EndInit();
+            //((System.ComponentModel.ISupportInitialize)(this.eventLog_update_share)).EndInit();
         }
 
         #endregion
 
+
+        //private System.Diagnostics.EventLog eventLog_update_share;
         private System.Diagnostics.EventLog eventLog_i_am_active;
     }
 }
