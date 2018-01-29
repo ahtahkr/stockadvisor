@@ -103,6 +103,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Info.txt" />
     <Content Include="TechInfo.txt" />
   </ItemGroup>
   <ItemGroup>

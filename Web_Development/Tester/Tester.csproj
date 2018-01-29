@@ -6,6 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Git-Windows-Minimal" Version="2.16.1" />
+    <PackageReference Include="LibGit2Sharp" Version="0.24.0" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.4.1" />
     <PackageReference Include="System.Data.SqlClient" Version="4.4.2" />
@@ -15,6 +17,7 @@
     <ProjectReference Include="..\AlphaVantage\AlphaVantage.csproj" />
     <ProjectReference Include="..\CoreLibrary\CoreLibrary.csproj" />
     <ProjectReference Include="..\Library\Library.csproj" />
+    <ProjectReference Include="..\Library_Git\Library_Git.csproj" />
   </ItemGroup>
 
 </Project>

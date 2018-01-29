@@ -1,0 +1,4 @@
+﻿Web Apis
+	a. AlphaVantage
+	b. EodData
+	c. Intrinio

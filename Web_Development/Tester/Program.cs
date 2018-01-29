@@ -1,12 +1,6 @@
-﻿using AustinsFirstProject.Library;
-using AustinsFirstProject.AlphaVantage;
-using AustinsFirstProject.Library.Intrinio;
-using AustinsFirstProject.Library.DatabaseTable;
-using Library.Stock;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using AustinsFirstProject.CoreLibrary.Database;
+using AustinsFirstProject.Library_Git;
 
 namespace AustinsFirstProject.Tester
 {
@@ -14,8 +8,19 @@ namespace AustinsFirstProject.Tester
     {
         static void Main(string[] args)
         {
-            Get_All_Shares();
+            string git_url = "https://asadhikari@bitbucket.org/austinsfirstproject/asp-net-core.git";
+            string username = "as.adhikari@outlook.com";
+            string password = "Falgunfeb11!";
+
+//            Return re = GitAccessor.Git_Clone(git_url, "", username, password);
+
+            //Console.WriteLine(JsonConvert.SerializeObject(re));
+            GitAccessor.Git_Get_All_Commits(@"F:\features\austin_first_project\.git");
+
+            Console.ReadLine();
         }
+
+        
 
         private static void Get_All_Shares()
         {
