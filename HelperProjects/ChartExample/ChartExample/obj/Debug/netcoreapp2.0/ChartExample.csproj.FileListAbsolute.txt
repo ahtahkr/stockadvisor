@@ -1,4 +1,0 @@
-F:\features\stock\HelperProjects\ChartExample\ChartExample\obj\Debug\netcoreapp2.0\ChartExample.csprojResolveAssemblyReference.cache
-F:\features\stock\HelperProjects\ChartExample\ChartExample\obj\Debug\netcoreapp2.0\ChartExample.csproj.CoreCompileInputs.cache
-F:\features\stock\HelperProjects\ChartExample\ChartExample\obj\Debug\netcoreapp2.0\ChartExample.AssemblyInfoInputs.cache
-F:\features\stock\HelperProjects\ChartExample\ChartExample\obj\Debug\netcoreapp2.0\ChartExample.AssemblyInfo.cs
