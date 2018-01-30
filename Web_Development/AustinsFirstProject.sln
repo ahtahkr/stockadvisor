@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library_Git", "Library_Git\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Git_Web_App", "Git_Web_App\Git_Web_App.csproj", "{09AF7741-E8D7-42D2-BA34-0A35A016C443}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLiteDB", "SQLiteDB\SQLiteDB.csproj", "{ECBBB91D-E374-4F3F-83A9-27D9069BA9E5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{09AF7741-E8D7-42D2-BA34-0A35A016C443}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09AF7741-E8D7-42D2-BA34-0A35A016C443}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{09AF7741-E8D7-42D2-BA34-0A35A016C443}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECBBB91D-E374-4F3F-83A9-27D9069BA9E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECBBB91D-E374-4F3F-83A9-27D9069BA9E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECBBB91D-E374-4F3F-83A9-27D9069BA9E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECBBB91D-E374-4F3F-83A9-27D9069BA9E5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

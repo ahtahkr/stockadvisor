@@ -1,0 +1,67 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v2.0",
+    "signature": "a6c7666bea896c9a3e4787668b14b34258cd98b4"
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v2.0": {
+      "SQLiteDB/1.0.0": {
+        "dependencies": {
+          "Library": "1.0.0",
+          "System.Data.SQLite": "1.0.106",
+          "Microsoft.Data.Sqlite": "2.0.0.0",
+          "Newtonsoft.Json": "10.0.0.0"
+        },
+        "runtime": {
+          "SQLiteDB.dll": {}
+        }
+      },
+      "System.Data.SQLite/1.0.106": {},
+      "Library/1.0.0": {
+        "runtime": {
+          "Library.dll": {}
+        }
+      },
+      "Microsoft.Data.Sqlite/2.0.0.0": {
+        "runtime": {
+          "Microsoft.Data.Sqlite.dll": {}
+        }
+      },
+      "Newtonsoft.Json/10.0.0.0": {
+        "runtime": {
+          "Newtonsoft.Json.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "SQLiteDB/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "System.Data.SQLite/1.0.106": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-7BLZMo2NrV01kJIEdDAgCdDs3f0DPkd1gmAjURo0ziN00q+KWWX2S5RoqTQm0LbbBUe2ycUSiiDYIIPip56+kw==",
+      "path": "system.data.sqlite/1.0.106",
+      "hashPath": "system.data.sqlite.1.0.106.nupkg.sha512"
+    },
+    "Library/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.Data.Sqlite/2.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Newtonsoft.Json/10.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

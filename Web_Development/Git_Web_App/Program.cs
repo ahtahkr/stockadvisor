@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace Git_Web_App
+namespace AustinsFirstProject.Git_Web_App
 {
     public class Program
     {

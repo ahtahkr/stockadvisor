@@ -1,18 +1,16 @@
-﻿@model AustinsFirstProject.Git_Web_App.Areas.Home.Models.Home
+﻿@using Newtonsoft.Json;
+
+@model AustinsFirstProject.Git_Web_App.Areas.Home.Models.Home
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<h2>@Model.Get_Title()</h2>
 
-<div>
-    <h4>Home</h4>
-    <hr />
-    <dl class="dl-horizontal">
-    </dl>
-</div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
-</div>
+@foreach( var item in Model.Name_Url)
+{
+    <div>
+       @JsonConvert.SerializeObject(item)
+    </div>
+}

@@ -1,6 +1,7 @@
 ﻿using System;
 using AustinsFirstProject.CoreLibrary.Database;
 using AustinsFirstProject.Library_Git;
+using Newtonsoft.Json;
 
 namespace AustinsFirstProject.Tester
 {
@@ -8,14 +9,17 @@ namespace AustinsFirstProject.Tester
     {
         static void Main(string[] args)
         {
-            string git_url = "https://asadhikari@bitbucket.org/austinsfirstproject/asp-net-core.git";
-            string username = "as.adhikari@outlook.com";
-            string password = "Falgunfeb11!";
+            /*
+                string git_url = "https://asadhikari@bitbucket.org/austinsfirstproject/asp-net-core.git";
+                string username = "as.adhikari@outlook.com";
+                string password = "Falgunfeb11!";
+                Return re = GitAccessor.Git_Clone(git_url, "", username, password);
+                Console.WriteLine(JsonConvert.SerializeObject(re));
+                GitAccessor.Git_Get_All_Commits(@"F:\features\austin_first_project\.git");
+            */
+            Library.Return _return = SQLiteDB.Database.Create_Database();
 
-//            Return re = GitAccessor.Git_Clone(git_url, "", username, password);
-
-            //Console.WriteLine(JsonConvert.SerializeObject(re));
-            GitAccessor.Git_Get_All_Commits(@"F:\features\austin_first_project\.git");
+            Console.WriteLine(JsonConvert.SerializeObject(_return));
 
             Console.ReadLine();
         }

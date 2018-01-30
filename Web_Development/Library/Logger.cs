@@ -23,11 +23,11 @@ namespace AustinsFirstProject.Library
 
             if (!String.IsNullOrEmpty(_filename))
             {
-                filename = _filename + "_" + DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss_fff") + ".error";
+                filename = _filename + "_" + DateTime.Now.ToString("yyyy_MM_dd_HH_mm") + ".error";
             }
             else
             {
-                filename = "Error_" + DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss_fff") + ".error";
+                filename = "Error_" + DateTime.Now.ToString("yyyy_MM_dd_HH_mm") + ".error";
             }
 
             if (!Directory.Exists(base_directory))
@@ -37,7 +37,7 @@ namespace AustinsFirstProject.Library
 
             File.AppendAllText(
                  Path.Combine(base_directory, filename)
-                , DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss") + " : " + message + Environment.NewLine
+                , DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss.fff") + " : " + message + Environment.NewLine
                 );
         }
 
