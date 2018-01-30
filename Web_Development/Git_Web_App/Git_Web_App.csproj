@@ -6,7 +6,12 @@
 
   <ItemGroup>
     <Folder Include="Areas\Home\Data\" />
-    <Folder Include="wwwroot\" />
+    <Folder Include="Areas\Url\Data\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\CSS\StyleSheet.css" />
+    <None Include="wwwroot\Scripts\jquery-3.3.1.min.js" />
   </ItemGroup>
 
   <ItemGroup>

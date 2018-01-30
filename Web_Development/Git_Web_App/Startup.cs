@@ -37,7 +37,7 @@ namespace AustinsFirstProject.Git_Web_App
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                app.UseDeveloperExceptionPage().UseStaticFiles();
             }
 
             app.UseMvc(routes =>

@@ -4,13 +4,16 @@
 
 @{
     ViewData["Title"] = "Index";
+    Layout = "~/Views/Static/Layout.cshtml";
 }
 
-<h2>@Model.Get_Title()</h2>
-
-@foreach( var item in Model.Name_Url)
-{
-    <div>
-       @JsonConvert.SerializeObject(item)
-    </div>
-}
+<div>
+    @foreach (var item in Model.Name_Url)
+    {
+        <div>
+            <h2>@item["name"]</h2>
+            <p>@item["url"]</p>
+            @*@JsonConvert.SerializeObject(item)*@
+        </div>
+    }
+</div>

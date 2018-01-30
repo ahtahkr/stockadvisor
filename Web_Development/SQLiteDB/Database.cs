@@ -67,7 +67,7 @@ namespace AustinsFirstProject.SQLiteDB
 
                 if (File.Exists(Path.Combine(Utility.Get_Directory(), "Database", DBNAME)))
                 {
-                    return new Return(1, "Database already exists.");
+                    return new Return(0, "Database already exists.");
                 }
                 string connection_string = "Data Source='" + Get_Connection_String() + "';";
                 //Logger.Log_Error("Create Sqlite Database connection_string: " + connection_string, "Sqlite");

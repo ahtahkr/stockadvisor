@@ -1,0 +1,54 @@
+﻿@using AustinsFirstProject.Git_Web_App.Classes;
+@using Newtonsoft.Json;
+
+@model AustinsFirstProject.Git_Web_App.Areas.Url.Models.Url
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Static/Layout.cshtml";
+}
+
+<h2>@Model.Get_Title()</h2>
+
+<div>
+    @using (Html.BeginForm("Create_Git_Object", "Url", FormMethod.Post))
+    {
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <th colspan="2" align="center">Person Details</th>
+            </tr>
+            <tr>
+                <td>Name: </td>
+                <td>
+                    @Html.TextBoxFor(m => m.git_object.Git_Url_Name)
+                </td>
+            </tr>
+            <tr>
+                <td>Url: </td>
+                <td>
+                    @Html.TextBoxFor(m => m.git_object.Git_Url)
+                </td>
+            </tr>
+            <tr>
+                <td>R: </td>
+                <td>
+                    @Html.TextBoxFor(m => m.route)
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Submit" /></td>
+            </tr>
+        </table>
+    }
+</div>
+
+<div>
+    @foreach (var item in Model.Git_Name_and_Url)
+    {
+        <div>
+            @JsonConvert.SerializeObject(item)
+        </div>
+    }
+</div>
+
