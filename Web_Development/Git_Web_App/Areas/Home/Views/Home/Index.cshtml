@@ -8,12 +8,19 @@
 }
 
 <div>
-    @foreach (var item in Model.Name_Url)
+    @if (Model.Name_Url.Count > 0)
     {
-        <div>
-            <h2>@item["name"]</h2>
-            <p>@item["url"]</p>
-            @*@JsonConvert.SerializeObject(item)*@
-        </div>
+        @foreach (var item in Model.Name_Url)
+        {
+            <div>
+                <h2>@item["name"]</h2>
+                <p>@item["url"]</p>
+                @*@JsonConvert.SerializeObject(item)*@
+            </div>
+        }
+    }
+    else
+    {
+        <div>Navigate to Setup in Header bar.</div>
     }
 </div>
