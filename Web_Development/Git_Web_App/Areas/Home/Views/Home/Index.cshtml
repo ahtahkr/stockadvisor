@@ -7,20 +7,61 @@
     Layout = "~/Views/Static/Layout.cshtml";
 }
 
+<br />
 <div>
     @if (Model.Name_Url.Count > 0)
     {
-        @foreach (var item in Model.Name_Url)
-        {
-            <div>
-                <h2>@item["name"]</h2>
-                <p>@item["url"]</p>
-                @*@JsonConvert.SerializeObject(item)*@
+        <div class="container">
+            <div class="row">
+                <div class="col-sm">
+                    <div class="navbar navbar-light bg-faded">
+                        <ul class="nav navbar-nav flex-column">
+
+                            @{ var counter = 0;
+                                foreach (var item in Model.Name_Url)
+                                {
+                                    if (counter == 0)
+                                    {
+                                        <a class="nav-item nav-link active nav-pills" data-toggle=tab href="#urls_@counter">@item["name"]</a>
+                                    }
+                                    else
+                                    {
+                                        <a class="nav-item nav-link nav-pills" data-toggle=tab href="#urls_@counter">@item["name"]</a>
+                                    }
+                                    counter++;
+                                }
+                            }
+
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg">
+
+                    <div class="tab-content">
+
+                        @{
+                            counter = 0;
+                            foreach (var item in Model.Name_Url)
+                            {
+                                if (counter == 0)
+                                {
+                                    <div class=tab-pane active id="urls_@counter">@item["url"]</div>
+                                }
+                                else
+                                {
+                                    <div class=tab-pane id="urls_@counter">@item["url"]</div>
+                                }
+                                counter++;
+                            }
+                        }
+                    </div>
+                </div>
+             </div>
             </div>
-        }
-    }
-    else
-    {
-        <div>Navigate to Setup in Header bar.</div>
-    }
-</div>
+                }
+                else
+                {
+                <div>Navigate to Setup in Header bar.</div>
+                }
+            </div>
