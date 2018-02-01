@@ -10,16 +10,19 @@ namespace AustinsFirstProject.Git_Web_App.Model
 {
     public class Git_Url_Basic_Info
     {
-        public string Url { get; set; } 
+        public string Url { get; set; }
+        public string Name { get; set; }
         public Repository repository { get; set; }
         public bool IsValid { get; set; }
 
-        public Git_Url_Basic_Info(string git_url)
+
+        public Git_Url_Basic_Info(string git_name, string git_url)
         {
             if (Repository.IsValid(git_url))
             {
                 this.IsValid = true;
                 this.Url = git_url;
+                this.Name = git_name;
                 this.repository = new Repository(git_url);
                 //Logger.Log(JsonConvert.SerializeObject(this.repository), "Repository");
             }

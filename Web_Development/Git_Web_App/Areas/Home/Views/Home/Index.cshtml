@@ -6,7 +6,6 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Static/Layout.cshtml";
 }
-
 <br />
 <div>
     @if (Model.Name_Url.Count > 0)
@@ -47,56 +46,68 @@
                                 var git_basic_info_object = item.Values.ElementAtOrDefault(0);
 
                                 <div class=tab-pane active id="urls_@counter">
-                                    
-                                            <div class="card">
-                                                <h4 class="card-title">Git Url</h4>
-                                                <p class="card-text">@git_basic_info_object.Url</p>
-                                                @*<a href="#" class="btn btn-primary">Go somewhere</a>*@
-                                            </div>
-                                            
-                                                @if (git_basic_info_object.IsValid)
-                                                {
-                                                    <p class="text-success font-weight-bold text-center">Valid Git Repository</p>
 
-                                                    <div class="card">
-                                                        <h4 class="card-title">Branches</h4>
-                                                        <p class="card-text">
-                                                        <ul>
+                                    @if (git_basic_info_object.IsValid)
+                                    {
+                                        <div class="card border-0">
+
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <span class="float-left">@git_basic_info_object.Name</span>
+                                                    <span class="btn btn-primary float-right">
+                                                        @Html.ActionLink("Details", "Home", "Index", new { area = "Home", name = @git_basic_info_object.Name }, new { @class = "text-light" })
+                                                    </span>
+                                                </div>
+                                                <div class="card-body">
+                                                    <p class="text-left">@git_basic_info_object.Url</p>
+                                                    <p class="text-success font-weight-bold text-left">Valid Git Repository</p>
+                                                </div>
+                                            </div>
+                                            <br />
+
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    Git Branches
+                                                </div>
+                                                <div class="card-body">
+                                                    <ul>
                                                         @foreach (var branch in git_basic_info_object.repository.Branches)
                                                         {
                                                             @if (@branch.IsCurrentRepositoryHead)
                                                             {
-                                                                <li>@branch.FriendlyName - <span class="text-success text-capitalize font-weight-bold">head</span></li>
+                                                                <li>@branch.FriendlyName - <span class="text-info text-capitalize font-weight-bold">head</span></li>
                                                             }
                                                             else
                                                             {
                                                                 <li>@branch.FriendlyName</li>
                                                             }
                                                         }
-                                                        </ul>
-                                                        </p>
-                                                    </div>
+                                                    </ul>
 
-                                                }
-                                                else
-                                                {
-                                                    <div class="card">
-                                                        <p class="card-text text-danger font-weight-bold">InValid Git Repository</p>
-                                                    </div>
-                                                }
+                                                </div>
+                                            </div>
+                                        </div>
 
-                                           </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="card">
+                                            <p class="card-text text-danger font-weight-bold">InValid Git Repository</p>
+                                        </div>
+                                    }
+
+                                </div>
 
                                 counter++;
                             }
                         }
                     </div>
                 </div>
-             </div>
             </div>
-                }
-                else
-                {
-                <div>Navigate to Setup in Header bar.</div>
-                }
-            </div>
+        </div>
+                            }
+                            else
+                            {
+                                <div>Navigate to Setup in Header bar.</div>
+                            }
+</div>

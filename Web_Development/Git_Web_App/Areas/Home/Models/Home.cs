@@ -28,7 +28,7 @@ namespace AustinsFirstProject.Git_Web_App.Areas.Home.Models
             foreach (var item in this.Name_Url)
             {
                 Dictionary<string, Git_Url_Basic_Info> dictionary = new Dictionary<string, Git_Url_Basic_Info>(1);
-                dictionary.Add(item["name"], new Git_Url_Basic_Info(item["url"]));
+                dictionary.Add(item["name"], new Git_Url_Basic_Info(item["name"], item["url"]));
                 this.Basic_Info.Add(dictionary);
             }
         }

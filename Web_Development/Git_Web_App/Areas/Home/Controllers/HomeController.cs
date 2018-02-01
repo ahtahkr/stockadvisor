@@ -20,5 +20,11 @@ namespace AustinsFirstProject.Git_Web_App.Areas.Home.Controllers
             Models.Home home = new Models.Home();
             return View(home);
         }
+
+        [Route("[action]/{ticker}")]
+        public string Index(string name)
+        {
+            return "Index(" + name + ")";
+        }
     }
 }
