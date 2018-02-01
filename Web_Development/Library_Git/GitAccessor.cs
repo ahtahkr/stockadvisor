@@ -72,6 +72,7 @@ namespace AustinsFirstProject.Library_Git
             {
                 using (Repository Git = new Repository(git_dir))
                 {
+                    //Logger.Log(JsonConvert.SerializeObject(Git), "Git");
                     int counter = 0;
                     Console.WriteLine("Git Commit Message.");
                     foreach (var Commit in Git.Commits)

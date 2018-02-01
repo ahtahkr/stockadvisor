@@ -18,10 +18,6 @@ namespace AustinsFirstProject.Git_Web_App.Areas.Home.Controllers
         public IActionResult Index()
         {
             Models.Home home = new Models.Home();
-            home.Name_Url = SQLiteDB.Database.GetNameUrl();
-
-            //Logger.Log(JsonConvert.SerializeObject(home), "HomeController");
-
             return View(home);
         }
     }

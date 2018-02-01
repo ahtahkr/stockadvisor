@@ -2,6 +2,7 @@
 using AustinsFirstProject.CoreLibrary.Database;
 using AustinsFirstProject.Library_Git;
 using Newtonsoft.Json;
+using LibGit2Sharp;
 
 namespace AustinsFirstProject.Tester
 {
@@ -15,11 +16,14 @@ namespace AustinsFirstProject.Tester
                 string password = "Falgunfeb11!";
                 Return re = GitAccessor.Git_Clone(git_url, "", username, password);
                 Console.WriteLine(JsonConvert.SerializeObject(re));
-                GitAccessor.Git_Get_All_Commits(@"F:\features\austin_first_project\.git");
+                
             */
-            Library.Return _return = SQLiteDB.Database.Create_Database();
+            //GitAccessor.Git_Get_All_Commits(@"F:\features\austin_first_project\.git");
+            //Library.Return _return = SQLiteDB.Database.Create_Database();
 
-            Console.WriteLine(JsonConvert.SerializeObject(_return));
+            //Console.WriteLine(JsonConvert.SerializeObject(_return));
+
+            Console.WriteLine(Repository.IsValid("F:\\Kenall_TekLink_Source_Code\\.git"));
 
             Console.ReadLine();
         }

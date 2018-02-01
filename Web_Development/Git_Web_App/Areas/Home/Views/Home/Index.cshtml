@@ -42,16 +42,51 @@
 
                         @{
                             counter = 0;
-                            foreach (var item in Model.Name_Url)
+                            foreach (var item in Model.Basic_Info)
                             {
-                                if (counter == 0)
-                                {
-                                    <div class=tab-pane active id="urls_@counter">@item["url"]</div>
-                                }
-                                else
-                                {
-                                    <div class=tab-pane id="urls_@counter">@item["url"]</div>
-                                }
+                                var git_basic_info_object = item.Values.ElementAtOrDefault(0);
+
+                                <div class=tab-pane active id="urls_@counter">
+                                    
+                                            <div class="card">
+                                                <h4 class="card-title">Git Url</h4>
+                                                <p class="card-text">@git_basic_info_object.Url</p>
+                                                @*<a href="#" class="btn btn-primary">Go somewhere</a>*@
+                                            </div>
+                                            
+                                                @if (git_basic_info_object.IsValid)
+                                                {
+                                                    <p class="text-success font-weight-bold text-center">Valid Git Repository</p>
+
+                                                    <div class="card">
+                                                        <h4 class="card-title">Branches</h4>
+                                                        <p class="card-text">
+                                                        <ul>
+                                                        @foreach (var branch in git_basic_info_object.repository.Branches)
+                                                        {
+                                                            @if (@branch.IsCurrentRepositoryHead)
+                                                            {
+                                                                <li>@branch.FriendlyName - <span class="text-success text-capitalize font-weight-bold">head</span></li>
+                                                            }
+                                                            else
+                                                            {
+                                                                <li>@branch.FriendlyName</li>
+                                                            }
+                                                        }
+                                                        </ul>
+                                                        </p>
+                                                    </div>
+
+                                                }
+                                                else
+                                                {
+                                                    <div class="card">
+                                                        <p class="card-text text-danger font-weight-bold">InValid Git Repository</p>
+                                                    </div>
+                                                }
+
+                                           </div>
+
                                 counter++;
                             }
                         }

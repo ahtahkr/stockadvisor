@@ -13,14 +13,14 @@
 
 </head>
 
-<body class="bg-dark w-100 h-100">
+<body>
     <nav class="nav bg-primary">
         <div class="nav-link text-white text-lg-center font-weight-bold">Website Name</div>
         <div class="nav-link">@Html.RouteLink("Home", new { action = "Index", controller = "Home", area = "Home" }, new { @class = "text-white text-sm-center" })</div>
         <div class="nav-link">@Html.RouteLink("Setup", new { action = "Index", controller = "Url", area = "Url" }, new { @class = "text-white text-sm-center" })</div>        
     </nav>
     
-    <div class="container-fluid position-relative h-75 bg-danger"> @RenderBody() </div>
+    <div class="container-fluid"> @RenderBody() </div>
 
     <div class="footer bg-info">
         <div class="container text-center">
