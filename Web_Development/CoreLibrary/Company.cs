@@ -24,9 +24,11 @@ namespace AustinsFirstProject.CoreLibrary.Database
             this._companies = JsonConvert.DeserializeObject<List<Company>>(companies);
         }
 
-        public void Get_Company_Robinhood()
+        public void Get_Company_Robinhood(int _open = 200)
         {
-            string All_Shares = Library.Database.ExecuteProcedure_Get( DB_STORED_PROCEDURE_GET_COMPANY_ROBINHOOD, new Dictionary<string, object>(), Database_Connection_String);
+            Dictionary<string, object> param = new Dictionary<string, object>();
+            param.Add("Open", _open);
+            string All_Shares = Library.Database.ExecuteProcedure_Get( DB_STORED_PROCEDURE_GET_COMPANY_ROBINHOOD, param, Database_Connection_String);
             this._companies = JsonConvert.DeserializeObject<List<Company>>(All_Shares);
         }
     }

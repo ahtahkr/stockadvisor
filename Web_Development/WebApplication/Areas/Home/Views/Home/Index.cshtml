@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Home Controller Index</h2>
+
+@for (int a = 0; a <= 200; a++)
+{
+    <br />
+    @Html.ActionLink("" + a, "Index", "RobinhoodAll", new { area = "RobinhoodAll", open = a, page = 0 })
+}
+
+
+@*public static string ActionLink(this HtmlHelper htmlHelper,
+                                string linkText,
+                                string actionName,
+                                string controllerName,
+                                object values,
+                                object htmlAttributes)*@

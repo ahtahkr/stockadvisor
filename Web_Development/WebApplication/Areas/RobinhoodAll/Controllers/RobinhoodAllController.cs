@@ -18,15 +18,22 @@ namespace WebApplication.Areas.RobinhoodAll.Controllers
         private Companies companies;
 
         [Route("")]
-        [Route("{page:int?}")]
-        [Route("[action]/{page:int?}")]
-        public IActionResult Index(int page)
+        public IActionResult Index()
         {
+            return View();
+        }
+
+        [Route("{page:int?}")]
+        [Route("[action]/{open:int?}/{page:int?}")]
+        public IActionResult Index(int open, int page)
+        {
+            if (open > 0) { } else { open = 200; }
+
             configRoot = ConfigurationHelper.GetConfiguration(Directory.GetCurrentDirectory());
 
             companies = new Companies();
             companies.Database_Connection_String = configRoot.GetConnectionString("DefaultConnection");
-            companies.Get_Company_Robinhood();
+            companies.Get_Company_Robinhood(open);
 
             Companies _company = new Companies();
             //string test = "";
