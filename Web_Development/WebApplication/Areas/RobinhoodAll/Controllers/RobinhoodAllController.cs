@@ -7,8 +7,10 @@ using Microsoft.Extensions.Configuration;
 using AustinsFirstProject.StockAdvisor.WebApplication.Helper;
 using System.IO;
 using AustinsFirstProject.CoreLibrary.Database;
+using AustinsFirstProject.Library;
+using Newtonsoft.Json;
 
-namespace WebApplication.Areas.RobinhoodAll.Controllers
+namespace AustinsFirstProject.WebApplication.Areas.RobinhoodAll.Controllers
 {
     [Area("RobinhoodAll")]
     [Route("RobinhoodAll")]
@@ -27,29 +29,50 @@ namespace WebApplication.Areas.RobinhoodAll.Controllers
         [Route("[action]/{open:int?}/{page:int?}")]
         public IActionResult Index(int open, int page)
         {
-            if (open > 0) { } else { open = 200; }
-
-            configRoot = ConfigurationHelper.GetConfiguration(Directory.GetCurrentDirectory());
-
-            companies = new Companies();
-            companies.Database_Connection_String = configRoot.GetConnectionString("DefaultConnection");
-            companies.Get_Company_Robinhood(open);
-
-            Companies _company = new Companies();
-            //string test = "";
-            for (int a = (page * 5); a <= ((page*5)+4); a++)
+            Models.RobinhoodAll _robinhoodAll = new Models.RobinhoodAll();
+            try
             {
-                
-                if ( this.companies._companies.Count > a)
+                if (open > 0) { } else { open = 200; }
+
+                configRoot = ConfigurationHelper.GetConfiguration(Directory.GetCurrentDirectory());
+
+                companies = new Companies();
+                companies.Database_Connection_String = configRoot.GetConnectionString("DefaultConnection");
+                companies.Get_Company_Robinhood(open);
+
+                Models.RobinhoodAll robinhoodAll = new Models.RobinhoodAll();
+
+                Companies _company = new Companies();
+                for (int a = (page * 5); a <= ((page * 5) + 4); a++)
                 {
-                    //test += a + ", ";
-                    _company._companies.Add(this.companies._companies[a]);
+                    if (this.companies._companies.Count > a)
+                    {
+                        //test += a + ", ";
+                        _company._companies.Add(this.companies._companies[a]);
+                    }
                 }
+                _company.Database_Connection_String = companies.Database_Connection_String;
+
+                _robinhoodAll._Companies = _company;
+
+                double pages = (double)this.companies._companies.Count / 5;
+                int _pages = (int)pages;
+
+                if (_pages < pages)
+                {
+                    _robinhoodAll.Pages = _pages + 1;
+                }
+                else
+                {
+                    _robinhoodAll.Pages = _pages;
+                }
+                _robinhoodAll.Open = open;
+            } catch (Exception ex)
+            {
+                Logger.Log_Error("RobinhoodController Index failed. Message: " + ex.Message);
             }
-            //test += "[" + this.companies._companies.Count + "]";
-            var company = new Companies { _companies = _company._companies, Database_Connection_String = companies.Database_Connection_String };
-            //return test;
-            return View(company);
+
+            return View(_robinhoodAll);
         }
     }
 }

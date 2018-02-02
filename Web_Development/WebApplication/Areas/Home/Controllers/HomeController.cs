@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WebApplication.Areas.Home.Controllers
+namespace AustinsFirstProject.WebApplication.Areas.Home.Controllers
 {
     [Area("Home")]
     [Route("")]

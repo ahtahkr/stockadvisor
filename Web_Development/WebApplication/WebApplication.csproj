@@ -23,19 +23,21 @@
     <Folder Include="Areas\Index\Data\" />
     <Folder Include="Areas\Index\Models\" />
     <Folder Include="Areas\RobinhoodAll\Data\" />
-    <Folder Include="Areas\RobinhoodAll\Models\" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="Areas\Company\Views\Company\Index.cshtml" />
+    <None Include="Areas\Company\Views\Company\_Index.cshtml" />
     <None Include="wwwroot\js\canvasjs.min.js" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.0.2" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.2" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.4.1" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.4.2" />
   </ItemGroup>
 
   <ItemGroup>

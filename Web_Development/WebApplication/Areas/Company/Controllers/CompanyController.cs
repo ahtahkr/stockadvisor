@@ -11,7 +11,7 @@ using AustinsFirstProject.Library;
 using AustinsFirstProject.CoreLibrary.Database;
 using Newtonsoft.Json;
 
-namespace WebApplication.Areas.Index.Controllers
+namespace AustinsFirstProject.WebApplication.Areas.Index.Controllers
 {
     [Area("Company")]
     [Route("Company")]
@@ -22,13 +22,21 @@ namespace WebApplication.Areas.Index.Controllers
         [Route("")]
         public IActionResult Index()
         {
-            configRoot = ConfigurationHelper.GetConfiguration(Directory.GetCurrentDirectory());
+            var company = new Companies();
+            try
+            {
+                configRoot = ConfigurationHelper.GetConfiguration(Directory.GetCurrentDirectory());
 
-            Companies companies = new Companies();
-            companies.Database_Connection_String = configRoot.GetConnectionString("DefaultConnection");
-            companies.Get_Company_Filed();
-            var company = new Companies { _companies = companies._companies };
+                Companies companies = new Companies();
+                companies.Database_Connection_String = configRoot.GetConnectionString("DefaultConnection");
+                companies.Get_Company_Filed();
+                company = new Companies { _companies = companies._companies };
+            } catch (Exception ex)
+            {
+                Logger.Log_Error("CompanyController Index failed. Message: " + ex.Message);
+            }
 
+            Logger.Log_Error(JsonConvert.SerializeObject(company));
             return View(company);
         }
 

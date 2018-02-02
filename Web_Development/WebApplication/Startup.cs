@@ -24,6 +24,9 @@ namespace AustinsFirstProject.StockAdvisor.WebApplication
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage().UseStaticFiles();
+            } else
+            {
+                app.UseStaticFiles();
             }
 
             //app.Run(async (context) =>

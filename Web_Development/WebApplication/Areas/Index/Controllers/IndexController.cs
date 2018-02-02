@@ -11,7 +11,7 @@ using AustinsFirstProject.Library;
 using AustinsFirstProject.CoreLibrary.Database;
 using Newtonsoft.Json;
 
-namespace WebApplication.Areas.Index.Controllers
+namespace AustinsFirstProject.WebApplication.Areas.Index.Controllers
 {
     [Area("Index")]
     [Route("index")]
