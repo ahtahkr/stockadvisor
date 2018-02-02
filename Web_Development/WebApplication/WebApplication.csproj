@@ -27,7 +27,6 @@
 
   <ItemGroup>
     <None Include="Areas\Company\Views\Company\Index.cshtml" />
-    <None Include="Areas\Company\Views\Company\_Index.cshtml" />
     <None Include="wwwroot\js\canvasjs.min.js" />
   </ItemGroup>
 

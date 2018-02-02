@@ -1,7 +1,47 @@
-﻿
+﻿@using Newtonsoft.Json;
+@model AustinsFirstProject.CoreLibrary.Database.Companies;
+
 @{
     ViewData["Title"] = "Index";
+    Layout = "~/Views/Static/Layout.cshtml";
 }
 
-<h2>Company Controller Index</h2>
-
+<div class="container">
+    <h4>Companies</h4>
+</div>
+<div class="container-fluid">
+    <ul class="list-group">
+        @{  int counter = 0;
+            foreach (var item in Model._companies)
+            {
+                counter++;
+                <li class="list-group-item">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm">
+                                <span class="badge badge-primary badge-pill">@counter</span>
+                            </div>
+                            <div class="col-sm">
+                                @Html.ActionLink(@item.Ticker, "Index", "Ticker", new { area = "Index", ticker = item.Ticker })
+                            </div>
+                            <div class="col-sm">
+                                @if (item.Robinhood)
+                                {
+                                    <span type="button">
+                                        @Html.ActionLink("Robinhood", "Update_Robinhood", "Company", new { company = JsonConvert.SerializeObject(item) }, new { @class = "btn btn-success btn-sm" })
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span type="button">
+                                        @Html.ActionLink("Robinhood", "Update_Robinhood", "Company", new { company = JsonConvert.SerializeObject(item) }, new { @class = "btn btn-danger btn-sm" })
+                                    </span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            }
+        }
+    </ul>
+</div>
