@@ -5,7 +5,42 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Static/Layout.cshtml";
+    string robinhood = "";
 }
+
+<head>
+    <script>
+        function GetMessage(counter, _company) {
+            //console.log(counter);
+            //console.log(_company);
+            //$.get("/Company/GetMessage", function (data) {
+            //    $("p").html(data);
+            //});
+            $.post("/Company/Update_Robinhood", { company: _company })
+                .fail(function (error) {
+                    console.log('Error');
+                    console.log(error);
+                })
+                .done(function (result) {
+                    if (result == "0") {
+                        var button_color = document.getElementById("robinhood_button_" + counter).style.backgroundColor;
+                        console.log(button_color);
+
+                        if (button_color == "rgb(244, 67, 54)") {
+                            button_color = "rgb(76, 175, 80)";
+                        } else {
+                            button_color = "rgb(244, 67, 54)";
+                        }
+                        console.log(button_color);
+                        document.getElementById("robinhood_button_" + counter).style.backgroundColor = button_color;
+                        console.log(document.getElementById("robinhood_button_" + counter).style.backgroundColor);
+                    } else {
+                        alert('Update Failed. Result: ' + result);
+                    }
+                });
+        }
+    </script>
+</head>
 
 <div class="container">
     <h4>Companies</h4>
@@ -13,8 +48,10 @@
 <div class="container-fluid">
     <ul class="list-group">
         @{  int counter = 0;
+            var button_id = "";
             foreach (Company item in Model.companies._companies)
             {
+                if (item.Robinhood) { robinhood = "#4CAF50"; } else { robinhood = "#f44336"; }
                 counter++;
                 <li class="list-group-item">
                     <div class="container">
@@ -26,18 +63,8 @@
                                 @Html.ActionLink(@item.Ticker, "Index", "Ticker", new { area = "Index", ticker = item.Ticker })
                             </div>
                             <div class="col-sm">
-                                @if (item.Robinhood)
-                                {
-                                    <span type="button">
-                                        @Html.ActionLink("Robinhood", "Update_Robinhood", "Company", new { company = JsonConvert.SerializeObject(item) }, new { @class = "btn btn-success btn-sm" })
-                                    </span>
-                                }
-                                else
-                                {
-                                    <span type="button">
-                                        @Html.ActionLink("Robinhood", "Update_Robinhood", "Company", new { company = JsonConvert.SerializeObject(item) }, new { @class = "btn btn-danger btn-sm" })
-                                    </span>
-                                }
+                                @{ button_id = "robinhood_button_" + counter; }
+                                <button class="robinhood_button" id="@button_id" style="background-color: @robinhood;" onclick="GetMessage('@counter', '@JsonConvert.SerializeObject(@item)')">Robinhood</button>
                             </div>
                         </div>
                     </div>

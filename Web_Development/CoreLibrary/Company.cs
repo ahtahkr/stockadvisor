@@ -66,9 +66,11 @@ namespace AustinsFirstProject.CoreLibrary.Database
                     return 1;
                 }
                 //this.Robinhood = !this.Robinhood;
-            } catch (Exception ex) { }
+            } catch (Exception ex) {
+                Logger.Log_Error("AustinsFirstProject.CoreLibrary.Database.Company.UPDATE_ROBINHOOD failed. Error Message: ", ex.Message);
+            }
 
-            return 1;
+            return 2;
         }            
     }
 }

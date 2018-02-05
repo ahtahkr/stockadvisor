@@ -37,5 +37,17 @@ namespace AustinsFirstProject.WebApplication.Areas.Company.Controllers
             }
             return View(company);
         }
+
+        [Route("[action]")]
+        public int Update_Robinhood(string company)
+        {
+            configRoot = ConfigurationHelper.GetConfiguration();
+            AustinsFirstProject.CoreLibrary.Database.Company _company
+                    = JsonConvert.DeserializeObject<AustinsFirstProject.CoreLibrary.Database.Company>(company);
+            _company.Database_Connection_String = configRoot.GetConnectionString("DefaultConnection");
+
+            Logger.Log(JsonConvert.SerializeObject(_company), "up");
+            return _company.Update_Robinhood();
+        }
     }
 }
