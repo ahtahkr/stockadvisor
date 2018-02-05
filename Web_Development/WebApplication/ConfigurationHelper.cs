@@ -9,8 +9,13 @@ namespace AustinsFirstProject.StockAdvisor.WebApplication.Helper
     public static class ConfigurationHelper
     {
         #region GetConfiguration()
-        public static IConfigurationRoot GetConfiguration(string path, string environmentName = null, bool addUserSecrets = false)
+        public static IConfigurationRoot GetConfiguration(string path = "", string environmentName = null, bool addUserSecrets = false)
         {
+            if (String.IsNullOrEmpty(path))
+            {
+                path = Library.Utility.Get_Directory();
+            }
+
             var builder = new ConfigurationBuilder()
                 .SetBasePath(path)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);

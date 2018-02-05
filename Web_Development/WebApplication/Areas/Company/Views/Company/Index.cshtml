@@ -1,5 +1,6 @@
-﻿@using Newtonsoft.Json;
-@model AustinsFirstProject.CoreLibrary.Database.Companies;
+﻿@model AustinsFirstProject.WebApplication.Areas.Company.Models.Company;
+@using AustinsFirstProject.CoreLibrary.Database;
+@using Newtonsoft.Json;
 
 @{
     ViewData["Title"] = "Index";
@@ -12,7 +13,7 @@
 <div class="container-fluid">
     <ul class="list-group">
         @{  int counter = 0;
-            foreach (var item in Model._companies)
+            foreach (Company item in Model.companies._companies)
             {
                 counter++;
                 <li class="list-group-item">

@@ -19,12 +19,12 @@ namespace AustinsFirstProject.WebApplication.Areas.RobinhoodAll.Controllers
         private IConfigurationRoot configRoot;
         private Companies companies;
 
+        //[Route("")]
+        //public IActionResult Index()
+        //{
+        //    return View();
+        //}
         [Route("")]
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         [Route("{page:int?}")]
         [Route("[action]/{open:int?}/{page:int?}")]
         public IActionResult Index(int open, int page)
@@ -34,7 +34,7 @@ namespace AustinsFirstProject.WebApplication.Areas.RobinhoodAll.Controllers
             {
                 if (open > 0) { } else { open = 200; }
 
-                configRoot = ConfigurationHelper.GetConfiguration(Directory.GetCurrentDirectory());
+                configRoot = ConfigurationHelper.GetConfiguration();
 
                 companies = new Companies();
                 companies.Database_Connection_String = configRoot.GetConnectionString("DefaultConnection");
