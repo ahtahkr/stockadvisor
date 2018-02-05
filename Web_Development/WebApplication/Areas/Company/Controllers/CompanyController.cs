@@ -46,7 +46,6 @@ namespace AustinsFirstProject.WebApplication.Areas.Company.Controllers
                     = JsonConvert.DeserializeObject<AustinsFirstProject.CoreLibrary.Database.Company>(company);
             _company.Database_Connection_String = configRoot.GetConnectionString("DefaultConnection");
 
-            Logger.Log(JsonConvert.SerializeObject(_company), "up");
             return _company.Update_Robinhood();
         }
     }
