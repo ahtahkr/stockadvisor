@@ -1,6 +1,4 @@
-﻿@using Newtonsoft.Json;
-
-@model AustinsFirstProject.Git_Web_App.Areas.Home.Models.Home
+﻿@model AustinsFirstProject.Git_Web_App.Areas.Home.Models.Home
 
 @{
     ViewData["Title"] = "Index";
@@ -55,7 +53,7 @@
                                                 <div class="card-header">
                                                     <span class="float-left">@git_basic_info_object.Name</span>
                                                     <span class="btn btn-primary float-right">
-                                                        @Html.ActionLink("Details", "Home", "Index", new { area = "Home", name = @git_basic_info_object.Name }, new { @class = "text-light" })
+                                                        @Html.ActionLink("Details", "Home", "Detail", new { area = "Home", git_url = git_basic_info_object.Url }, new { @class = "text-light" })
                                                     </span>
                                                 </div>
                                                 <div class="card-body">

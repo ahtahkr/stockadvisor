@@ -36,7 +36,6 @@ namespace AustinsFirstProject.Git_Web_App.Areas.Home.Models
         public void Get_Name_Url()
         {
             this.Name_Url = SQLiteDB.Database.GetNameUrl();
-
         }
 
         public string Get_Title()

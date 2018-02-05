@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AustinsFirstProject.Library;
 using Newtonsoft.Json;
+using AustinsFirstProject.Git_Web_App.Model;
 
 namespace AustinsFirstProject.Git_Web_App.Areas.Home.Controllers
 {
@@ -21,10 +22,12 @@ namespace AustinsFirstProject.Git_Web_App.Areas.Home.Controllers
             return View(home);
         }
 
-        [Route("[action]/{ticker}")]
-        public string Index(string name)
+        [Route("[action]/{git}")]
+        public IActionResult Detail(string git_url)
         {
-            return "Index(" + name + ")";
+            Git_Url_Basic_Info git_object = new Git_Url_Basic_Info("", git_url);
+
+            return View(git_object);
         }
     }
 }

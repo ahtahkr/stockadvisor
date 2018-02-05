@@ -15,6 +15,15 @@ namespace AustinsFirstProject.Git_Web_App.Model
         public Repository repository { get; set; }
         public bool IsValid { get; set; }
 
+        public Git_Url_Basic_Info()
+        {
+            this.Git_InValid_Protocol();
+        }
+        
+        private void Get_Name_from_Database()
+        {
+            this.Name = SQLiteDB.Database.Get_Name_of_Url(this.Url);
+        }
 
         public Git_Url_Basic_Info(string git_name, string git_url)
         {
@@ -22,13 +31,19 @@ namespace AustinsFirstProject.Git_Web_App.Model
             {
                 this.IsValid = true;
                 this.Url = git_url;
-                this.Name = git_name;
+                if (String.IsNullOrEmpty(git_name))
+                {
+                    this.Get_Name_from_Database();
+                }
+                else
+                {
+                    this.Name = git_name;
+                }
                 this.repository = new Repository(git_url);
-                //Logger.Log(JsonConvert.SerializeObject(this.repository), "Repository");
             }
             else
             {
-                Logger.Log_Error("Git Url: [" + git_url + "] not a valid repository.", "Invalid_Repository");
+                //Logger.Log_Error("Git Url: [" + git_url + "] not a valid repository.", "Invalid_Repository");
                 this.Git_InValid_Protocol();
             }
         }
@@ -36,6 +51,9 @@ namespace AustinsFirstProject.Git_Web_App.Model
         private void Git_InValid_Protocol()
         {
             this.IsValid = false;
+            this.Name = "Invalid Repository";
+            this.Url = "Invalid Repository";
+            this.repository = new Repository();
         }
     }
 }
