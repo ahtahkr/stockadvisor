@@ -1,4 +1,5 @@
-﻿using AustinsFirstProject.Library;
+﻿using AustinsFirstProject.Git_Web_App.Classes;
+using AustinsFirstProject.Library;
 using LibGit2Sharp;
 using Newtonsoft.Json;
 using System;
@@ -14,6 +15,8 @@ namespace AustinsFirstProject.Git_Web_App.Model
         public string Name { get; set; }
         public Repository repository { get; set; }
         public bool IsValid { get; set; }
+
+        public Git_Commits Git_Commits { get; set; }
 
         public Git_Url_Basic_Info()
         {
@@ -40,6 +43,15 @@ namespace AustinsFirstProject.Git_Web_App.Model
                     this.Name = git_name;
                 }
                 this.repository = new Repository(git_url);
+                this.Git_Commits = new Git_Commits();
+                
+                foreach ( Commit item in this.repository.Commits)
+                {
+                    Git_Commit git_Commit = new Git_Commit();
+                    git_Commit.Set_Author(item.Author);
+                    git_Commit.Set_Message(item.Message, item.MessageShort);
+                    this.Git_Commits.Git__Commits.Add(git_Commit);
+                }
             }
             else
             {
