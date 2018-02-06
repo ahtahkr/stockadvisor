@@ -15,13 +15,13 @@
         </li>
     </ul>
 
-    <div class="tab-content">
-        <div class="tab-pane active" id="commits" role="tabpanel">
-            <div id="history" class="row">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-2">
-                            <div class="container pre-scrollable">
+    <div class="tab-content fill">
+        <div class="tab-pane active fill" id="commits" role="tabpanel">
+            <div id="history" class="row fill">
+                <div class="container-fluid fill">
+                    <div class="row fill">
+                        <div class="col-2 fill">
+                            <div class="container pre-scrollable fill">
                                 <ul class="nav flex-column" id="myTab_2" role="tablist">
                                     @{  var counter = 0;
                                         foreach (var item in Model.Git_Commits.Git__Commits)
@@ -56,7 +56,7 @@
                 </div>
             </div>
         </div>
-        <div class="tab-pane" id="test" role="tabpanel">
+        <div class="tab-pane fill" id="test" role="tabpanel">
             <div id="name" class="row">
                 <div class="container-fluid">
                     <div class="row">
