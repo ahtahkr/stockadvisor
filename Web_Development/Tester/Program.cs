@@ -3,11 +3,15 @@ using AustinsFirstProject.CoreLibrary.Database;
 using AustinsFirstProject.Library_Git;
 using Newtonsoft.Json;
 using LibGit2Sharp;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace AustinsFirstProject.Tester
 {
     class Program
     {
+        enum File_Status { Added = 0, Modified = 1, Deleted = 2, Unknown = 3 }
+
         static void Main(string[] args)
         {
             /*
@@ -22,8 +26,32 @@ namespace AustinsFirstProject.Tester
             //Library.Return _return = SQLiteDB.Database.Create_Database();
 
             //Console.WriteLine(JsonConvert.SerializeObject(_return));
+            
 
-            Console.WriteLine(Repository.IsValid("F:\\Kenall_TekLink_Source_Code\\.git"));
+            string repository = "F:\\Kenall_TekLink_Source_Code\\.git";
+            if (Repository.IsValid(repository))
+            {
+                Repository repo = new Repository(repository);
+
+                Commit commit = repo.Lookup<Commit>("2cee4c0eac44287b30cf095e287fc68df5c51417");
+
+                if (commit != null)
+                {
+                    Tree commit_tree = commit.Tree;
+
+                    IEnumerator<Commit> commit_iterator = commit.Parents.GetEnumerator();
+                    if (commit_iterator.MoveNext())
+                    {
+                        Tree parent_tree = commit_iterator.Current.Tree;
+
+                        Patch patch = repo.Diff.Compare<Patch>(parent_tree, commit_tree);
+                        foreach (PatchEntryChanges ptc in patch)
+                        {
+                            Console.WriteLine(ptc.Status + " -> " + ptc.Path);
+                        }
+                    }
+                }
+            }
 
             Console.ReadLine();
         }
@@ -32,8 +60,10 @@ namespace AustinsFirstProject.Tester
 
         private static void Get_All_Shares()
         {
-            Shares shares = new Shares();
-            shares.Database_Connection_String = "Data Source=AADHIKARI10\\SQLEXPRESS;Initial Catalog=austin_stock_processor;Persist Security Info=True;User ID=developer;Password=developer";
+            Shares shares = new Shares
+            {
+                Database_Connection_String = "Data Source=AADHIKARI10\\SQLEXPRESS;Initial Catalog=austin_stock_processor;Persist Security Info=True;User ID=developer;Password=developer"
+            };
             shares.Get_Ticker("VCOR");
             Console.WriteLine(shares.Shares_Date_Close());
             Console.ReadLine();

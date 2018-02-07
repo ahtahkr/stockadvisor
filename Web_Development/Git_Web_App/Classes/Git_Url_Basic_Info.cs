@@ -45,11 +45,14 @@ namespace AustinsFirstProject.Git_Web_App.Model
                 this.repository = new Repository(git_url);
                 this.Git_Commits = new Git_Commits();
                 
-                foreach ( Commit item in this.repository.Commits)
+                foreach ( Commit commit in this.repository.Commits)
                 {
                     Git_Commit git_Commit = new Git_Commit();
-                    git_Commit.Set_Author(item.Author);
-                    git_Commit.Set_Message(item.Message, item.MessageShort);
+                    git_Commit.Set_Author(commit.Author);
+                    git_Commit.Set_Message(commit.Message, commit.MessageShort);
+                    git_Commit.Sha = commit.Sha;
+                    git_Commit.Repo_Path = git_url;
+
                     this.Git_Commits.Git__Commits.Add(git_Commit);
                 }
             }

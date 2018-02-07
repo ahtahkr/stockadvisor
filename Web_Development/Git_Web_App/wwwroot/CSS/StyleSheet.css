@@ -20,3 +20,15 @@ html, body {
     min-height: 100%;
     height: 100%;
 }
+
+.fill-80 {
+    min-height: 80%;
+    height: 80%;
+}
+
+.padding-off {
+    padding-right: 0px;
+    padding-left: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}

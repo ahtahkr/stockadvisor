@@ -1,11 +1,15 @@
-﻿@model AustinsFirstProject.Git_Web_App.Model.Git_Url_Basic_Info;
+﻿@using AustinsFirstProject.Git_Web_App.Classes;
+@using Newtonsoft.Json;
+
+@model AustinsFirstProject.Git_Web_App.Model.Git_Url_Basic_Info;
 @{
     ViewData["Title"] = "Detail";
     Layout = "~/Views/Static/Layout.cshtml";
+    Git_Commit Active_Git_Commit = new Git_Commit();
+    Html.Hidden("active_git", new Git_Commit());
 }
 
-<br />
-<div class="container-fluid h-100">
+<div class="container-fluid padding-off fill">
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item myItem">
             <a class="nav-link active myLink" data-toggle="tab" href="#commits" role="tab" aria-controls="home">History</a>
@@ -15,41 +19,43 @@
         </li>
     </ul>
 
-    <div class="tab-content fill">
+    <div class="tab-content fill border">
         <div class="tab-pane active fill" id="commits" role="tabpanel">
             <div id="history" class="row fill">
                 <div class="container-fluid fill">
                     <div class="row fill">
                         <div class="col-2 fill">
                             <div class="container pre-scrollable fill">
-                                <ul class="nav flex-column" id="myTab_2" role="tablist">
+                                <div class="list-group" id="myTab_2" role="tablist">
                                     @{  var counter = 0;
                                         foreach (var item in Model.Git_Commits.Git__Commits)
                                         {
-                                            <li class="nav-item">
-                                                <a class="nav-link" id="commit_@counter" data-toggle="tab" href="#commit_detail_@counter" role="tab" aria-controls="commit_detail_@counter">
-                                                        <p class="font-weight-bold">@item.MessageShort</p>
-                                                        <p>@item.Author.Name committed on @item.Author.When</p>
-                                                </a>
-                                            </li>
+                                            <button type="button" class="list-group-item active" id="commit_@counter" data-toggle="tab" onclick="Get_Active_Git_Commit('commit_' + @counter, @JsonConvert.SerializeObject(@item))" role="tab" aria-controls="commit_detail_@counter"><p>@item.MessageShort</p>
+                                    @*<p class="font-weight-bold">@item.MessageShort</p>*@
+                                                        @*<p>@item.Author.Name committed on @item.Author.When</p>*@
+                                                </button>
                                             counter++;
                                         }
                                     }
-                                 </ul>
+                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-8">
-                            <div class="container tab-content" id="myTab_2_Content">
-                                @{  counter = 0;
-                                    foreach (var item in Model.Git_Commits.Git__Commits)
-                                    {
-                                        <div class="row border tab-pane" id="commit_detail_@counter" role="tabpanel" aria-labelledby="commit_@counter">
-                                            <p class="font-weight-bold">@item.Message</p>
-                                        </div>
-                                        counter++;
-                                    }
-                                }
+                        <div class="col">
+                            <div class="container-fluid padding-off">
+                                <div class="row border">
+                                    <div class="container-fluid padding-off">
+                                        <p>
+                                            <h4 id="commit_message"></h4>
+                                            <span id="committed_by"></span>
+                                        </p>
+                                    </div>
+                                    <div class="container-fluid padding-off">
+                                        <div class="col col-2" id="files_n_status"></div>
+                                        <div class="col"></div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -91,7 +97,60 @@
             $(this).addClass('active');
         }
         e.preventDefault();
-    })
+    });
+
+    function Get_Active_Git_Commit(element_id, commit) {
+        element_id = '#' + element_id;
+
+        $('#myTab_2 button.active').removeClass('active');
+
+        if (!$(element_id).hasClass('active')) {
+            $(element_id).addClass("active");
+        }
+
+        commit = JSON.stringify(commit);
+
+        //$.get("/Company/GetMessage", function (data) {
+        //    $("p").html(data);
+        //});
+        $.post("/Home/Get_Active_Git_Commit", { commit: commit })
+            .fail(function (error) {
+                console.log('Error');
+                console.log(error);
+            })
+            .done(function (result) {
+                result = JSON.parse(result);
+
+                $('#commit_message')[0].textContent = result.Message;
+
+                $('#committed_by')[0].textContent = 'Committed By: ' + result.Author.Name + ' (' + result.Author.Email + ') on ' + result.Author.When;
+
+                var table = '<div class="list-group">';
+                JSON.parse(JSON.stringify(result.Files_and_Status), (key, value) => {
+
+                    var str = JSON.stringify(key);
+                    if (str.length > 2) {
+                        table += '<button type="button" class="list-group-item"><p>' + key + ' ';
+                        if (value === 0) {
+                            table += '<span class="badge badge-success">Added</span>';
+                        } else if (value === 1) {
+                            table += '<span class="badge badge-warning">Modified</span>';
+                        } else if (value === 2) {
+                            table += '<span class="badge badge-info">Renamed</span>';
+                        } else if (value === 3) {
+                            table += '<span class="badge badge-danger">Deleted</span>';
+                        } else {
+                            table += '<span class="badge badge-dark">Unknown</span>';
+                        }
+                        table += '</p></button>';
+                    }
+                });
+                table += '</div>';
+
+                $('#files_n_status').empty();
+                $('#files_n_status')[0].innerHTML = table;
+            });
+    }
 </script>
 
 
