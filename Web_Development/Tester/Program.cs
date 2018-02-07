@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using LibGit2Sharp;
 using System.Collections;
 using System.Collections.Generic;
+using AustinsFirstProject.Library;
 
 namespace AustinsFirstProject.Tester
 {
@@ -33,7 +34,7 @@ namespace AustinsFirstProject.Tester
             {
                 Repository repo = new Repository(repository);
 
-                Commit commit = repo.Lookup<Commit>("2cee4c0eac44287b30cf095e287fc68df5c51417");
+                Commit commit = repo.Lookup<Commit>("36ef4e35c02a7e8d7b760c0b6920ecd8c2121d50");
 
                 if (commit != null)
                 {
@@ -47,7 +48,11 @@ namespace AustinsFirstProject.Tester
                         Patch patch = repo.Diff.Compare<Patch>(parent_tree, commit_tree);
                         foreach (PatchEntryChanges ptc in patch)
                         {
+                            Console.WriteLine("Here");
+                            Console.WriteLine(JsonConvert.SerializeObject(ptc));
                             Console.WriteLine(ptc.Status + " -> " + ptc.Path);
+                            Logger.Log(ptc.Patch, "patch");
+                            Console.ReadLine();
                         }
                     }
                 }

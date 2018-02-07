@@ -51,8 +51,10 @@
                                         </p>
                                     </div>
                                     <div class="container-fluid padding-off">
-                                        <div class="col col-2" id="files_n_status"></div>
-                                        <div class="col col-auto"></div>
+                                        <div class="row fill">
+                                            <div class="col col-2" id="files_n_status"></div>
+                                            <div class="col col" id="commit_patch"></div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -121,34 +123,58 @@
             .done(function (result) {
                 result = JSON.parse(result);
 
+                //console.log(result);
+
                 $('#commit_message')[0].textContent = result.Message;
 
                 $('#committed_by')[0].textContent = 'Committed By: ' + result.Author.Name + ' (' + result.Author.Email + ') on ' + result.Author.When;
 
                 var table = '<div class="list-group">';
-                JSON.parse(JSON.stringify(result.Files_and_Status), (key, value) => {
 
-                    var str = JSON.stringify(key);
-                    if (str.length > 2) {
-                        table += '<p><button type="button" class="list-group-item"><p>' + key + ' ';
-                        if (value === 0) {
+                var git_changes = result.Git_File_Changes;
+                for (var a = 0; a < git_changes.length; a++)
+                {
+                    var git_changes_json = git_changes[a];
+                    console.log(a);
+                    console.log(git_changes_json.File_FullName);
+                    console.log("\t\t" + git_changes_json.Patch);
+
+                    if (git_changes_json.File_FullName.length > 2) {
+                        table += '<p><button type="button" class="list-group-item"><p>' + git_changes_json.File_FullName + ' ';
+                        if (git_changes_json.File_Status === 0) {
                             table += '<span class="badge badge-success">Added</span>';
-                        } else if (value === 1) {
+                        } else if (git_changes_json.File_Status === 1) {
                             table += '<span class="badge badge-warning">Modified</span>';
-                        } else if (value === 2) {
+                        } else if (git_changes_json.File_Status === 2) {
                             table += '<span class="badge badge-info">Renamed</span>';
-                        } else if (value === 3) {
+                        } else if (git_changes_json.File_Status === 3) {
                             table += '<span class="badge badge-danger">Deleted</span>';
                         } else {
                             table += '<span class="badge badge-dark">Unknown</span>';
                         }
                         table += '</p></button></p>';
                     }
-                });
+                }
                 table += '</div>';
 
                 $('#files_n_status').empty();
                 $('#files_n_status')[0].innerHTML = table;
+
+            
+
+                //
+                //JSON.parse(JSON.stringify(result.Git_File_Changes), (key, value) => {
+
+                //    console.log('Key: ' + key);
+                //    console.log('Value');
+                //    console.log(value);
+
+                //    var str = JSON.stringify(key);
+                
+                //});
+                
+
+                //$('#commit_patch')[0].textContent = result.Patch;
             });
     }
 </script>

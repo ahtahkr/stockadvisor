@@ -8,6 +8,12 @@ using System.Threading.Tasks;
 
 namespace AustinsFirstProject.Git_Web_App.Classes
 {
+    public class Git_File_Changes
+    {
+        public string File_FullName { get; set; }
+        public int File_Status { get; set; }
+        public string Patch { get; set; }
+    }
     public class Git_Commit
     {
         private enum File_Status { Added=0, Modified=1, Renamed=2, Deleted=3}
@@ -16,14 +22,16 @@ namespace AustinsFirstProject.Git_Web_App.Classes
         public string MessageShort { get; set; }
         public string Sha { get; set; }
 
+        public string Patch { get; set; }
+
         public string Repo_Path { get; set; }
 
-        public Dictionary<string, int> Files_and_Status { get; set; }
-
+        public List<Git_File_Changes> Git_File_Changes { get; set; }
+        
         public Git_Commit()
         {
             this.Author = new Author();
-            this.Files_and_Status = new Dictionary<string, int>();
+            this.Git_File_Changes = new List<Git_File_Changes>();
         }        
 
         private int Get_Int_From_Enum(string key)
@@ -81,20 +89,43 @@ namespace AustinsFirstProject.Git_Web_App.Classes
             this.Author.When = signature.When;
         }
 
-        public void Set_File_and_Status(string file_name, string status)
+        public void Set_File_Status_Patch(string file_name, string status, string patch)
         {
-            Logger.Log(file_name + " : " + status, "File_Status");
             try
             {
-                this.Files_and_Status.Add(
-                        file_name
-                        , this.Get_Int_From_Enum(status)
-                    );
+                Git_File_Changes git_f_c = new Git_File_Changes();
+                git_f_c.File_FullName = file_name;
+                git_f_c.File_Status = this.Get_Int_From_Enum(status);
+                git_f_c.Patch = this.Get_Patch(patch);
+                this.Git_File_Changes.Add(git_f_c);
             }
             catch (Exception ex)
             {
-                Logger.Log_Error(file_name + " : " + status + "  Error Msg: " + ex.Message, "File_Status");
+                Logger.Log_Error(this.GetType().FullName + "." + System.Reflection.MethodBase.GetCurrentMethod().Name + "  Error Msg: " + ex.Message, "File_Status");
             }
+        }
+
+        public string Get_Patch(string patch)
+        {
+            try
+            {
+                if (patch.Contains("@@"))
+                {
+                    return patch.Substring(
+                        patch.IndexOf("@@")
+                        , patch.Length - patch.IndexOf("@@")
+                    );
+                }
+                else
+                {
+                    //Logger.Log_Error(this.GetType().FullName + "." + System.Reflection.MethodBase.GetCurrentMethod().Name + " Patch returning as Binary File. Patch: " + patch);
+                    //return patch;
+                }
+            } catch (Exception ex)
+            {
+                Logger.Log_Error(this.GetType().FullName + "." + System.Reflection.MethodBase.GetCurrentMethod().Name + " Error Msg: " + ex.Message);
+            }
+            return patch;
         }
 
         public bool Set_Files_and_Status()
@@ -116,12 +147,10 @@ namespace AustinsFirstProject.Git_Web_App.Classes
                             Tree parent_tree = commit_iterator.Current.Tree;
 
                             Patch patch = repo.Diff.Compare<Patch>(parent_tree, commit_tree);
-
-                            Logger.Log("Here","adhikari");
+                            
                             foreach (PatchEntryChanges ptc in patch)
                             {
-                                Logger.Log(ptc.Path + " : " + ptc.Status.ToString(), "adhikari");
-                                this.Set_File_and_Status(ptc.Path, ptc.Status.ToString());
+                                this.Set_File_Status_Patch(ptc.Path, ptc.Status.ToString(),ptc.Patch);
                             }
                             return true;
                         }
