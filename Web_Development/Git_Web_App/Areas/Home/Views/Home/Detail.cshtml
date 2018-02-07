@@ -30,7 +30,7 @@
                                     @{  var counter = 0;
                                         foreach (var item in Model.Git_Commits.Git__Commits)
                                         {
-                                            <button type="button" class="list-group-item active" id="commit_@counter" data-toggle="tab" onclick="Get_Active_Git_Commit('commit_' + @counter, @JsonConvert.SerializeObject(@item))" role="tab" aria-controls="commit_detail_@counter"><p>@item.MessageShort</p>
+                                            <button type="button" class="list-group-item" id="commit_@counter" data-toggle="tab" onclick="Get_Active_Git_Commit('commit_' + @counter, @JsonConvert.SerializeObject(@item))" role="tab" aria-controls="commit_detail_@counter"><p>@item.MessageShort</p>
                                     @*<p class="font-weight-bold">@item.MessageShort</p>*@
                                                         @*<p>@item.Author.Name committed on @item.Author.When</p>*@
                                                 </button>
@@ -43,7 +43,7 @@
 
                         <div class="col">
                             <div class="container-fluid padding-off">
-                                <div class="row border">
+                                <div class="row">
                                     <div class="container-fluid padding-off">
                                         <p>
                                             <h4 id="commit_message"></h4>
@@ -52,7 +52,7 @@
                                     </div>
                                     <div class="container-fluid padding-off">
                                         <div class="col col-2" id="files_n_status"></div>
-                                        <div class="col"></div>
+                                        <div class="col col-auto"></div>
                                     </div>
                                 </div>
 
@@ -130,7 +130,7 @@
 
                     var str = JSON.stringify(key);
                     if (str.length > 2) {
-                        table += '<button type="button" class="list-group-item"><p>' + key + ' ';
+                        table += '<p><button type="button" class="list-group-item"><p>' + key + ' ';
                         if (value === 0) {
                             table += '<span class="badge badge-success">Added</span>';
                         } else if (value === 1) {
@@ -142,7 +142,7 @@
                         } else {
                             table += '<span class="badge badge-dark">Unknown</span>';
                         }
-                        table += '</p></button>';
+                        table += '</p></button></p>';
                     }
                 });
                 table += '</div>';
