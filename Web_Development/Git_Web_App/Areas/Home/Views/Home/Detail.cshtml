@@ -52,8 +52,10 @@
                                     </div>
                                     <div class="container-fluid padding-off">
                                         <div class="row fill">
-                                            <div class="col col-2" id="files_n_status"></div>
-                                            <div class="col col" id="commit_patch"></div>
+                                            <div class="col-2">
+                                                <div class="container" id="files_n_status"></div>
+                                            </div>
+                                            <div class="col" id="commit_patch"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -101,6 +103,17 @@
         e.preventDefault();
     });
 
+    function Git_File_Clicked(element_id) {
+        var element = '#git_file' + element_id;
+        console.log(element_id);
+        console.log($(element).hasClass('active'));
+        console.log($('#git_files button.active'));
+        $('#git_files button.active').removeClass('active');
+        if (!$(element).hasClass('active')) {
+            $(element).addClass('active');
+        }
+    }
+
     function Get_Active_Git_Commit(element_id, commit) {
         element_id = '#' + element_id;
 
@@ -129,18 +142,16 @@
 
                 $('#committed_by')[0].textContent = 'Committed By: ' + result.Author.Name + ' (' + result.Author.Email + ') on ' + result.Author.When;
 
-                var table = '<div class="list-group">';
+                var table = '<div class="list-group" role="tablist" id="git_files">';
+                var patch_table;
 
                 var git_changes = result.Git_File_Changes;
                 for (var a = 0; a < git_changes.length; a++)
                 {
                     var git_changes_json = git_changes[a];
-                    console.log(a);
-                    console.log(git_changes_json.File_FullName);
-                    console.log("\t\t" + git_changes_json.Patch);
 
                     if (git_changes_json.File_FullName.length > 2) {
-                        table += '<p><button type="button" class="list-group-item"><p>' + git_changes_json.File_FullName + ' ';
+                        table += '<button type="button" class="list-group-item" id="git_file' + a + '" onclick="Git_File_Clicked(\'' + a +'\')"><p>' + git_changes_json.File_Name + ' ';
                         if (git_changes_json.File_Status === 0) {
                             table += '<span class="badge badge-success">Added</span>';
                         } else if (git_changes_json.File_Status === 1) {
@@ -152,7 +163,7 @@
                         } else {
                             table += '<span class="badge badge-dark">Unknown</span>';
                         }
-                        table += '</p></button></p>';
+                        table += '</p></button>';
                     }
                 }
                 table += '</div>';
@@ -160,7 +171,7 @@
                 $('#files_n_status').empty();
                 $('#files_n_status')[0].innerHTML = table;
 
-            
+
 
                 //
                 //JSON.parse(JSON.stringify(result.Git_File_Changes), (key, value) => {
@@ -170,9 +181,9 @@
                 //    console.log(value);
 
                 //    var str = JSON.stringify(key);
-                
+
                 //});
-                
+
 
                 //$('#commit_patch')[0].textContent = result.Patch;
             });

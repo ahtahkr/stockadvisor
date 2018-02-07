@@ -3,6 +3,7 @@ using AustinsFirstProject.Library;
 using LibGit2Sharp;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,6 +14,17 @@ namespace AustinsFirstProject.Git_Web_App.Classes
         public string File_FullName { get; set; }
         public int File_Status { get; set; }
         public string Patch { get; set; }
+
+        public string File_Name { get; set; }
+
+        public void Set_FileName_from_FileFullName()
+        {
+            if (String.IsNullOrEmpty(this.File_FullName))
+            {
+                return;
+            }
+            this.File_Name = Path.GetFileName(this.File_FullName);
+        }
     }
     public class Git_Commit
     {
@@ -97,6 +109,7 @@ namespace AustinsFirstProject.Git_Web_App.Classes
                 git_f_c.File_FullName = file_name;
                 git_f_c.File_Status = this.Get_Int_From_Enum(status);
                 git_f_c.Patch = this.Get_Patch(patch);
+                git_f_c.Set_FileName_from_FileFullName();
                 this.Git_File_Changes.Add(git_f_c);
             }
             catch (Exception ex)
