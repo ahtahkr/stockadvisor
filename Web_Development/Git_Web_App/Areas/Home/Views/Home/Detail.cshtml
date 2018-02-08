@@ -55,7 +55,7 @@
                                             <div class="col-2">
                                                 <div class="container" id="files_n_status"></div>
                                             </div>
-                                            <div class="col" id="commit_patch"></div>
+                                            <div class="col-sm-auto" id="commit_patch"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -117,6 +117,14 @@
         }
     }
 
+    String.prototype.replaceAt = function (index, replacement) {
+        return this.substr(0, index) + replacement + this.substr(index + 1, this.length);
+    }
+
+    function htmlEntities(str) {
+        return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
     function Get_Active_Git_Commit(element_id, commit) {
         element_id = '#' + element_id;
 
@@ -139,8 +147,6 @@
             .done(function (result) {
                 result = JSON.parse(result);
 
-                //console.log(result);
-
                 $('#commit_message')[0].textContent = result.Message;
 
                 $('#committed_by')[0].textContent = 'Committed By: ' + result.Author.Name + ' (' + result.Author.Email + ') on ' + result.Author.When;
@@ -153,10 +159,8 @@
                 {
                     var git_changes_json = git_changes[a];
 
-                    console.log(git_changes_json);
-
                     if (git_changes_json.File_FullName.length > 2) {
-                        table += '<a href="#commit_patch_' + a + '" class="list-group-item list-group-item-action" id="git_file' + a + '" onclick="Git_File_Clicked(\'' + a + '\')"><p>' + git_changes_json.File_Name + '<p>';
+                        table += '<a href="#commit_patch_' + a + '" class="list-group-item list-group-item-action text-truncate" id="git_file' + a + '" onclick="Git_File_Clicked(\'' + a + '\')"><p>' + git_changes_json.File_Name + '<p>';
                         if (git_changes_json.File_Status === 0) {
                             table += '<span class="badge badge-success">Added</span>';
                         } else if (git_changes_json.File_Status === 1) {
@@ -170,7 +174,20 @@
                         }
                         table += '</p></p></a>';
 
-                        commit_patch += '<div class="tab-pane fade show" id="commit_patch_' + a + '" role="tabpanel">' + git_changes_json.Patch + '</div>';
+                        git_changes_json.Patch = htmlEntities(git_changes_json.Patch);
+                        var match;
+                        var match_check;
+                        
+                        do {
+                            match = /\r|\n/.exec(git_changes_json.Patch);
+                            if (match) {
+                                // console.log("Found line break at index " + match.index);
+                                match_check = true;
+                                git_changes_json.Patch = git_changes_json.Patch.replaceAt(match.index, '<br \\>')
+                            } else { match_check = false; }
+                        } while (match_check);
+
+                        commit_patch += '<div class="tab-pane fade show card" id="commit_patch_' + a + '" role="tabpanel"><div class="card-header">' + git_changes_json.File_FullName + '</div><div class="card-body"><p class="card-text" style="white-space: pre;">' + git_changes_json.Patch + '</p></div></div>';                        
                     }
                 }
                 table += '</div>';
