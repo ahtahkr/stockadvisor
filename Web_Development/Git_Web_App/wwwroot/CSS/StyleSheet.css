@@ -26,6 +26,11 @@ html, body {
     height: 80%;
 }
 
+.fill-20 {
+    min-height: 20%;
+    height: 20%;
+}
+
 .padding-off {
     padding-right: 0px;
     padding-left: 0px;

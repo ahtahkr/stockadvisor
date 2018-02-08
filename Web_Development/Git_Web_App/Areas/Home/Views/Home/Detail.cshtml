@@ -42,20 +42,22 @@
                         </div>
 
                         <div class="col">
-                            <div class="container-fluid padding-off">
-                                <div class="row">
-                                    <div class="container-fluid padding-off">
+                            <div class="container-fluid padding-off fill">
+                                <div class="row fill">
+                                    <div class="container-fluid padding-off fill-20">
                                         <p>
                                             <h4 id="commit_message"></h4>
                                             <span id="committed_by"></span>
                                         </p>
                                     </div>
-                                    <div class="container-fluid padding-off">
+                                    <div class="container-fluid padding-off fill-80">
                                         <div class="row fill">
                                             <div class="col-2">
                                                 <div class="container" id="files_n_status"></div>
                                             </div>
-                                            <div class="col-sm-auto" id="commit_patch"></div>
+                                            <div class="col">
+                                                <div class="container-fluid fill" id="commit_patch"></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -116,13 +118,54 @@
             $(element).addClass('active');
         }
     }
-
+    String.prototype.insertAt = function (index, insert) {
+        return this.substr(0, index) + insert + this.substr(index, this.length);
+    }
     String.prototype.replaceAt = function (index, replacement) {
+        //console.log('replaceAt');
+        //console.log(this);
+        //console.log(index);
+        //console.log(replacement);
+        //console.log(this.substr(0, index) + replacement + this.substr(index, this.length));
         return this.substr(0, index) + replacement + this.substr(index + 1, this.length);
     }
 
     function htmlEntities(str) {
         return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function red_blue_bg(str) {
+        var match;
+        var match_check;
+        
+        do {
+            match = str.indexOf('[here]+');
+            if (match >= 0) {
+                match_check = true;
+                str = str.replace('[here]+', '<br \\><span style="background-color:#b9f6ca;">+');
+                str = str.insertAt(str.indexOf('[here]', match+1), '</span>');
+            } else { match_check = false; }
+        } while (match_check);
+
+        index_start = 0;
+        do {
+            match = str.indexOf('[here]-');
+            if (match >= 0) {
+                match_check = true;
+                str = str.replace('[here]-', '<br \\><span style="background-color:#ff8a80;">-');
+                str = str.insertAt(str.indexOf('[here]', match + 1), '</span>');
+            } else { match_check = false; }
+        } while (match_check);
+
+        do {
+            match = str.indexOf('[here]');
+            if (match >= 0) {
+                match_check = true;
+                str = str.replace('[here]', '<br \\>');
+            } else { match_check = false; }
+        } while (match_check);
+                
+        return str;
     }
 
     function Get_Active_Git_Commit(element_id, commit) {
@@ -152,7 +195,7 @@
                 $('#committed_by')[0].textContent = 'Committed By: ' + result.Author.Name + ' (' + result.Author.Email + ') on ' + result.Author.When;
 
                 var table = '<div class="list-group" role="tablist" id="git_files">';
-                var commit_patch = '<div class="tab-content" id="nav-tabContent">';
+                var commit_patch = '<div class="tab-content fill" id="nav-tabContent">';
 
                 var git_changes = result.Git_File_Changes;
                 for (var a = 0; a < git_changes.length; a++)
@@ -183,11 +226,13 @@
                             if (match) {
                                 // console.log("Found line break at index " + match.index);
                                 match_check = true;
-                                git_changes_json.Patch = git_changes_json.Patch.replaceAt(match.index, '<br \\>')
+                                git_changes_json.Patch = git_changes_json.Patch.replaceAt(match.index, '[here]')
                             } else { match_check = false; }
                         } while (match_check);
 
-                        commit_patch += '<div class="tab-pane fade show card" id="commit_patch_' + a + '" role="tabpanel"><div class="card-header">' + git_changes_json.File_FullName + '</div><div class="card-body"><p class="card-text" style="white-space: pre;">' + git_changes_json.Patch + '</p></div></div>';                        
+                        git_changes_json.Patch = red_blue_bg(git_changes_json.Patch);
+
+                        commit_patch += '<div class="tab-pane fill fade show card" id="commit_patch_' + a + '" role="tabpanel"><div class="card-header">' + git_changes_json.File_FullName + '</div><div class="card-body fill pre-scrollable"><p class="card-text">' + git_changes_json.Patch + '</p></div></div>';                        
                     }
                 }
                 table += '</div>';
