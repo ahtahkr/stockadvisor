@@ -7,6 +7,8 @@ using AustinsFirstProject.Library;
 using Newtonsoft.Json;
 using AustinsFirstProject.Git_Web_App.Model;
 using AustinsFirstProject.Git_Web_App.Classes;
+using LibGit2Sharp;
+using Newtonsoft.Json.Linq;
 
 namespace AustinsFirstProject.Git_Web_App.Areas.Home.Controllers
 {
@@ -15,7 +17,7 @@ namespace AustinsFirstProject.Git_Web_App.Areas.Home.Controllers
     [Route("Home")]
     public class HomeController : Controller
     {
-        private Models.Home Home;
+        private Models.Home Home = null;
         public HomeController()
         {
             this.Home = new Models.Home();
@@ -37,11 +39,42 @@ namespace AustinsFirstProject.Git_Web_App.Areas.Home.Controllers
         }
 
         [Route("[action]")]
-        public string Committers(string git_url)
+        public IActionResult Committers(string git_url)
         {
-            //Git_Url_Basic_Info git_object = new Git_Url_Basic_Info("", git_url);
+            Logger.Log(git_url, "Committers");
+            Committers committers = new Committers(git_url);
+            return View(committers);
+        }
 
-            return "Committers for : " + git_url;
+        [Route("[action]")]
+        public string Committer_Selected(string _input)
+        {
+            var input = JObject.Parse(_input);
+
+            string email = (string)input["email"];
+            string repo_url = (string)input["repo_url"];
+
+            string org = repo_url;
+
+            if (repo_url.ElementAt(0) == '"')
+            {
+                repo_url = repo_url.Substring(1, repo_url.Length - 1);
+            }
+
+            if (repo_url.ElementAt(repo_url.Length - 1) == '"')
+            {
+                repo_url = repo_url.Substring(0, repo_url.Length - 1);
+            }
+
+            if (Repository.IsValid(repo_url))
+            {
+                return "Valid. " + repo_url + " : " + org;
+            } else
+            {
+                return "Invalid. " + repo_url + " : " + org;
+            }
+
+//            return email + " : " + repo_url;
         }
 
         [Route("[action]")]

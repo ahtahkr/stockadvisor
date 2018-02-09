@@ -68,7 +68,7 @@ namespace AustinsFirstProject.Git_Web_App.Model
             this.IsValid = false;
             this.Name = "Invalid Repository";
             this.Url = "Invalid Repository";
-            this.repository = new Repository();
+            this.repository = null;
         }
     }
 }
