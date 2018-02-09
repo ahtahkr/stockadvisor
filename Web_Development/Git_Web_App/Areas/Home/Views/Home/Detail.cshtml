@@ -2,6 +2,7 @@
 @using Newtonsoft.Json;
 
 @model AustinsFirstProject.Git_Web_App.Model.Git_Url_Basic_Info;
+
 @{
     ViewData["Title"] = "Detail";
     Layout = "~/Views/Static/Layout.cshtml";
@@ -179,15 +180,19 @@
 
         commit = JSON.stringify(commit);
 
+        console.log(commit);
+        console.log('New Post.');
         //$.get("/Company/GetMessage", function (data) {
         //    $("p").html(data);
         //});
+
         $.post("/Home/Get_Active_Git_Commit", { commit: commit })
             .fail(function (error) {
                 console.log('Error');
                 console.log(error);
             })
             .done(function (result) {
+                console.log(result);
                 result = JSON.parse(result);
 
                 $('#commit_message')[0].textContent = result.Message;

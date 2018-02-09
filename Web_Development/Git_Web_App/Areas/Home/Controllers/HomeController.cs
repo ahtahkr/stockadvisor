@@ -15,20 +15,33 @@ namespace AustinsFirstProject.Git_Web_App.Areas.Home.Controllers
     [Route("Home")]
     public class HomeController : Controller
     {
+        private Models.Home Home;
+        public HomeController()
+        {
+            this.Home = new Models.Home();
+        }
 
         [Route("")]
         public IActionResult Index()
         {
             Models.Home home = new Models.Home();
-            return View(home);
+            return View(this.Home);
         }
 
-        [Route("[action]/{git}")]
+        [Route("[action]")]
         public IActionResult Detail(string git_url)
         {
             Git_Url_Basic_Info git_object = new Git_Url_Basic_Info("", git_url);
-
+            
             return View(git_object);
+        }
+
+        [Route("[action]")]
+        public string Committers(string git_url)
+        {
+            //Git_Url_Basic_Info git_object = new Git_Url_Basic_Info("", git_url);
+
+            return "Committers for : " + git_url;
         }
 
         [Route("[action]")]

@@ -14,10 +14,13 @@ namespace AustinsFirstProject.Git_Web_App.Areas.Home.Models
         
         public List<Dictionary<string, Git_Url_Basic_Info>> Basic_Info { get; set; }
 
+        public Git_Url_Basic_Info Git_Url_Basic_Info { get; set; }
+
         public Home()
         {
             this.Name_Url = new List<Dictionary<string, string>>();
             this.Basic_Info = new List<Dictionary<string, Git_Url_Basic_Info>>();
+            this.Git_Url_Basic_Info = new Git_Url_Basic_Info();
 
             this.Get_Name_Url();
             this.SetUp_Basic_Info();
