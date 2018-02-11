@@ -17,17 +17,15 @@ namespace AustinsFirstProject.Git_Web_App.Areas.Home.Controllers
     [Route("Home")]
     public class HomeController : Controller
     {
-        private Models.Home Home = null;
         public HomeController()
         {
-            this.Home = new Models.Home();
         }
 
-        [Route("")]
+        [Route("[action]")]
         public IActionResult Index()
         {
             Models.Home home = new Models.Home();
-            return View(this.Home);
+            return View(home);
         }
 
         [Route("[action]")]
@@ -68,13 +66,23 @@ namespace AustinsFirstProject.Git_Web_App.Areas.Home.Controllers
 
             if (Repository.IsValid(repo_url))
             {
-                return "Valid. " + repo_url + " : " + org;
-            } else
-            {
-                return "Invalid. " + repo_url + " : " + org;
+                Repository repository = new Repository(repo_url);
+                Git_Commits Git_Commits = new Git_Commits();
+
+                    foreach (Commit commit in repository.Commits)
+                    {
+                        Git_Commit git_Commit = new Git_Commit();
+                        git_Commit.Set_Author(commit.Author);
+                        git_Commit.Set_Message(commit.Message, commit.MessageShort);
+                        git_Commit.Sha = commit.Sha;
+                        git_Commit.Repo_Path = repo_url;
+
+                        Git_Commits.Git__Commits.Add(git_Commit);
+                    }
+                return JsonConvert.SerializeObject(Git_Commits);
             }
 
-//            return email + " : " + repo_url;
+            return "";
         }
 
         [Route("[action]")]
