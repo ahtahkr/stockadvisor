@@ -17,10 +17,6 @@ namespace AustinsFirstProject.Git_Web_App.Areas.Home.Controllers
     [Route("Home")]
     public class HomeController : Controller
     {
-        public HomeController()
-        {
-        }
-
         [Route("[action]")]
         public IActionResult Index()
         {
@@ -71,6 +67,8 @@ namespace AustinsFirstProject.Git_Web_App.Areas.Home.Controllers
 
                     foreach (Commit commit in repository.Commits)
                     {
+                    if (commit.Author.Email.Equals(email))
+                    {
                         Git_Commit git_Commit = new Git_Commit();
                         git_Commit.Set_Author(commit.Author);
                         git_Commit.Set_Message(commit.Message, commit.MessageShort);
@@ -78,6 +76,7 @@ namespace AustinsFirstProject.Git_Web_App.Areas.Home.Controllers
                         git_Commit.Repo_Path = repo_url;
 
                         Git_Commits.Git__Commits.Add(git_Commit);
+                    }
                     }
                 return JsonConvert.SerializeObject(Git_Commits);
             }
