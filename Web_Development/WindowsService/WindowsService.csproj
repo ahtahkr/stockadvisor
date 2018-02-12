@@ -120,7 +120,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IEXTrading\IEXTrading.csproj">
-      <Project>{cb0397af-fe0f-42b7-a1db-f40994b0256e}</Project>
+      <Project>{e077b71c-f73a-4991-8a32-2c6c727082c4}</Project>
       <Name>IEXTrading</Name>
     </ProjectReference>
     <ProjectReference Include="..\Library\Library.csproj">

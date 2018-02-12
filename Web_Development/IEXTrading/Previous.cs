@@ -20,18 +20,57 @@ namespace AustinsFirstProject.StockProcessor.IEXTrading
         public double Change { get; set; }
         public double ChangePercent { get; set; }
         public double Vwap { get; set; }
+        public bool Api_Called { get; set; } = false;
 
-        public void Save_to_File(string directory = "")
+        public bool Call_Api(string symbol)
         {
             try
             {
-                directory = Utility.Get_Full_FileName_to_Save_Api_Result(directory);
+                Previous data = JsonConvert.DeserializeObject<Previous>(
+                                Utility.HttpRequestor.Previous(symbol));
+                this.Symbol = data.Symbol;
+                this.Date = data.Date;
+                this.Open = data.Open;
+                this.High = data.High;
+                this.Low = data.Low;
+                this.Close = data.Close;
+                this.Volume = data.Volume;
+                this.UnadjustedVolume = data.UnadjustedVolume;
+                this.Change = data.Change;
+                this.ChangePercent = data.ChangePercent;
+                this.Vwap = data.Vwap;
 
-                FileFormat fileFormat = JsonConvert.DeserializeObject<FileFormat>(
-                                            JsonConvert.SerializeObject(this));
+                this.Api_Called = true;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Logger.Log_Error(symbol + " : " + ex.Message, "Call_Api");
+                Logger.Log_Error("AustinsFirstProject.StockProcessor.IEXTrading.OHLC.Call_Api(" + symbol + ") failed. Error Msg: " + ex.Message);
+                return false;
+            }
+        }
 
-                File.AppendAllText(directory, JsonConvert.SerializeObject(fileFormat) + Environment.NewLine);
-            } catch (Exception ex)
+        public void Save_to_File(string directory = "")
+        {
+            if (!Api_Called)
+            {
+                Logger.Log_Error("AustinsFirstProject.StockProcessor.IEXTrading.Previous.Save_to_File(" + directory + ") failed. Error Msg: Calling Save to file without calling call_api");
+                return;
+            }
+
+            try
+            {
+                FileFormats fileFormats = new FileFormats();
+
+                FileFormat fileFormat = new FileFormat();
+                fileFormat = JsonConvert.DeserializeObject<FileFormat>(
+                                JsonConvert.SerializeObject(this));
+
+                fileFormats.FileFormat.Add(fileFormat);
+                fileFormats.Save_to_File(directory);
+            }
+            catch (Exception ex)
             {
                 Logger.Log_Error("AustinsFirstProject.StockProcessor.IEXTrading.Previous.Save_to_File(" + directory + ") failed. Error Msg: " + ex.Message);
             }

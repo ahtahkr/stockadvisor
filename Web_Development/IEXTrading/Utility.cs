@@ -49,6 +49,34 @@ namespace AustinsFirstProject.StockProcessor.IEXTrading
             {
                 return HttpRequestUtility.GetRequest(URL + "stock/" + _symbol + "/ohlc");
             }
+
+            public static string Chart(string _symbol, string range = "")
+            {
+                if (String.IsNullOrEmpty(range))
+                {
+                    return HttpRequestUtility.GetRequest(URL + "stock/" + _symbol + "/chart");
+                } else
+                {
+                    return HttpRequestUtility.GetRequest(URL + "stock/" + _symbol + "/chart/" + range );
+                }
+
+                /*
+                 
+                 Options
+Range	Description	Source
+5y	Five years	Historically adjusted market-wide data
+2y	Two years	Historically adjusted market-wide data
+1y	One year	Historically adjusted market-wide data
+ytd	Year-to-date	Historically adjusted market-wide data
+6m	Six months	Historically adjusted market-wide data
+3m	Three months	Historically adjusted market-wide data
+1m	One month (default)	Historically adjusted market-wide data
+1d	One day	IEX-only data by minute
+date	Specific date	IEX-only data by minute for a specified date in the format YYYYMMDD if available. Currently supporting trailing 30 calendar days.
+dynamic	One day	Will return 1d or 1m data depending on the day or week and time of day. Intraday per minute data is only returned during market hours.
+
+                 */
+            }
         }
 
         public static string Get_Full_FileName_to_Save_Api_Result(string directory)
@@ -62,7 +90,7 @@ namespace AustinsFirstProject.StockProcessor.IEXTrading
             {
                 Directory.CreateDirectory(directory);
             }
-            return Path.Combine(directory, DateTime.UtcNow.ToString("yyyy_MM_dd_HH_mm_ss_ffff") + ".txt");
+            return Path.Combine(directory, DateTime.UtcNow.ToString("yyyy_MM_dd_HH_mm_ss_fffffff_K") + ".txt");
         }
     }
 }

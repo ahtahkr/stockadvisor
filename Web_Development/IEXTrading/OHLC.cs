@@ -37,13 +37,15 @@ namespace AustinsFirstProject.StockProcessor.IEXTrading
                 OHLC data = JsonConvert.DeserializeObject<OHLC>(
                                 Utility.HttpRequestor.OHLC(symbol));
                 this.Open = data.Open;
-                this.Close = data.Close;
                 this.High = data.High;
                 this.Low = data.Low;
+                this.Close = data.Close;
+
                 this.Api_Called = true;
                 return true;
             } catch (Exception ex)
             {
+                Logger.Log_Error(symbol + " : " + ex.Message, "Call_Api");
                 Logger.Log_Error("AustinsFirstProject.StockProcessor.IEXTrading.OHLC.Call_Api(" + symbol + ") failed. Error Msg: " + ex.Message);
                 return false;
             }
@@ -59,20 +61,24 @@ namespace AustinsFirstProject.StockProcessor.IEXTrading
 
             try
             {
-                directory = Utility.Get_Full_FileName_to_Save_Api_Result(directory);
+                FileFormat fileFormat = new FileFormat
+                {
+                    Symbol = this.Symbol,
+                    High = this.High,
+                    Low = this.Low,
+                    Open = this.Open.Price,
+                    Close = this.Close.Price,
+                    Date = (new DateTime(1970, 01, 01)).AddMilliseconds(this.Close.Time)
+                };
 
-                FileFormat fileFormat = new FileFormat();
-                fileFormat.Symbol = this.Symbol;
-                fileFormat.Close = this.Close.Price;
-                fileFormat.Date = (new DateTime(1970, 01, 01)).AddMilliseconds(this.Close.Time);
-                
-                File.AppendAllText(directory, JsonConvert.SerializeObject(fileFormat) + Environment.NewLine);
+                FileFormats fileFormats = new FileFormats();
+                fileFormats.FileFormat.Add(fileFormat);
+                fileFormats.Save_to_File(directory);
             }
             catch (Exception ex)
             {
                 Logger.Log_Error("AustinsFirstProject.StockProcessor.IEXTrading.OHLC.Save_to_File(" + directory + ") failed. Error Msg: " + ex.Message);
             }
         }
-
     }
 }

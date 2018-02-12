@@ -16,8 +16,8 @@ namespace AustinsFirstProject.Tester
 
         static void Main(string[] args)
         {
-            OHLC oHLC = new OHLC();
-            oHLC.Call_Api("AAPL");
+            Chart oHLC = new Chart();
+            oHLC.Call_Api("AAPL","5y");
             oHLC.Save_to_File();
 
 
