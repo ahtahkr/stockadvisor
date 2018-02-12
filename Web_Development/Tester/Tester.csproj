@@ -17,6 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\AlphaVantage\AlphaVantage.csproj" />
     <ProjectReference Include="..\CoreLibrary\CoreLibrary.csproj" />
+    <ProjectReference Include="..\IEXTrading\IEXTrading.csproj" />
     <ProjectReference Include="..\Library\Library.csproj" />
     <ProjectReference Include="..\Library_Git\Library_Git.csproj" />
     <ProjectReference Include="..\SQLiteDB\SQLiteDB.csproj" />

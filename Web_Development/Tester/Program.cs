@@ -6,6 +6,7 @@ using LibGit2Sharp;
 using System.Collections;
 using System.Collections.Generic;
 using AustinsFirstProject.Library;
+using AustinsFirstProject.StockProcessor.IEXTrading;
 
 namespace AustinsFirstProject.Tester
 {
@@ -15,6 +16,14 @@ namespace AustinsFirstProject.Tester
 
         static void Main(string[] args)
         {
+            OHLC oHLC = new OHLC();
+            oHLC.Call_Api("AAPL");
+            oHLC.Save_to_File();
+
+
+
+            Console.ReadLine();
+            
             /*
                 string git_url = "https://asadhikari@bitbucket.org/austinsfirstproject/asp-net-core.git";
                 string username = "as.adhikari@outlook.com";
@@ -60,7 +69,6 @@ namespace AustinsFirstProject.Tester
 
             Console.ReadLine();
             */
-            Get_Companies();
         }
 
         

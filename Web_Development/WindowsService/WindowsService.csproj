@@ -84,7 +84,7 @@
     <Compile Include="Jobs\I_AM_ACTIVE.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Jobs\Update_Share_AlphaVantage.cs">
+    <Compile Include="Jobs\Update_Share_IEXTrading.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Service1.cs">
@@ -119,9 +119,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AlphaVantage\AlphaVantage.csproj">
-      <Project>{8012dfdd-1614-45a7-8c08-195418cdd61d}</Project>
-      <Name>AlphaVantage</Name>
+    <ProjectReference Include="..\IEXTrading\IEXTrading.csproj">
+      <Project>{cb0397af-fe0f-42b7-a1db-f40994b0256e}</Project>
+      <Name>IEXTrading</Name>
     </ProjectReference>
     <ProjectReference Include="..\Library\Library.csproj">
       <Project>{9cf26216-0cd8-41d2-a244-2bcf5046bf1b}</Project>
