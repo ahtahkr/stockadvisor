@@ -70,7 +70,7 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
             } catch (Exception ex)
             {
                 //eventLog_update_share.WriteEntry("Windows Service Failed. Ticker: | " + tk[0].Ticker + " | Result: | " + result + " | Error: [" + ex.Message + "]");
-                Logger.Log("Windows Service Failed. Ticker: | " + tk[0].Ticker + " | Result: | " + result + " | Error: [" + ex.Message + "]", tk[0].Ticker, tk[0].Ticker);
+                Logger.Log_Error("Windows Service Failed. Ticker: | " + tk[0].Ticker + " | Result: | " + result + " | Error: [" + ex.Message + "]", tk[0].Ticker, tk[0].Ticker);
             } finally {}
         }
     }

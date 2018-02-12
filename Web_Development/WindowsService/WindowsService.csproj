@@ -84,7 +84,7 @@
     <Compile Include="Jobs\I_AM_ACTIVE.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Jobs\Update_Share.cs">
+    <Compile Include="Jobs\Update_Share_AlphaVantage.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Service1.cs">
