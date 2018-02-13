@@ -16,6 +16,9 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
         private static int i_am_active_interval = 1; // seconds
         private Timer i_am_active_timer = new Timer(i_am_active_interval * 1000);
 
+        // once in six months
+        private static int IEXTrading_Download_Companies_interval = 6 * 30 * 24 * 60 * 60;
+        private Timer IEXTrading_Download_Companies_timer = new Timer(IEXTrading_Download_Companies_interval * 1000);
 
         private static int update_share_interval = 10; // seconds
         private Timer update_share_timer = new Timer(update_share_interval * 1000);
@@ -30,6 +33,9 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
         {
             eventLog_i_am_active.WriteEntry("Austin Stock Windows Service started.");
 
+            this.IEXTrading_Download_Companies_timer.Elapsed += IEXTrading_Download_Symbols;
+            this.IEXTrading_Download_Companies_timer.Enabled = true;
+
             this.update_share_timer.Elapsed += Update_Share_IEXTrading_Chart;
             this.update_share_timer.Enabled = true;
 
@@ -43,6 +49,7 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
 
             this.update_share_timer.Enabled = false;
             this.i_am_active_timer.Enabled = false;
+            this.IEXTrading_Download_Companies_timer.Enabled = false;
         }
         protected override void OnPause()
         {
@@ -50,6 +57,7 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
 
             this.update_share_timer.Enabled = false;
             this.i_am_active_timer.Enabled = false;
+            this.IEXTrading_Download_Companies_timer.Enabled = false;
         }
         protected override void OnContinue()
         {
@@ -57,6 +65,7 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
 
             this.update_share_timer.Enabled = true;
             this.i_am_active_timer.Enabled = true;
+            this.IEXTrading_Download_Companies_timer.Enabled = true;
         }
 
         private void CreateLog()

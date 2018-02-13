@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace AustinsFirstProject.StockProcessor.IEXTrading
+namespace AustinsFirstProject.StockAdvisor.IEXTrading
 {
     public class Previous
     {
@@ -46,7 +46,7 @@ namespace AustinsFirstProject.StockProcessor.IEXTrading
             catch (Exception ex)
             {
                 Logger.Log_Error(symbol + " : " + ex.Message, "Call_Api");
-                Logger.Log_Error("AustinsFirstProject.StockProcessor.IEXTrading.OHLC.Call_Api(" + symbol + ") failed. Error Msg: " + ex.Message);
+                Logger.Log_Error("AustinsFirstProject.StockAdvisor.IEXTrading.OHLC.Call_Api(" + symbol + ") failed. Error Msg: " + ex.Message);
                 return false;
             }
         }
@@ -55,7 +55,7 @@ namespace AustinsFirstProject.StockProcessor.IEXTrading
         {
             if (!Api_Called)
             {
-                Logger.Log_Error("AustinsFirstProject.StockProcessor.IEXTrading.Previous.Save_to_File(" + directory + ") failed. Error Msg: Calling Save to file without calling call_api");
+                Logger.Log_Error("AustinsFirstProject.StockAdvisor.IEXTrading.Previous.Save_to_File(" + directory + ") failed. Error Msg: Calling Save to file without calling call_api");
                 return;
             }
 
@@ -72,7 +72,7 @@ namespace AustinsFirstProject.StockProcessor.IEXTrading
             }
             catch (Exception ex)
             {
-                Logger.Log_Error("AustinsFirstProject.StockProcessor.IEXTrading.Previous.Save_to_File(" + directory + ") failed. Error Msg: " + ex.Message);
+                Logger.Log_Error("AustinsFirstProject.StockAdvisor.IEXTrading.Previous.Save_to_File(" + directory + ") failed. Error Msg: " + ex.Message);
             }
         }
     }

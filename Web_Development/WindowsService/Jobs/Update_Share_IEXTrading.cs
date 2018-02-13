@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Configuration;
-using AustinsFirstProject.StockProcessor.IEXTrading;
+using AustinsFirstProject.StockAdvisor.IEXTrading;
 
 namespace AustinsFirstProject.StockAdvisor.WindowsService
 {
@@ -39,7 +39,7 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
 
                 if (current_hour_min >= hour_min)
                 {
-                    tk = StockProcessor.IEXTrading.Utility.Database.Get_Tickers();
+                    tk = StockAdvisor.IEXTrading.Utility.Database.Get_Tickers();
                     Chart oHLC = new Chart();
                     if (tk.Count > 0)
                     {
@@ -83,7 +83,7 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
 
                 if (current_hour_min >= hour_min)
                 {
-                    tk = StockProcessor.IEXTrading.Utility.Database.Get_Tickers();
+                    tk = StockAdvisor.IEXTrading.Utility.Database.Get_Tickers();
                     Previous oHLC = new Previous();
                     if (tk.Count > 0)
                     {
@@ -127,7 +127,7 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
 
                 if (current_hour_min >= hour_min)
                 {
-                    tk = StockProcessor.IEXTrading.Utility.Database.Get_Tickers();
+                    tk = StockAdvisor.IEXTrading.Utility.Database.Get_Tickers();
                     OHLC oHLC = new OHLC();
                     if (tk.Count > 0)
                     {

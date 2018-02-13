@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace AustinsFirstProject.StockProcessor.IEXTrading
+namespace AustinsFirstProject.StockAdvisor.IEXTrading
 {
     public class Chart
     {
@@ -31,7 +31,7 @@ namespace AustinsFirstProject.StockProcessor.IEXTrading
             catch (Exception ex)
             {
                 Logger.Log_Error(symbol + " : " + ex.Message, "Call_Api");
-                Logger.Log_Error("AustinsFirstProject.StockProcessor.IEXTrading.Chart.Call_Api(" + symbol + ") failed. Error Msg: " + ex.Message);
+                Logger.Log_Error("AustinsFirstProject.StockAdvisor.IEXTrading.Chart.Call_Api(" + symbol + ") failed. Error Msg: " + ex.Message);
                 return false;
             }
         }
@@ -57,7 +57,7 @@ namespace AustinsFirstProject.StockProcessor.IEXTrading
             }
             catch (Exception ex)
             {
-                Logger.Log_Error("AustinsFirstProject.StockProcessor.IEXTrading.Chart.Save_to_File(" + directory + ") failed. Error Msg: " + ex.Message);
+                Logger.Log_Error("AustinsFirstProject.StockAdvisor.IEXTrading.Chart.Save_to_File(" + directory + ") failed. Error Msg: " + ex.Message);
             }
         }
     }

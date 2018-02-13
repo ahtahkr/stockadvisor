@@ -6,7 +6,7 @@ using LibGit2Sharp;
 using System.Collections;
 using System.Collections.Generic;
 using AustinsFirstProject.Library;
-using AustinsFirstProject.StockProcessor.IEXTrading;
+using AustinsFirstProject.StockAdvisor.IEXTrading;
 
 namespace AustinsFirstProject.Tester
 {
@@ -16,12 +16,12 @@ namespace AustinsFirstProject.Tester
 
         static void Main(string[] args)
         {
-            Chart oHLC = new Chart();
-            oHLC.Call_Api("AAPL","5y");
-            oHLC.Save_to_File();
+            //Chart oHLC = new Chart();
+            //oHLC.Call_Api("AAPL","5y");
+            //oHLC.Save_to_File();
+            Symbols.Download_Symbols();
 
-
-
+            Console.WriteLine("DONE");
             Console.ReadLine();
             
             /*

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AustinsFirstProject.StockProcessor.IEXTrading
+namespace AustinsFirstProject.StockAdvisor.IEXTrading
 {
     public static class Symbols
     {
@@ -33,7 +33,7 @@ namespace AustinsFirstProject.StockProcessor.IEXTrading
                 return true;
             } catch (Exception ex)
             {
-                Logger.Log_Error("AustinsFirstProject.StockProcessor.IEXTrading.Symbols.Download_Symbols() failed. Error Msg: " + ex.Message);
+                Logger.Log_Error("AustinsFirstProject.StockAdvisor.IEXTrading.Symbols.Download_Symbols() failed. Error Msg: " + ex.Message);
                 return false;
             }
         }

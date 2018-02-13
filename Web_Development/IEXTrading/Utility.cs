@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace AustinsFirstProject.StockProcessor.IEXTrading
+namespace AustinsFirstProject.StockAdvisor.IEXTrading
 {
     public static class Utility
     {
