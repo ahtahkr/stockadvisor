@@ -16,10 +16,20 @@ namespace AustinsFirstProject.Tester
 
         static void Main(string[] args)
         {
-            //Chart oHLC = new Chart();
+            string connection_string = "Data Source=AADHIKARI10\\SQLEXPRESS;Initial Catalog=austin_stock_processor;User ID=developer;Password=developer";
+
+            Chart oHLC = new Chart();
+            if (oHLC.Set_Symbol_Range_from_DB(connection_string))
+            {
+                oHLC.Call_Api();
+                oHLC.Save_to_File();
+            }
+
+            
+
             //oHLC.Call_Api("AAPL","5y");
             //oHLC.Save_to_File();
-            Symbols.Download_Symbols();
+            //Symbols.Download_Symbols();
 
             Console.WriteLine("DONE");
             Console.ReadLine();

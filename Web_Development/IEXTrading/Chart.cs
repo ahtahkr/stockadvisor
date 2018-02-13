@@ -1,5 +1,6 @@
 ﻿using AustinsFirstProject.Library;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,6 +11,7 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
     {
         public List<Previous> Previous { get; set; }
         public string Symbol { get; set; }
+        public string Range { get; set; }
         public bool Api_Called { get; set; } = false;
 
         public Chart()
@@ -17,20 +19,49 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
             this.Previous = new List<Previous>();
         }
 
-        public bool Call_Api(string symbol, string index = "")
+        public bool Set_Symbol_Range_from_DB(string connection_string = "")
         {
-            this.Symbol = symbol;
+            string result = "Before.";
+            try
+            {
+                result = Library.Database.ExecuteProcedure_Get(
+                        "[fsn].[IEXTrading_Get_Symbol_For_Chart]", null, connection_string);
+
+                result = result.Split('[')[1];
+                result = result.Split(']')[0];
+                dynamic jsonparse = JObject.Parse(result);
+
+                this.Symbol = jsonparse["Symbol"];
+                this.Range = jsonparse["Range"];
+                return true;
+            } catch (Exception ex)
+            {
+                Logger.Log_Error("[AustinsFirstProject.StockAdvisor.IEXTrading.Chart.Set_Symbol_Range_from_DB] result = [" + result + "] Error Msg: " + ex.Message);
+                return false;
+            }
+        }
+
+        public bool Call_Api(string symbol = "", string range = "")
+        {
+            if (String.IsNullOrEmpty(symbol))
+            {
+                //this.Set_Symbol_Range_from_DB();
+            }
+            else
+            {
+                this.Range = range;
+                this.Symbol = symbol;
+            }
             try
             {
                 this.Previous = JsonConvert.DeserializeObject<List<Previous>>(
-                                Utility.HttpRequestor.Chart(symbol, index));
+                                Utility.HttpRequestor.Chart(this.Symbol, this.Range));
 
                 this.Api_Called = true;
                 return true;
             }
             catch (Exception ex)
             {
-                Logger.Log_Error(symbol + " : " + ex.Message, "Call_Api");
                 Logger.Log_Error("AustinsFirstProject.StockAdvisor.IEXTrading.Chart.Call_Api(" + symbol + ") failed. Error Msg: " + ex.Message);
                 return false;
             }

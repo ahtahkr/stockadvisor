@@ -19,6 +19,9 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
         private static int Upload_Files_interval = 5;
         private Timer Upload_Files_timer = new Timer(Upload_Files_interval * 1000);
 
+        private static int IEXTrading_Chart_interval = 10 * 60;
+        private Timer IEXTrading_Chart_timer = new Timer(IEXTrading_Chart_interval * 1000);
+
         /*
         private static int IEXTrading_Download_Companies_interval = 6 * 30 * 24 * 60 * 60; // once in six months
         private Timer IEXTrading_Download_Companies_timer = new Timer(IEXTrading_Download_Companies_interval * 1000);
@@ -42,6 +45,9 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
             this.Upload_Files_timer.Elapsed += Upload_Files;
             this.Upload_Files_timer.Enabled = true;
 
+            this.IEXTrading_Chart_timer.Elapsed += IEXTrading_Chart;
+            this.IEXTrading_Chart_timer.Enabled = true;
+
             //this.update_share_timer.Elapsed += Update_Share_IEXTrading_Chart;
             //this.update_share_timer.Enabled = true;
 
@@ -53,6 +59,7 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
         {
             eventLog_i_am_active.WriteEntry("Austin Stock Windows Service stopped.");
             this.i_am_active_timer.Enabled = false;
+            this.IEXTrading_Chart_timer.Enabled = false;
 
             //this.update_share_timer.Enabled = false;            
             //this.IEXTrading_Download_Companies_timer.Enabled = false;
@@ -64,10 +71,11 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
             eventLog_i_am_active.WriteEntry("Austin Stock Windows Service paused.");
 
             this.i_am_active_timer.Enabled = false;
+            this.IEXTrading_Chart_timer.Enabled = false;
 
             //this.update_share_timer.Enabled = false;
             //this.IEXTrading_Download_Companies_timer.Enabled = false;
-            
+
             this.Upload_Files_timer.Enabled = false;
         }
         protected override void OnContinue()
@@ -75,10 +83,11 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
             eventLog_i_am_active.WriteEntry("Austin Stock Windows Service continued.");
 
             this.i_am_active_timer.Enabled = true;
+            this.IEXTrading_Chart_timer.Enabled = true;
 
             //this.update_share_timer.Enabled = true;
             //this.IEXTrading_Download_Companies_timer.Enabled = true;
-            
+
             this.Upload_Files_timer.Enabled = true;
         }
 
