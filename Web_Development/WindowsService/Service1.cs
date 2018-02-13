@@ -30,7 +30,7 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
         {
             eventLog_i_am_active.WriteEntry("Austin Stock Windows Service started.");
 
-            this.update_share_timer.Elapsed += Update_Share;
+            this.update_share_timer.Elapsed += Update_Share_IEXTrading_Chart;
             this.update_share_timer.Enabled = true;
 
             this.i_am_active_timer.Elapsed += I_AM_ACTIVE;

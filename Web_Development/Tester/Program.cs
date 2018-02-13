@@ -6,6 +6,7 @@ using LibGit2Sharp;
 using System.Collections;
 using System.Collections.Generic;
 using AustinsFirstProject.Library;
+using AustinsFirstProject.StockProcessor.IEXTrading;
 
 namespace AustinsFirstProject.Tester
 {
@@ -15,6 +16,14 @@ namespace AustinsFirstProject.Tester
 
         static void Main(string[] args)
         {
+            Chart oHLC = new Chart();
+            oHLC.Call_Api("AAPL","5y");
+            oHLC.Save_to_File();
+
+
+
+            Console.ReadLine();
+            
             /*
                 string git_url = "https://asadhikari@bitbucket.org/austinsfirstproject/asp-net-core.git";
                 string username = "as.adhikari@outlook.com";
@@ -27,8 +36,8 @@ namespace AustinsFirstProject.Tester
             //Library.Return _return = SQLiteDB.Database.Create_Database();
 
             //Console.WriteLine(JsonConvert.SerializeObject(_return));
-            
 
+            /*
             string repository = "F:\\Kenall_TekLink_Source_Code\\.git";
             if (Repository.IsValid(repository))
             {
@@ -59,6 +68,7 @@ namespace AustinsFirstProject.Tester
             }
 
             Console.ReadLine();
+            */
         }
 
         
@@ -76,15 +86,16 @@ namespace AustinsFirstProject.Tester
 
         private static void Get_Companies()
         {
-            //Console.WriteLine("Retrieving Companies from 'api.intrinio.com'.");
+            Console.WriteLine("Retrieving Companies from 'api.intrinio.com'.");
 
-            //string url = "https://api.intrinio.com/companies?page_number=";
-            //string username = "7d11f2289bbb035fc56c6ff5b654e6bd";
-            //string password = "6c9a7fdd82022fcea63c2367a117750b";
+            string url = "https://api.intrinio.com/companies?page_number=";
+            string username = "7d11f2289bbb035fc56c6ff5b654e6bd";
+            string password = "6c9a7fdd82022fcea63c2367a117750b";
 
-            //int a = 1;
-            //string result = HttpRequestUtility.GetRequest(url + a, username, password);
+            int a = 1;
+            string result = HttpRequestUtility.GetRequest(url + a, username, password);
 
+            Console.WriteLine(result);
             //Companies _companies = JsonConvert.DeserializeObject<Companies>(result);
             //_companies.Save_in_Database();
 
@@ -97,8 +108,8 @@ namespace AustinsFirstProject.Tester
             //    _companies.Save_in_Database();
             //}
 
-            //Console.WriteLine("Complete.");
-            //Console.ReadLine();
+            Console.WriteLine("Complete.");
+            Console.ReadLine();
         }
     }
 }
