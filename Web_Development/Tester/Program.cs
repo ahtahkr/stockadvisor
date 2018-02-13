@@ -16,6 +16,7 @@ namespace AustinsFirstProject.Tester
 
         static void Main(string[] args)
         {
+            //Symbols.Download_Symbols();
             string connection_string = "Data Source=AADHIKARI10\\SQLEXPRESS;Initial Catalog=austin_stock_processor;User ID=developer;Password=developer";
 
             Chart oHLC = new Chart();
@@ -23,9 +24,7 @@ namespace AustinsFirstProject.Tester
             {
                 oHLC.Call_Api();
                 oHLC.Save_to_File();
-            }
-
-            
+            }            
 
             //oHLC.Call_Api("AAPL","5y");
             //oHLC.Save_to_File();

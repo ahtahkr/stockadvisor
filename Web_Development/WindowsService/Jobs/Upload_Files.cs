@@ -28,47 +28,75 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
             {
                 string file = AustinsFirstProject.Library.Utility.FileUtility.GetFile(directory);
 
-                if (File.Exists(file))
+                if (String.IsNullOrEmpty(file)) { }
+                else
                 {
-                    string filename = Path.GetFileName(file);
-                    string[] filename_ = filename.Split('_');
+                    if (File.Exists(file))
+                    {
+                        string filename = Path.GetFileName(file);
+                        string[] filename_ = filename.Split('_');
 
-                    if (filename_[0].Equals("Symbol") || filename_[0].Equals("ShareDetail"))
-                    {                      
-                        string jsondata = File.ReadAllText(file);
-
-                        if (String.IsNullOrEmpty(jsondata))
+                        if (filename_[0].Equals("Symbol") || filename_[0].Equals("ShareDetail"))
                         {
-                            Logger.Log_Error("The file " + file + " is empty.");
-                            File.Move(file, Path.Combine(error, filename));
-                        } else
-                        {
-                            File.Delete(file);
+                            string jsondata = File.ReadAllText(file);
 
-                            if (filename_[0].Equals("Symbol"))
+                            if (String.IsNullOrEmpty(jsondata))
                             {
-                                try
-                                {
-                                    List<Symbol_> symbols = new List<Symbol_>();
-                                    symbols = JsonConvert.DeserializeObject<List<Symbol_>>(jsondata);
+                                Logger.Log_Error("The file " + file + " is empty.");
+                                File.Move(file, Path.Combine(error, filename));
+                            }
+                            else
+                            {
+                                File.Delete(file);
 
-                                    for (int a = 0; a < symbols.Count; a++)
-                                    {
-                                        symbols[a].Save_in_Database();
-                                    }
-                                } catch (Exception ex)
+                                if (filename_[0].Equals("Symbol"))
                                 {
-                                    Logger.Log_Error("Converting " + jsondata + " to List<Symbol> failed. Error Msg: " + ex.Message);
+                                    try
+                                    {
+                                        List<Symbol_> symbols = new List<Symbol_>();
+                                        symbols = JsonConvert.DeserializeObject<List<Symbol_>>(jsondata);
+
+                                        for (int a = 0; a < symbols.Count; a++)
+                                        {
+                                            symbols[a].Save_in_Database();
+                                        }
+
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        File.AppendAllText(Path.Combine(error, filename), jsondata);
+                                        Logger.Log_Error("Converting " + jsondata + " to List<Symbol_> failed. Error Msg: " + ex.Message);
+                                    }
+                                }
+                                else if (filename_[0].Equals("ShareDetail"))
+                                {
+                                    try
+                                    {
+                                        List<ShareDetail> symbols_ = new List<ShareDetail>();
+                                        symbols_ = JsonConvert.DeserializeObject<List<ShareDetail>>(jsondata);
+
+                                        for (int a = 0; a < symbols_.Count; a++)
+                                        {
+                                            symbols_[a].Save_in_Database();
+                                        }
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        File.AppendAllText(Path.Combine(error, filename), jsondata);
+                                        Logger.Log_Error("Converting " + jsondata + " to List<ShareDetail> failed. Error Msg: " + ex.Message);
+                                    }
                                 }
                             }
                         }
-                    } else
-                    {
-                        Logger.Log_Error(file + " received from AustinsFirstProject.Library.Utility.FileUtility.GetFile will not be processed.");
+                        else
+                        {
+                            Logger.Log_Error(file + " received from AustinsFirstProject.Library.Utility.FileUtility.GetFile will not be processed.");
+                        }
                     }
-                } else
-                {
-                    Logger.Log_Error(file + " received from AustinsFirstProject.Library.Utility.FileUtility.GetFile is invalid.");
+                    else
+                    {
+                        Logger.Log_Error(file + " received from AustinsFirstProject.Library.Utility.FileUtility.GetFile is invalid.");
+                    }
                 }
             } else
             {

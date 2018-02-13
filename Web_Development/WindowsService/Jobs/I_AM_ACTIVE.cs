@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AustinsFirstProject.Library;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceProcess;
@@ -12,7 +13,8 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
     {
         private void I_AM_ACTIVE(object sender = null, ElapsedEventArgs e = null)
         {
-            eventLog_i_am_active.WriteEntry(DateTime.Now + " : " + "AustinsFirstProject.StockAdvisor.WindowsService.I_AM_ACTIVE");
+            Logger.Log("I_AM_ACTIVE", "I_AM_ACTIVE");
+//            eventLog_i_am_active.WriteEntry(DateTime.Now + " : " + "AustinsFirstProject.StockAdvisor.WindowsService.I_AM_ACTIVE");
         }
     }
 }
