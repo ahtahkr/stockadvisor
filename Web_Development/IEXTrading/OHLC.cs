@@ -61,7 +61,7 @@ namespace AustinsFirstProject.StockProcessor.IEXTrading
 
             try
             {
-                FileFormat fileFormat = new FileFormat
+                ShareDetail ShareDetail = new ShareDetail
                 {
                     Symbol = this.Symbol,
                     High = this.High,
@@ -71,9 +71,9 @@ namespace AustinsFirstProject.StockProcessor.IEXTrading
                     Date = (new DateTime(1970, 01, 01)).AddMilliseconds(this.Close.Time)
                 };
 
-                FileFormats fileFormats = new FileFormats();
-                fileFormats.FileFormat.Add(fileFormat);
-                fileFormats.Save_to_File(directory);
+                ShareDetails ShareDetails = new ShareDetails();
+                ShareDetails.ShareDetail.Add(ShareDetail);
+                ShareDetails.Save_to_File(directory);
             }
             catch (Exception ex)
             {

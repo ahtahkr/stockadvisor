@@ -6,18 +6,19 @@ using System.Text;
 
 namespace AustinsFirstProject.StockProcessor.IEXTrading
 {
-    class FileFormats
+    class ShareDetails
     {
-        public List<FileFormat> FileFormat { get; set; } = new List<FileFormat>();
+        public List<ShareDetail> ShareDetail { get; set; } = new List<ShareDetail>();
         public void Save_to_File(string directory = "")
         {
-            directory = Utility.Get_Full_FileName_to_Save_Api_Result(directory);
+            directory = Utility.Get_Full_FileName_to_Save_Api_Result(directory, "ShareDetail");
 
-            File.AppendAllText(directory, JsonConvert.SerializeObject(this.FileFormat));
+            File.AppendAllText(directory, JsonConvert.SerializeObject(this.ShareDetail));
         }
     }
-    class FileFormat
+    class ShareDetail
     {
+        public int ID { get; set; } = 1;
         public string Symbol { get; set; } = "";
         public DateTime Date { get; set; } = DateTime.UtcNow;
         public double Open { get; set; } = 0;

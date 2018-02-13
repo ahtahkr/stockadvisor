@@ -40,17 +40,17 @@ namespace AustinsFirstProject.StockProcessor.IEXTrading
         {
             try
             {
-                FileFormats fileFormats = new FileFormats();
-                FileFormat fileFormat = new FileFormat();
+                ShareDetails ShareDetails = new ShareDetails();
+                ShareDetail ShareDetail = new ShareDetail();
 
                 for (int a = 0; a < this.Previous.Count; a++)
                 {
-                    fileFormat = JsonConvert.DeserializeObject<FileFormat>(
+                    ShareDetail = JsonConvert.DeserializeObject<ShareDetail>(
                                     JsonConvert.SerializeObject(this.Previous[a]));
-                    fileFormat.Symbol = this.Symbol;
-                    fileFormats.FileFormat.Add(fileFormat);
-                    fileFormats.Save_to_File(directory);
-                    fileFormats.FileFormat = new List<FileFormat>();
+                    ShareDetail.Symbol = this.Symbol;
+                    ShareDetails.ShareDetail.Add(ShareDetail);
+                    ShareDetails.Save_to_File(directory);
+                    ShareDetails.ShareDetail = new List<ShareDetail>();
                 }
 
                 

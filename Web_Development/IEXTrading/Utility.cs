@@ -50,6 +50,11 @@ namespace AustinsFirstProject.StockProcessor.IEXTrading
                 return HttpRequestUtility.GetRequest(URL + "stock/" + _symbol + "/ohlc");
             }
 
+            public static string Symbols()
+            {
+                return HttpRequestUtility.GetRequest(URL + "ref-data/symbols");
+            }
+
             public static string Chart(string _symbol, string range = "")
             {
                 if (String.IsNullOrEmpty(range))
@@ -79,7 +84,7 @@ dynamic	One day	Will return 1d or 1m data depending on the day or week and time 
             }
         }
 
-        public static string Get_Full_FileName_to_Save_Api_Result(string directory)
+        public static string Get_Full_FileName_to_Save_Api_Result(string directory, string identity = "")
         {
             if (String.IsNullOrEmpty(directory))
             {
@@ -90,7 +95,16 @@ dynamic	One day	Will return 1d or 1m data depending on the day or week and time 
             {
                 Directory.CreateDirectory(directory);
             }
-            return Path.Combine(directory, DateTime.UtcNow.ToString("yyyy_MM_dd_HH_mm_ss_fffffff_K") + ".txt");
+
+            if (String.IsNullOrEmpty(identity))
+            {
+            }
+            else
+            {
+                identity += "_";
+            }
+
+            return Path.Combine(directory, identity + DateTime.UtcNow.ToString("yyyy_MM_dd_HH_mm_ss_fffffff_K") + ".txt");
         }
     }
 }

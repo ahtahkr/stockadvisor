@@ -61,14 +61,14 @@ namespace AustinsFirstProject.StockProcessor.IEXTrading
 
             try
             {
-                FileFormats fileFormats = new FileFormats();
+                ShareDetails ShareDetails = new ShareDetails();
 
-                FileFormat fileFormat = new FileFormat();
-                fileFormat = JsonConvert.DeserializeObject<FileFormat>(
+                ShareDetail ShareDetail = new ShareDetail();
+                ShareDetail = JsonConvert.DeserializeObject<ShareDetail>(
                                 JsonConvert.SerializeObject(this));
 
-                fileFormats.FileFormat.Add(fileFormat);
-                fileFormats.Save_to_File(directory);
+                ShareDetails.ShareDetail.Add(ShareDetail);
+                ShareDetails.Save_to_File(directory);
             }
             catch (Exception ex)
             {
