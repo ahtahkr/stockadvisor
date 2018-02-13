@@ -6,6 +6,8 @@ namespace AustinsFirstProject.Library
 {
     public static class DatabaseUpdateHelper
     {
+        
+
         // here
         public static int Share_Insert_Update(string _ticker, int _alpha)
         {

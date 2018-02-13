@@ -62,6 +62,7 @@
     <Compile Include="Database.cs" />
     <Compile Include="DatabaseUpdateHelper.cs" />
     <Compile Include="Database\Share.cs" />
+    <Compile Include="FileUtility.cs" />
     <Compile Include="HttpRequestUtility.cs" />
     <Compile Include="Intrinio\Companies.cs" />
     <Compile Include="Intrinio\Company.cs" />

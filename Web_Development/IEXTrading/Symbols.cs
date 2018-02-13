@@ -58,5 +58,41 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
             this.IexId = 0;
         }
 
+        public void Save_in_Database()
+        {
+            this.IEXTrading_Symbol_Insert_Update();
+        }
+
+        public int IEXTrading_Symbol_Insert_Update(string connection_string = "")
+        {
+            try
+            {
+                Dictionary<string, object> param = new Dictionary<string, object>();
+                param.Add("Symbol", this.Symbol);
+                param.Add("Name", this.Name);
+                param.Add("IsEnabled", this.IsEnabled);
+                param.Add("Type", this.Type);
+                param.Add("IexId", this.IexId);
+
+                string result = Library.Database.ExecuteProcedure_Get(
+                    "[fsn].[Symbol_Insert_Update]"
+                    , param, connection_string);
+                if (result.Contains("\"Result\":0"))
+                {
+                    return 0;
+                }
+                else
+                {
+                    return 1;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log_Error("[AustinsFirstProject.StockAdvisor.IEXTrading.Symbol_.IEXTrading_Symbol_Insert_Update] failed. Message: " + ex.Message);
+            }
+
+            return 1;
+
+        }
     }
 }

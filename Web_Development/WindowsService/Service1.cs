@@ -16,13 +16,16 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
         private static int i_am_active_interval = 1; // seconds
         private Timer i_am_active_timer = new Timer(i_am_active_interval * 1000);
 
-        // once in six months
-        private static int IEXTrading_Download_Companies_interval = 6 * 30 * 24 * 60 * 60;
-        private Timer IEXTrading_Download_Companies_timer = new Timer(IEXTrading_Download_Companies_interval * 1000);
+        private static int Upload_Files_interval = 5;
+        private Timer Upload_Files_timer = new Timer(Upload_Files_interval * 1000);
 
+        /*
+        private static int IEXTrading_Download_Companies_interval = 6 * 30 * 24 * 60 * 60; // once in six months
+        private Timer IEXTrading_Download_Companies_timer = new Timer(IEXTrading_Download_Companies_interval * 1000);
+                
         private static int update_share_interval = 10; // seconds
         private Timer update_share_timer = new Timer(update_share_interval * 1000);
-
+        */
         public Service1()
         {
             InitializeComponent();
@@ -33,11 +36,14 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
         {
             eventLog_i_am_active.WriteEntry("Austin Stock Windows Service started.");
 
-            this.IEXTrading_Download_Companies_timer.Elapsed += IEXTrading_Download_Symbols;
-            this.IEXTrading_Download_Companies_timer.Enabled = true;
+            //this.IEXTrading_Download_Companies_timer.Elapsed += IEXTrading_Download_Symbols;
+            //this.IEXTrading_Download_Companies_timer.Enabled = true;
 
-            this.update_share_timer.Elapsed += Update_Share_IEXTrading_Chart;
-            this.update_share_timer.Enabled = true;
+            this.Upload_Files_timer.Elapsed += Upload_Files;
+            this.Upload_Files_timer.Enabled = true;
+
+            //this.update_share_timer.Elapsed += Update_Share_IEXTrading_Chart;
+            //this.update_share_timer.Enabled = true;
 
             this.i_am_active_timer.Elapsed += I_AM_ACTIVE;
             this.i_am_active_timer.Enabled = true;
@@ -46,26 +52,34 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
         protected override void OnStop()
         {
             eventLog_i_am_active.WriteEntry("Austin Stock Windows Service stopped.");
-
-            this.update_share_timer.Enabled = false;
             this.i_am_active_timer.Enabled = false;
-            this.IEXTrading_Download_Companies_timer.Enabled = false;
+
+            //this.update_share_timer.Enabled = false;            
+            //this.IEXTrading_Download_Companies_timer.Enabled = false;
+
+            this.Upload_Files_timer.Enabled = false;
         }
         protected override void OnPause()
         {
             eventLog_i_am_active.WriteEntry("Austin Stock Windows Service paused.");
 
-            this.update_share_timer.Enabled = false;
             this.i_am_active_timer.Enabled = false;
-            this.IEXTrading_Download_Companies_timer.Enabled = false;
+
+            //this.update_share_timer.Enabled = false;
+            //this.IEXTrading_Download_Companies_timer.Enabled = false;
+            
+            this.Upload_Files_timer.Enabled = false;
         }
         protected override void OnContinue()
         {
             eventLog_i_am_active.WriteEntry("Austin Stock Windows Service continued.");
 
-            this.update_share_timer.Enabled = true;
             this.i_am_active_timer.Enabled = true;
-            this.IEXTrading_Download_Companies_timer.Enabled = true;
+
+            //this.update_share_timer.Enabled = true;
+            //this.IEXTrading_Download_Companies_timer.Enabled = true;
+            
+            this.Upload_Files_timer.Enabled = true;
         }
 
         private void CreateLog()
@@ -75,7 +89,7 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
                 System.Diagnostics.EventLog.CreateEventSource("AustinWindowsService", "AustinWindowsLog");
             }
 
-            if (!System.Diagnostics.EventLog.SourceExists("IAMACTIVE")) { System.Diagnostics.EventLog.CreateEventSource("IAMACTIVE", "IAMACTIVE_Log"); }
+            //if (!System.Diagnostics.EventLog.SourceExists("IAMACTIVE")) { System.Diagnostics.EventLog.CreateEventSource("IAMACTIVE", "IAMACTIVE_Log"); }
 
             eventLog_i_am_active.Source = "AustinWindowsService";
             eventLog_i_am_active.Log = "AustinWindowsLog";

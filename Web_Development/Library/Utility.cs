@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AustinsFirstProject.Library
 {
-    public static class Utility
+    public static partial class Utility
     {
         public static int Get_UTC_NOW_UNIX_TIMESTAMP()
         {

@@ -81,13 +81,16 @@
     <Compile Include="Jobs\Get_Companies.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Jobs\IEXTrading_Get_Companies.cs">
+    <Compile Include="Jobs\IEXTrading_Download_Companies.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Jobs\I_AM_ACTIVE.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Jobs\Update_Share_IEXTrading.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Jobs\Upload_Files.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Service1.cs">
