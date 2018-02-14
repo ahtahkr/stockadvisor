@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Configuration;
 using AustinsFirstProject.StockAdvisor.IEXTrading;
+using System.IO;
 
 namespace AustinsFirstProject.StockAdvisor.WindowsService
 {
@@ -19,6 +20,16 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
 
         private void IEXTrading_Chart(object sender = null, ElapsedEventArgs e = null)
         {
+            string base_directory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs");
+            string filename = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs", "IEXTrading_Chart.log");
+
+            if (!Directory.Exists(base_directory))
+            {
+                Directory.CreateDirectory(base_directory);
+            }
+
+            File.WriteAllText(filename, DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss") + " : " + "IEXTrading_Chart.");
+
             try
             {
                 Chart oHLC = new Chart();

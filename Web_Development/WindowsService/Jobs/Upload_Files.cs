@@ -17,6 +17,17 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
     {
         private void Upload_Files(object sender = null, ElapsedEventArgs e = null)
         {
+            string base_directory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs");
+            string _filename = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs", "Upload_Files.log");
+
+            if (!Directory.Exists(base_directory))
+            {
+                Directory.CreateDirectory(base_directory);
+            }
+
+            File.WriteAllText(_filename, DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss") + " : " + "Upload_Files.");
+
+
             string directory = Convert.ToString(ConfigurationManager.AppSettings["IEXTrading_Files_dir"]);
 
             string process_dir = Path.Combine(directory, "Processing");
