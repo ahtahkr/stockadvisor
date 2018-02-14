@@ -20,19 +20,25 @@ namespace AustinsFirstProject.Tester
             //Symbols.Download_Symbols();
             string connection_string = "Data Source=AADHIKARI10\\SQLEXPRESS;Initial Catalog=austin_stock_processor;User ID=developer;Password=developer";
 
-            Chart oHLC = new Chart();
-            string result = oHLC.Download_Chart_Date(connection_string);
-            if (!String.IsNullOrEmpty(result))
+            Lasts lasts = new Lasts();
+            if (lasts.Call_Api())
             {
-                dynamic jsonparse = JObject.Parse(result);
-
-                oHLC.Call_Api_Date(
-                        jsonparse["Symbol"].ToString()
-                        , jsonparse["Date"].ToString()
-                        , true
-                );
-                oHLC.Save_to_File();
+                lasts.Save_to_File();
             }
+
+            //Chart oHLC = new Chart();
+            //string result = oHLC.Download_Chart_Date(connection_string);
+            //if (!String.IsNullOrEmpty(result))
+            //{
+            //    dynamic jsonparse = JObject.Parse(result);
+
+            //    oHLC.Call_Api_Date(
+            //            jsonparse["Symbol"].ToString()
+            //            , jsonparse["Date"].ToString()
+            //            , true
+            //    );
+            //    oHLC.Save_to_File();
+            //}
 
             //Chart oHLC = new Chart();
             //if (oHLC.Set_Symbol_Range_from_DB(connection_string))

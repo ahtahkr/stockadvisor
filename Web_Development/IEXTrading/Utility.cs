@@ -55,6 +55,11 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
                 return HttpRequestUtility.GetRequest(URL + "ref-data/symbols");
             }
 
+            public static string Last()
+            {
+                return HttpRequestUtility.GetRequest(URL + "tops/last");
+            }
+
             public static string Chart(string _symbol, string range = "")
             {
                 if (String.IsNullOrEmpty(range))
