@@ -16,7 +16,9 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
 
             do
             {
-                full_file_name = Utility.Get_Full_FileName_to_Save_Api_Result(directory, "ShareDetail");
+                full_file_name = Utility.Get_Full_FileName_to_Save_Api_Result(directory, "ShareDetail" + "_" 
+                    + ((this.ShareDetail[0].Symbol.Length > 0) ? this.ShareDetail[0].Symbol : "")
+                    );
             } while (File.Exists(full_file_name));
 
             File.AppendAllText(full_file_name, JsonConvert.SerializeObject(this.ShareDetail));
