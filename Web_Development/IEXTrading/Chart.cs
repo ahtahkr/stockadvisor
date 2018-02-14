@@ -4,20 +4,21 @@ using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace AustinsFirstProject.StockAdvisor.IEXTrading
 {
     public class Chart
     {
-        public List<Previous> Previous { get; set; }
+        public ShareDetails ShareDetails { get; set; }
         public string Symbol { get; set; }
         public string Range { get; set; }
         public bool Api_Called { get; set; } = false;
 
         public Chart()
         {
-            this.Previous = new List<Previous>();
+            this.ShareDetails = new ShareDetails();
         }
 
         public bool Set_Symbol_Range_from_DB(string connection_string = "")
@@ -80,12 +81,10 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
                     result = "[{" + result.Split(']')[0] + "]";
                 }
 
-                this.Previous = JsonConvert.DeserializeObject<List<Previous>>(
+                this.ShareDetails.ShareDetail = JsonConvert.DeserializeObject<List<ShareDetail>>(
                                     result
                                 , new IsoDateTimeConverter { DateTimeFormat = "yyyyMMdd" }
                                     );
-
-                //                JsonConvert.DeserializeObject<List<Previous>>(
 
                 this.Api_Called = true;
                 return true;
@@ -110,7 +109,7 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
             }
             try
             {
-                this.Previous = JsonConvert.DeserializeObject<List<Previous>>(
+                this.ShareDetails.ShareDetail = JsonConvert.DeserializeObject<List<ShareDetail>>(
                                     Utility.HttpRequestor.Chart(this.Symbol, this.Range)
                                     );
 
@@ -128,20 +127,7 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
         {
             try
             {
-                ShareDetails ShareDetails = new ShareDetails();
-                ShareDetail ShareDetail = new ShareDetail();
-
-                for (int a = 0; a < this.Previous.Count; a++)
-                {
-                    ShareDetail = JsonConvert.DeserializeObject<ShareDetail>(
-                                    JsonConvert.SerializeObject(this.Previous[a]));
-                    ShareDetail.Symbol = this.Symbol;
-                    ShareDetails.ShareDetail.Add(ShareDetail);
-                    ShareDetails.Save_to_File(directory);
-                    ShareDetails.ShareDetail = new List<ShareDetail>();
-                }
-
-                
+                this.ShareDetails.Save_to_File();
             }
             catch (Exception ex)
             {

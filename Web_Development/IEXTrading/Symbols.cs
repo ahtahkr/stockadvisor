@@ -17,24 +17,14 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
             {
                 List<Symbol_> SYMBOLS = JsonConvert.DeserializeObject<List<Symbol_>>(
                                                 Utility.HttpRequestor.Symbols());
-                List<Symbol_> _symbols;
+                string full_file_name = "";
 
-                for (int a = 0; a < SYMBOLS.Count; a++)
+                do
                 {
-                    string full_file_name = "";
+                    full_file_name = Utility.Get_Full_FileName_to_Save_Api_Result(full_file_name, "Symbol");
+                } while (File.Exists(full_file_name));
 
-                    do
-                    {
-                        full_file_name = Utility.Get_Full_FileName_to_Save_Api_Result(full_file_name, "Symbol");
-                    } while (File.Exists(full_file_name));
-                    
-                    _symbols = new List<Symbol_>
-                    {
-                        SYMBOLS[a]
-                    };
-
-                    File.AppendAllText(full_file_name, JsonConvert.SerializeObject(_symbols));
-                }
+                File.AppendAllText(full_file_name, JsonConvert.SerializeObject(SYMBOLS));
                 return true;
             } catch (Exception ex)
             {

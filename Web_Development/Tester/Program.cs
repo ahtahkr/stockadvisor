@@ -21,28 +21,28 @@ namespace AustinsFirstProject.Tester
             //Symbols.Download_Symbols();
             string connection_string = "Data Source=AADHIKARI10\\SQLEXPRESS;Initial Catalog=austin_stock_processor;User ID=developer;Password=developer";
 
-            //Lasts lasts = new Lasts();
-            //if (lasts.Call_Api())
-            //{
-            //    lasts.Save_to_File();
-            //}
-
-            string directory = @"F:\features\austin_first_project\Web_Development\Tester\bin\Debug\netcoreapp2.0\IEXTrading\Api";
-            string file = AustinsFirstProject.Library.Utility.FileUtility.GetFile(directory,0);
-            string jsondata = File.ReadAllText(file);
-
-            List<Last> unsuccessful_lasts = new List<Last>();
-
-            List<Last> lasts_ = new List<Last>();
-            lasts_ = JsonConvert.DeserializeObject<List<Last>>(jsondata);
-
-            for (int a = 0; a < lasts_.Count; a++)
+            Lasts lasts = new Lasts();
+            if (lasts.Call_Api())
             {
-                if (lasts_[a].Save_in_Database(connection_string) != 0)
-                {
-                    unsuccessful_lasts.Add(lasts_[a]);
-                }
+                lasts.Save_to_File();
             }
+
+            //string directory = @"F:\features\austin_first_project\Web_Development\Tester\bin\Debug\netcoreapp2.0\IEXTrading\Api";
+            //string file = AustinsFirstProject.Library.Utility.FileUtility.GetFile(directory,0);
+            //string jsondata = File.ReadAllText(file);
+
+            //List<Last> unsuccessful_lasts = new List<Last>();
+
+            //List<Last> lasts_ = new List<Last>();
+            //lasts_ = JsonConvert.DeserializeObject<List<Last>>(jsondata);
+
+            //for (int a = 0; a < lasts_.Count; a++)
+            //{
+            //    if (lasts_[a].Save_in_Database(connection_string) != 0)
+            //    {
+            //        unsuccessful_lasts.Add(lasts_[a]);
+            //    }
+            //}
 
             //Chart oHLC = new Chart();
             //string result = oHLC.Download_Chart_Date(connection_string);
