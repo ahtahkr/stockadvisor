@@ -27,6 +27,7 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
 
             File.WriteAllText(_filename, DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss") + " : " + "Upload_Files.");
 
+            
 
             string directory = Convert.ToString(ConfigurationManager.AppSettings["IEXTrading_Files_dir"]);
 
@@ -62,6 +63,7 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
 
                                 if (filename_[0].Equals("Symbol"))
                                 {
+                                    List<Symbol_> unsuccessful_symbols = new List<Symbol_>();
                                     try
                                     {
                                         List<Symbol_> symbols = new List<Symbol_>();
@@ -69,31 +71,39 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
 
                                         for (int a = 0; a < symbols.Count; a++)
                                         {
-                                            symbols[a].Save_in_Database();
+                                            if (symbols[a].Save_in_Database() != 0)
+                                            {
+                                                unsuccessful_symbols.Add(symbols[a]);
+                                            }
                                         }
-
+                                        File.WriteAllText(Path.Combine(error, filename), JsonConvert.SerializeObject(unsuccessful_symbols));
                                     }
                                     catch (Exception ex)
                                     {
-                                        File.AppendAllText(Path.Combine(error, filename), jsondata);
+                                        File.WriteAllText(Path.Combine(error, filename), jsondata);
                                         Logger.Log_Error("Converting " + jsondata + " to List<Symbol_> failed. Error Msg: " + ex.Message);
                                     }
                                 }
                                 else if (filename_[0].Equals("ShareDetail"))
                                 {
+                                    List<ShareDetail> unsuccessful_sharedetails = new List<ShareDetail>();
                                     try
                                     {
-                                        List<ShareDetail> symbols_ = new List<ShareDetail>();
-                                        symbols_ = JsonConvert.DeserializeObject<List<ShareDetail>>(jsondata);
+                                        List<ShareDetail> sharedetails = new List<ShareDetail>();
+                                        sharedetails = JsonConvert.DeserializeObject<List<ShareDetail>>(jsondata);
 
-                                        for (int a = 0; a < symbols_.Count; a++)
+                                        for (int a = 0; a < sharedetails.Count; a++)
                                         {
-                                            symbols_[a].Save_in_Database();
+                                            if (sharedetails[a].Save_in_Database() != 0)
+                                            {
+                                                unsuccessful_sharedetails.Add(sharedetails[a]);
+                                            }
                                         }
+                                        File.WriteAllText(Path.Combine(error, filename), JsonConvert.SerializeObject(unsuccessful_sharedetails));
                                     }
                                     catch (Exception ex)
                                     {
-                                        File.AppendAllText(Path.Combine(error, filename), jsondata);
+                                        File.WriteAllText(Path.Combine(error, filename), jsondata);
                                         Logger.Log_Error("Converting " + jsondata + " to List<ShareDetail> failed. Error Msg: " + ex.Message);
                                     }
                                 }

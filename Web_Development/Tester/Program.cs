@@ -7,6 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using AustinsFirstProject.Library;
 using AustinsFirstProject.StockAdvisor.IEXTrading;
+using Newtonsoft.Json.Linq;
 
 namespace AustinsFirstProject.Tester
 {
@@ -20,11 +21,25 @@ namespace AustinsFirstProject.Tester
             string connection_string = "Data Source=AADHIKARI10\\SQLEXPRESS;Initial Catalog=austin_stock_processor;User ID=developer;Password=developer";
 
             Chart oHLC = new Chart();
-            if (oHLC.Set_Symbol_Range_from_DB(connection_string))
+            string result = oHLC.Download_Chart_Date(connection_string);
+            if (!String.IsNullOrEmpty(result))
             {
-                oHLC.Call_Api();
+                dynamic jsonparse = JObject.Parse(result);
+
+                oHLC.Call_Api_Date(
+                        jsonparse["Symbol"].ToString()
+                        , jsonparse["Date"].ToString()
+                        , true
+                );
                 oHLC.Save_to_File();
-            }            
+            }
+
+            //Chart oHLC = new Chart();
+            //if (oHLC.Set_Symbol_Range_from_DB(connection_string))
+            //{
+            //    oHLC.Call_Api();
+            //    oHLC.Save_to_File();
+            //}            
 
             //oHLC.Call_Api("AAPL","5y");
             //oHLC.Save_to_File();

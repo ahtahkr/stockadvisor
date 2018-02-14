@@ -1,5 +1,6 @@
 ﻿using AustinsFirstProject.Library;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -38,9 +39,9 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
         public double ChangePercent { get; set; } = 0;
         public double Vwap { get; set; } = 0;
 
-        public void Save_in_Database()
+        public int Save_in_Database()
         {
-            this.IEXTrading_Share_Insert_Update();
+            return this.IEXTrading_Share_Insert_Update();
         }
 
         public int IEXTrading_Share_Insert_Update(string connection_string = "")

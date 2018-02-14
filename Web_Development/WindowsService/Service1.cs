@@ -16,6 +16,9 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
         private static int i_am_active_interval = 1; // seconds
         private Timer i_am_active_timer = new Timer(i_am_active_interval * 1000);
 
+        private static int IEXTrading_Chart_Date_interval = 5; // seconds
+        private Timer IEXTrading_Chart_Date_timer = new Timer(IEXTrading_Chart_Date_interval * 1000);
+        
         private static int Upload_Files_interval = 5;
         private Timer Upload_Files_timer = new Timer(Upload_Files_interval * 1000);
 
@@ -48,6 +51,9 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
             this.IEXTrading_Chart_timer.Elapsed += IEXTrading_Chart;
             this.IEXTrading_Chart_timer.Enabled = true;
 
+            this.IEXTrading_Chart_Date_timer.Elapsed += IEXTrading_Chart_Date;
+            this.IEXTrading_Chart_Date_timer.Enabled = true;
+
             //this.update_share_timer.Elapsed += Update_Share_IEXTrading_Chart;
             //this.update_share_timer.Enabled = true;
 
@@ -60,6 +66,7 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
             eventLog_i_am_active.WriteEntry("Austin Stock Windows Service stopped.");
             this.i_am_active_timer.Enabled = false;
             this.IEXTrading_Chart_timer.Enabled = false;
+            this.IEXTrading_Chart_Date_timer.Enabled = false;
 
             //this.update_share_timer.Enabled = false;            
             //this.IEXTrading_Download_Companies_timer.Enabled = false;
@@ -72,6 +79,7 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
 
             this.i_am_active_timer.Enabled = false;
             this.IEXTrading_Chart_timer.Enabled = false;
+            this.IEXTrading_Chart_Date_timer.Enabled = false;
 
             //this.update_share_timer.Enabled = false;
             //this.IEXTrading_Download_Companies_timer.Enabled = false;
@@ -84,6 +92,7 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
 
             this.i_am_active_timer.Enabled = true;
             this.IEXTrading_Chart_timer.Enabled = true;
+            this.IEXTrading_Chart_Date_timer.Enabled = true;
 
             //this.update_share_timer.Enabled = true;
             //this.IEXTrading_Download_Companies_timer.Enabled = true;

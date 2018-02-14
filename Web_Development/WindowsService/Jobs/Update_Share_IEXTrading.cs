@@ -12,6 +12,7 @@ using System.Timers;
 using System.Configuration;
 using AustinsFirstProject.StockAdvisor.IEXTrading;
 using System.IO;
+using Newtonsoft.Json.Linq;
 
 namespace AustinsFirstProject.StockAdvisor.WindowsService
 {
@@ -46,8 +47,43 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
             finally { }
         }
 
+        private void IEXTrading_Chart_Date(object sender = null, ElapsedEventArgs e = null)
+        {
+            string base_directory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs");
+            string filename = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs", "IEXTrading_Chart_Date.log");
 
-        private void Update_Share_IEXTrading_Previous(object sender = null, ElapsedEventArgs e = null)
+            if (!Directory.Exists(base_directory))
+            {
+                Directory.CreateDirectory(base_directory);
+            }
+
+            File.WriteAllText(filename, DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss") + " : " + "IEXTrading_Chart_log.");
+            string result = "Before";
+            try
+            {
+                Chart oHLC = new Chart();
+                result = oHLC.Download_Chart_Date();
+                if (!String.IsNullOrEmpty(result))
+                {
+                    dynamic jsonparse = JObject.Parse(result);
+
+                    oHLC.Call_Api_Date(
+                            jsonparse["Symbol"].ToString()
+                            , jsonparse["Date"].ToString()
+                            , true
+                    );
+                    oHLC.Save_to_File();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log_Error("Windows Service Failed. IEXTrading_Chart_Date. Result: " + result + "Error: [" + ex.Message + "]");
+            }
+            finally { }
+        }
+
+
+        private void IEXTrading_Previous(object sender = null, ElapsedEventArgs e = null)
         {
             List<Ticker_Class> tk = null;
             try

@@ -1,5 +1,6 @@
 ﻿using AustinsFirstProject.Library;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -41,6 +42,61 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
             }
         }
 
+        public string Download_Chart_Date(string connection_string = "")
+        {
+            string result = "Before.";
+            try
+            {
+                result = Library.Database.ExecuteProcedure_Get(
+                        "[fsn].[Get_Symbol_Date]", null, connection_string);
+
+                result = result.Split('[')[1];
+                result = result.Split(']')[0];
+
+                return result;              
+                
+            }
+            catch (Exception ex)
+            {
+                Logger.Log_Error("[AustinsFirstProject.StockAdvisor.IEXTrading.Chart.Download_Chart_Date] result = [" + result + "] Error Msg: " + ex.Message);
+                return "";
+            }
+
+        }
+
+        public bool Call_Api_Date(string symbol, string date, bool last_record = false)
+        {
+            this.Symbol = symbol;
+
+            string result = "Before";
+            try
+            {
+                result = Utility.HttpRequestor.Chart(this.Symbol, "date/" + date);
+
+                if (last_record)
+                {
+                    string[] results = result.Split('{');
+                    result = results[results.Length - 1];
+                    result = "[{" + result.Split(']')[0] + "]";
+                }
+
+                this.Previous = JsonConvert.DeserializeObject<List<Previous>>(
+                                    result
+                                , new IsoDateTimeConverter { DateTimeFormat = "yyyyMMdd" }
+                                    );
+
+                //                JsonConvert.DeserializeObject<List<Previous>>(
+
+                this.Api_Called = true;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Logger.Log_Error("AustinsFirstProject.StockAdvisor.IEXTrading.Chart.Call_Api(" + symbol + ") failed. Error Msg: " + ex.Message);
+                return false;
+            }
+        }
+
         public bool Call_Api(string symbol = "", string range = "")
         {
             if (String.IsNullOrEmpty(symbol))
@@ -55,7 +111,8 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
             try
             {
                 this.Previous = JsonConvert.DeserializeObject<List<Previous>>(
-                                Utility.HttpRequestor.Chart(this.Symbol, this.Range));
+                                    Utility.HttpRequestor.Chart(this.Symbol, this.Range)
+                                    );
 
                 this.Api_Called = true;
                 return true;
