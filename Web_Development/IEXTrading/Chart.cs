@@ -65,6 +65,22 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
 
         }
 
+        public void DB_Invalid_Symbol_Date(Dictionary<string, object> parameters, string connection_string = "")
+        {
+            string result = "Before.";
+            try
+            {
+                Library.Database.ExecuteProcedure_Get(
+                        "[fsn].[Symbol_Invalid_Insert]", parameters, connection_string);
+                result = "DONE";
+            }
+            catch (Exception ex)
+            {
+                Logger.Log_Error("[AustinsFirstProject.StockAdvisor.IEXTrading.Chart.DB_Invalid_Symbol_Date] result = [" + result + "] Error Msg: " + ex.Message);
+            }
+
+        }
+
         public bool Call_Api_Date(string symbol, string date, bool last_record = false)
         {
             this.Symbol = symbol;
@@ -76,6 +92,16 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
 
                 if (!String.IsNullOrEmpty(result))
                 {
+                    if (result == "[]")
+                    {
+                        DateTime dt = DateTime.ParseExact(date, "yyyyMMdd", System.Globalization.CultureInfo.InvariantCulture);
+                        Dictionary<string, object> parameters = new Dictionary<string, object>
+                        {
+                            { "Symbol", this.Symbol },
+                            { "Date", dt }
+                        };
+                        this.DB_Invalid_Symbol_Date(parameters);
+                    }
                     if (last_record)
                     {
                         string[] results = result.Split('{');

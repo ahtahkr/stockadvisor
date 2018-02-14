@@ -10,12 +10,12 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
 
     public class Open
     {
-        public double Price { get; set; }
+        public decimal Price { get; set; }
         public long Time { get; set; }
     }
     public class Close
     {
-        public double Price { get; set; }
+        public decimal Price { get; set; }
         public long Time { get; set; }
     }
 
@@ -24,8 +24,8 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
         public string Symbol { get; set; }
         public Open Open { get; set; }
         public Close Close { get; set; }
-        public double High { get; set; }
-        public double Low { get; set; }
+        public decimal High { get; set; }
+        public decimal Low { get; set; }
 
         public bool Api_Called { get; set; } = false;
 

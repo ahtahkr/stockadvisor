@@ -11,15 +11,15 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
     {
         public string Symbol { get; set; }
         public DateTime Date { get; set; }
-        public double Open { get; set; }
-        public double High { get; set; }
-        public double Low { get; set; }
-        public double Close { get; set; }
+        public decimal Open { get; set; }
+        public decimal High { get; set; }
+        public decimal Low { get; set; }
+        public decimal Close { get; set; }
         public int Volume { get; set; }
         public int UnadjustedVolume { get; set; }
-        public double Change { get; set; }
-        public double ChangePercent { get; set; }
-        public double Vwap { get; set; }
+        public decimal Change { get; set; }
+        public decimal ChangePercent { get; set; }
+        public decimal Vwap { get; set; }
         public bool Api_Called { get; set; } = false;
 
         public bool Call_Api(string symbol)

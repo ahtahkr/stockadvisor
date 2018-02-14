@@ -30,15 +30,15 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
     {
         public string Symbol { get; set; } = "";
         public DateTime Date { get; set; } = DateTime.UtcNow;
-        public double Open { get; set; } = 0;
-        public double High { get; set; } = 0;
-        public double Low { get; set; } = 0;
-        public double Close { get; set; } = 0;
+        public decimal  Open { get; set; } = 0;
+        public decimal High { get; set; } = 0;
+        public decimal Low { get; set; } = 0;
+        public decimal Close { get; set; } = 0;
         public int Volume { get; set; } = 0;
         public int UnadjustedVolume { get; set; } = 0;
-        public double Change { get; set; } = 0;
-        public double ChangePercent { get; set; } = 0;
-        public double Vwap { get; set; } = 0;
+        public decimal Change { get; set; } = 0;
+        public decimal ChangePercent { get; set; } = 0;
+        public decimal Vwap { get; set; } = 0;
 
         public int Save_in_Database()
         {

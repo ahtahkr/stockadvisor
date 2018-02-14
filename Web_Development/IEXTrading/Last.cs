@@ -61,7 +61,7 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
     public class Last
     {
         public string Symbol { get; set; }
-        public double Price { get; set; }
+        public decimal Price { get; set; }
         public int Size { get; set; }
         public long Time { get; set; }
 

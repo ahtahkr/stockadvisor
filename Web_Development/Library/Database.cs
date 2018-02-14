@@ -34,40 +34,42 @@ namespace AustinsFirstProject.Library
 
         public static string ExecuteProcedure_Get(string commandName, Dictionary<string, object> parameters = null, string connection_string = null)
         {
-            SqlConnection conn;
+              SqlConnection conn;
 
-            if (String.IsNullOrEmpty(connection_string))
-            {
-                conn = new SqlConnection(ConnectionString.Get());
-            } else
-            {
-                conn = new SqlConnection(connection_string);
-            }
-
-            try
-            {
-                conn.Open();
-            } catch (Exception ex)
-            {
-                Logger.Log("Connection to the database failed. Message: " + ex.Message);
-                return null;
-            }
-
-            SqlCommand comm = conn.CreateCommand();
-            comm.CommandType = CommandType.StoredProcedure;
-            comm.CommandText = commandName;
-            if (parameters != null)
-            {
-                foreach (KeyValuePair<string, object> kvp in parameters)
-                    {
-                    comm.Parameters.Add(new SqlParameter(kvp.Key, kvp.Value));
+                if (String.IsNullOrEmpty(connection_string))
+                {
+                    conn = new SqlConnection(ConnectionString.Get());
                 }
-            }
-            string result = JsonConvert.SerializeObject(Serialize(comm.ExecuteReader()));
-            conn.Close();
-            conn.Dispose();
-            SqlConnection.ClearPool(conn);
-            return result;
+                else
+                {
+                    conn = new SqlConnection(connection_string);
+                }
+
+                try
+                {
+                    conn.Open();
+                }
+                catch (Exception ex)
+                {
+                    Logger.Log("Connection to the database failed. Message: " + ex.Message);
+                    return null;
+                }
+
+                SqlCommand comm = conn.CreateCommand();
+                comm.CommandType = CommandType.StoredProcedure;
+                comm.CommandText = commandName;
+                if (parameters != null)
+                {
+                    foreach (KeyValuePair<string, object> kvp in parameters)
+                    {
+                        comm.Parameters.Add(new SqlParameter(kvp.Key, kvp.Value));
+                    }
+                }
+                string result = JsonConvert.SerializeObject(Serialize(comm.ExecuteReader()));
+                conn.Close();
+                conn.Dispose();
+                SqlConnection.ClearPool(conn);
+                return result;
         }
 
 
@@ -100,6 +102,6 @@ namespace AustinsFirstProject.Library
             SqlConnection.ClearPool(conn);
 
             return a;
-        }
+}
     }
 }
