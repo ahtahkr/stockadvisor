@@ -23,13 +23,14 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
             if (Api_Called)
             {
                 string full_file_name;
+                
+                    do
+                    {
+                        full_file_name = Utility.Get_Full_FileName_to_Save_Api_Result(directory, "Last");
+                    } while (File.Exists(full_file_name));
 
-                do
-                {
-                    full_file_name = Utility.Get_Full_FileName_to_Save_Api_Result(directory, "Last");
-                } while (File.Exists(full_file_name));
-
-                File.AppendAllText(full_file_name, JsonConvert.SerializeObject(this.Last));
+                    File.AppendAllText(full_file_name, JsonConvert.SerializeObject(this.Last));
+                
             } else
             {
                 Logger.Log_Error("Save_to_File called without calling Call_Api");
@@ -64,7 +65,7 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
         public int Size { get; set; }
         public long Time { get; set; }
 
-        public int Save_in_Database(string connection_string)
+        public int Save_in_Database(string connection_string = "")
         {
             string result = "Before";
             try
@@ -72,7 +73,7 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
                 Dictionary<string, object> param = new Dictionary<string, object>();
                 param.Add("Symbol", this.Symbol);
                 param.Add("Close", this.Price);
-                param.Add("Date", (new DateTime(1970,1,1).AddMilliseconds(this.Time)));
+                param.Add("Date", (new DateTime(1970,1,1)).AddMilliseconds(this.Time));
 
                 result = Library.Database.ExecuteProcedure_Get(
                     "[fsn].[Share_Insert_Update_Close]"

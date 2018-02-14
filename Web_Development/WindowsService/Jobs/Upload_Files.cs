@@ -25,9 +25,7 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
                 Directory.CreateDirectory(base_directory);
             }
 
-            File.WriteAllText(_filename, DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss") + " : " + "Upload_Files.");
-
-            
+            File.WriteAllText(_filename, DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss") + " : " + "Upload_Files.");            
 
             string directory = Convert.ToString(ConfigurationManager.AppSettings["IEXTrading_Files_dir"]);
 
@@ -48,7 +46,7 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
                         string filename = Path.GetFileName(file);
                         string[] filename_ = filename.Split('_');
 
-                        if (filename_[0].Equals("Symbol") || filename_[0].Equals("ShareDetail"))
+                        if (filename_[0].Equals("Symbol") || filename_[0].Equals("ShareDetail") || filename_[0].Equals("Last"))
                         {
                             string jsondata = File.ReadAllText(file);
 
@@ -76,7 +74,11 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
                                                 unsuccessful_symbols.Add(symbols[a]);
                                             }
                                         }
-                                        File.WriteAllText(Path.Combine(error, filename), JsonConvert.SerializeObject(unsuccessful_symbols));
+
+                                        if (unsuccessful_symbols.Count > 0)
+                                        {
+                                            File.WriteAllText(Path.Combine(error, filename), JsonConvert.SerializeObject(unsuccessful_symbols));
+                                        }
                                     }
                                     catch (Exception ex)
                                     {
@@ -99,12 +101,41 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
                                                 unsuccessful_sharedetails.Add(sharedetails[a]);
                                             }
                                         }
-                                        File.WriteAllText(Path.Combine(error, filename), JsonConvert.SerializeObject(unsuccessful_sharedetails));
+                                        if (unsuccessful_sharedetails.Count > 0)
+                                        {
+                                            File.WriteAllText(Path.Combine(error, filename), JsonConvert.SerializeObject(unsuccessful_sharedetails));
+                                        }
                                     }
                                     catch (Exception ex)
                                     {
                                         File.WriteAllText(Path.Combine(error, filename), jsondata);
                                         Logger.Log_Error("Converting " + jsondata + " to List<ShareDetail> failed. Error Msg: " + ex.Message);
+                                    }
+                                } else if (filename_[0].Equals("Last"))
+                                {
+                                    List<Last> unsuccessful_lasts = new List<Last>();
+                                    try
+                                    {
+                                        List<Last> lasts = new List<Last>();
+                                        lasts = JsonConvert.DeserializeObject<List<Last>>(jsondata);
+
+                                        for (int a = 0; a < lasts.Count; a++)
+                                        {
+                                            if (lasts[a].Save_in_Database() != 0)
+                                            {
+                                                unsuccessful_lasts.Add(lasts[a]);
+                                            }
+                                        }
+
+                                        if (unsuccessful_lasts.Count > 0)
+                                        {
+                                            File.WriteAllText(Path.Combine(error, filename), JsonConvert.SerializeObject(unsuccessful_lasts));
+                                        }
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        File.WriteAllText(Path.Combine(error, filename), jsondata);
+                                        Logger.Log_Error("Converting " + jsondata + " to List<Last> failed. Error Msg: " + ex.Message);
                                     }
                                 }
                             }

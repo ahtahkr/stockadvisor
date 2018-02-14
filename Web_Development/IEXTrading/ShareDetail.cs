@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace AustinsFirstProject.StockAdvisor.IEXTrading
@@ -46,9 +47,9 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
 
         public int IEXTrading_Share_Insert_Update(string connection_string = "")
         {
+            Dictionary<string, object> param = new Dictionary<string, object>();
             try
             {
-                Dictionary<string, object> param = new Dictionary<string, object>();
                 param.Add("Symbol", this.Symbol);
                 param.Add("Date", this.Date);
                 param.Add("Open", this.Open);
@@ -75,7 +76,9 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
             }
             catch (Exception ex)
             {
-                Logger.Log_Error("[AustinsFirstProject.StockAdvisor.IEXTrading.ShareDetail.IEXTrading_Share_Insert_Update] failed. Message: " + ex.Message);
+                string s = string.Join(";", param.Select(x => x.Key + "=" + x.Value).ToArray());
+
+                Logger.Log_Error("[AustinsFirstProject.StockAdvisor.IEXTrading.ShareDetail.IEXTrading_Share_Insert_Update] failed. Param: [" + s + "] Message: " + ex.Message);
             }
 
             return 1;

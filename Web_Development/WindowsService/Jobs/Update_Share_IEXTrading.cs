@@ -18,6 +18,49 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
 {
     public partial class Service1 : ServiceBase
     {
+        private void IEXTrading_Top_Last(object sender = null, ElapsedEventArgs e = null)
+        {
+            string base_directory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs");
+            string filename = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs", "IEXTrading_Top_Last.log");
+
+            if (!Directory.Exists(base_directory))
+            {
+                Directory.CreateDirectory(base_directory);
+            }
+
+            File.WriteAllText(filename, DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss") + " : " + "IEXTrading_Top_Last.");
+                                    
+            try
+            {
+                DateTime current_time = DateTime.Now;
+                int current_hour_min = (current_time.Hour * 60) + current_time.Minute;
+
+                int hour = Convert.ToInt32(ConfigurationManager.AppSettings["IEXTrading_Top_Last_hour"]);
+                int minute = Convert.ToInt32(ConfigurationManager.AppSettings["IEXTrading_Top_Last_minute"]);
+
+                int hour_min = (hour * 60) + minute;
+
+                if (hour_min == 0)
+                {
+                    hour_min = (18 * 60) + 00;
+                }
+
+                if (current_hour_min >= hour_min)
+                {
+
+                    Lasts lasts = new Lasts();
+                    if (lasts.Call_Api())
+                    {
+                        lasts.Save_to_File();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log_Error("Windows Service Failed. IEXTrading_Top_Last. Error: [" + ex.Message + "]");
+            }
+            finally { }
+        }
 
         private void IEXTrading_Chart(object sender = null, ElapsedEventArgs e = null)
         {
