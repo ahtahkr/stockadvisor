@@ -19,7 +19,7 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
         private static int IEXTrading_Chart_Date_interval = 60 * 5; // seconds
         private Timer IEXTrading_Chart_Date_timer = new Timer(IEXTrading_Chart_Date_interval * 1000);
         
-        private static int Upload_Files_interval = 1;
+        private static int Upload_Files_interval = 3;
         private Timer Upload_Files_timer = new Timer(Upload_Files_interval * 1000);
 
         private static int IEXTrading_Chart_interval = 10 * 60;
