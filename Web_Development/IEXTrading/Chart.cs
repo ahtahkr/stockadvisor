@@ -69,29 +69,35 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
         {
             this.Symbol = symbol;
 
-            string result = "Before";
+            string result = "";
             try
             {
                 result = Utility.HttpRequestor.Chart(this.Symbol, "date/" + date);
 
-                if (last_record)
+                if (!String.IsNullOrEmpty(result))
                 {
-                    string[] results = result.Split('{');
-                    result = results[results.Length - 1];
-                    result = "[{" + result.Split(']')[0] + "]";
+                    if (last_record)
+                    {
+                        string[] results = result.Split('{');
+                        result = results[results.Length - 1];
+                        result = "[{" + result.Split(']')[0] + "]";
+                    }
+
+                    this.ShareDetails.ShareDetail = JsonConvert.DeserializeObject<List<ShareDetail>>(
+                                        result
+                                    , new IsoDateTimeConverter { DateTimeFormat = "yyyyMMdd" }
+                                        );
+
+                    this.Api_Called = true;
+                    return true;
+                } else
+                {
+                    return false;
                 }
-
-                this.ShareDetails.ShareDetail = JsonConvert.DeserializeObject<List<ShareDetail>>(
-                                    result
-                                , new IsoDateTimeConverter { DateTimeFormat = "yyyyMMdd" }
-                                    );
-
-                this.Api_Called = true;
-                return true;
             }
             catch (Exception ex)
             {
-                Logger.Log_Error("AustinsFirstProject.StockAdvisor.IEXTrading.Chart.Call_Api(" + symbol + ") failed. Error Msg: " + ex.Message);
+                Logger.Log_Error("AustinsFirstProject.StockAdvisor.IEXTrading.Chart.Call_Api_Date(" + symbol+", "+ "date/" + date + ") failed. Result: [" + result + "] Error Msg: " + ex.Message);
                 return false;
             }
         }

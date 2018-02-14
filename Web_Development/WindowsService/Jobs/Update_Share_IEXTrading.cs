@@ -110,12 +110,14 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
                 {
                     dynamic jsonparse = JObject.Parse(result);
 
-                    oHLC.Call_Api_Date(
+                    if (oHLC.Call_Api_Date(
                             jsonparse["Symbol"].ToString()
                             , jsonparse["Date"].ToString()
                             , true
-                    );
-                    oHLC.Save_to_File();
+                    ))
+                    {
+                        oHLC.Save_to_File();
+                    }
                 }
             }
             catch (Exception ex)
