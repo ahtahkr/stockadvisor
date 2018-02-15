@@ -12,13 +12,53 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
     /* Gen is a British Slang word for News. */
     public class Gen
     {
+        public string Symbol { get; set; }
         public DateTime DateTime { get; set; }
         public string Headline { get; set; }
         public string Source { get; set; }
         public string Url { get; set; }
         public string Summary { get; set; }
-        public string Related { get; set; }                
+        public string Related { get; set; }
+        
+        public int Save_in_Database(string connection_string = "")
+        {
+            string result = "Before";
+            try
+            {
+                Dictionary<string, object> param = new Dictionary<string, object>();
+                param.Add("Symbol", this.Symbol);
+                param.Add("Date", this.DateTime);
+                param.Add("Headline", this.Headline);
+                param.Add("Source", this.Source);
+                param.Add("Url", this.Url);
+                param.Add("Summary", this.Summary);
+                param.Add("Related", this.Related);
+
+                result = Library.Database.ExecuteProcedure_Get(
+                    "[fsn].[News_Insert_Update]"
+                    , param, connection_string);
+                if (result.Contains("\"Result\":0"))
+                {
+                    return 0;
+                }
+                else
+                {
+                    return 1;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log_Error("[AustinsFirstProject.StockAdvisor.IEXTrading.Symbol_.IEXTrading_Symbol_Insert_Update]. Result: " + result + "failed. Message: " + ex.Message);
+            }
+            return 1;
+        }
+
+        public void Set_Symbol(string symbol)
+        {
+            this.Symbol = symbol;
+        }
     }
+
     public class News
     {
         public List<Symbol_> Symbols { get; set; }
@@ -49,13 +89,17 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
         public bool Call_Api()
         {
             this.Gen = new List<Gen>();
+            List<Gen> newlist;
 
             for (int a = 0; a < this.Symbols.Count; a++)
             {
                 try
                 {
-                    this.Gen.AddRange(JsonConvert.DeserializeObject<List<Gen>>(
-                                    Utility.HttpRequestor.News(this.Symbols[a].Symbol)));
+                    newlist = JsonConvert.DeserializeObject<List<Gen>>(
+                                            Utility.HttpRequestor.News(this.Symbols[a].Symbol)
+                                        );
+                    newlist.ForEach(gen => gen.Set_Symbol(this.Symbols[a].Symbol));
+                    this.Gen.AddRange(newlist);
                     this.Api_Called = true;
                     Console.WriteLine(a);
                 }

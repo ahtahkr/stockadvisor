@@ -138,6 +138,33 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
                                         Logger.Log_Error("Converting " + jsondata + " to List<Last> failed. Error Msg: " + ex.Message);
                                     }
                                 }
+                                else if (filename_[0].Equals("News"))
+                                {
+                                    List<Gen> unsuccessful_Gen = new List<Gen>();
+                                    try
+                                    {
+                                        List<Gen> Gen = new List<Gen>();
+                                        Gen = JsonConvert.DeserializeObject<List<Gen>>(jsondata);
+
+                                        for (int a = 0; a < Gen.Count; a++)
+                                        {
+                                            if (Gen[a].Save_in_Database() != 0)
+                                            {
+                                                unsuccessful_Gen.Add(Gen[a]);
+                                            }
+                                        }
+
+                                        if (unsuccessful_Gen.Count > 0)
+                                        {
+                                            File.WriteAllText(Path.Combine(error, filename), JsonConvert.SerializeObject(unsuccessful_Gen));
+                                        }
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        File.WriteAllText(Path.Combine(error, filename), jsondata);
+                                        Logger.Log_Error("Converting " + jsondata + " to List<Gen> failed. Error Msg: " + ex.Message);
+                                    }
+                                }
                             }
                         }
                         else
