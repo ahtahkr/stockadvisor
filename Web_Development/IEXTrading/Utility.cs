@@ -60,6 +60,11 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
                 return HttpRequestUtility.GetRequest(URL + "tops/last");
             }
 
+            public static string News(string _symbol)
+            {
+                return HttpRequestUtility.GetRequest(URL + "stock/" + _symbol + "/news");
+            }
+
             public static string Chart(string _symbol, string range = "")
             {
                 if (String.IsNullOrEmpty(range))

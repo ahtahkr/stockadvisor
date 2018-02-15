@@ -51,11 +51,11 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
             }
         }
 
-        public void Save_to_File(string directory = "")
+        public void Save_In_File(string directory = "")
         {
             if (!Api_Called)
             {
-                Logger.Log_Error("AustinsFirstProject.StockAdvisor.IEXTrading.Previous.Save_to_File(" + directory + ") failed. Error Msg: Calling Save to file without calling call_api");
+                Logger.Log_Error("AustinsFirstProject.StockAdvisor.IEXTrading.Previous.Save_In_File(" + directory + ") failed. Error Msg: Calling Save to file without calling call_api");
                 return;
             }
 
@@ -68,11 +68,11 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
                                 JsonConvert.SerializeObject(this));
 
                 ShareDetails.ShareDetail.Add(ShareDetail);
-                ShareDetails.Save_to_File(directory);
+                ShareDetails.Save_In_File(directory);
             }
             catch (Exception ex)
             {
-                Logger.Log_Error("AustinsFirstProject.StockAdvisor.IEXTrading.Previous.Save_to_File(" + directory + ") failed. Error Msg: " + ex.Message);
+                Logger.Log_Error("AustinsFirstProject.StockAdvisor.IEXTrading.Previous.Save_In_File(" + directory + ") failed. Error Msg: " + ex.Message);
             }
         }
     }

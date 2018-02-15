@@ -12,7 +12,7 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
     public class ShareDetails
     {
         public List<ShareDetail> ShareDetail { get; set; } = new List<ShareDetail>();
-        public void Save_to_File(string directory = "")
+        public void Save_In_File(string directory = "")
         {
             string full_file_name;
 

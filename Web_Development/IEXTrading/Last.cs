@@ -18,7 +18,7 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
             this.Last = new List<Last>();
             this.Api_Called = false;
         }
-        public void Save_to_File(string directory = "")
+        public void Save_In_File(string directory = "")
         {
             if (Api_Called)
             {
@@ -33,7 +33,7 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
                 
             } else
             {
-                Logger.Log_Error("Save_to_File called without calling Call_Api");
+                Logger.Log_Error("Save_In_File called without calling Call_Api");
             }
         }
 

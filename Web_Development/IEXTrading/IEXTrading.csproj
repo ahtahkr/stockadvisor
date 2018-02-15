@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="Chart.cs" />
     <Compile Include="Last.cs" />
+    <Compile Include="News.cs" />
     <Compile Include="ShareDetail.cs" />
     <Compile Include="OHLC.cs" />
     <Compile Include="Previous.cs" />

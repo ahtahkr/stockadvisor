@@ -18,7 +18,39 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
 {
     public partial class Service1 : ServiceBase
     {
-        private void IEXTrading_Top_Last(object sender = null, ElapsedEventArgs e = null)
+        private void IEXTrading_Get_News(object sender = null, ElapsedEventArgs e = null)
+        {
+            try
+            {
+                News news = new News();
+                if (news.Get_Symbols_From_Database())
+                {
+                    if (news.Call_Api())
+                    {
+                        if (news.Save_In_File())
+                        {
+                            /* Console.WriteLine("Saved in File."); */
+                        }
+                        else
+                        {
+                            /*Console.WriteLine("Fail : Save in file.");*/
+                        }
+                    }
+                    else
+                    {
+                        /*Console.WriteLine("Fail : Call Api");*/
+                    }
+                }
+                else
+                {
+                    /*Console.WriteLine("Fail : Get_Symbols_From_Database");*/
+                }
+            } catch (Exception ex)
+            {
+                Logger.Log_Error("Windows_Service IEXTrading_Get_News failed. Error Msg: " + ex.Message);
+            }
+        }
+            private void IEXTrading_Top_Last(object sender = null, ElapsedEventArgs e = null)
         {
             string base_directory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs");
             string filename = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs", "IEXTrading_Top_Last.log");
@@ -51,7 +83,7 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
                     Lasts lasts = new Lasts();
                     if (lasts.Call_Api())
                     {
-                        lasts.Save_to_File();
+                        lasts.Save_In_File();
                     }
                 }
             }
@@ -80,7 +112,7 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
                 if (oHLC.Set_Symbol_Range_from_DB())
                 {
                     oHLC.Call_Api();
-                    oHLC.Save_to_File();
+                    oHLC.Save_In_File();
                 }
             }
             catch (Exception ex)
@@ -116,7 +148,7 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
                             , true
                     ))
                     {
-                        oHLC.Save_to_File();
+                        oHLC.Save_In_File();
                     }
                 }
             }
@@ -154,7 +186,7 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
                     {
                         if (oHLC.Call_Api(tk[0].Ticker))
                         {
-                            oHLC.Save_to_File();
+                            oHLC.Save_In_File();
                             DatabaseUpdateHelper.Update_Company_IEXTrading(tk[0].Ticker, 1);
                         }
                         else
@@ -198,7 +230,7 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
                     {
                         if (oHLC.Call_Api(tk[0].Ticker))
                         {
-                            oHLC.Save_to_File();
+                            oHLC.Save_In_File();
                             DatabaseUpdateHelper.Update_Company_IEXTrading(tk[0].Ticker, 1);
                         } else
                         {

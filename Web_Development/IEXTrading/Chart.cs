@@ -156,15 +156,15 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
             }
         }
 
-        public void Save_to_File(string directory = "")
+        public void Save_In_File(string directory = "")
         {
             try
             {
-                this.ShareDetails.Save_to_File();
+                this.ShareDetails.Save_In_File();
             }
             catch (Exception ex)
             {
-                Logger.Log_Error("AustinsFirstProject.StockAdvisor.IEXTrading.Chart.Save_to_File(" + directory + ") failed. Error Msg: " + ex.Message);
+                Logger.Log_Error("AustinsFirstProject.StockAdvisor.IEXTrading.Chart.Save_In_File(" + directory + ") failed. Error Msg: " + ex.Message);
             }
         }
     }
