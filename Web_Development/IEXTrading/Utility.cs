@@ -69,12 +69,11 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
             {
                 if (String.IsNullOrEmpty(range))
                 {
-                    return HttpRequestUtility.GetRequest(URL + "stock/" + _symbol + "/chart");
+                   return HttpRequestUtility.GetRequest(URL + "stock/" + _symbol + "/chart");
                 } else
                 {
                     return HttpRequestUtility.GetRequest(URL + "stock/" + _symbol + "/chart/" + range );
                 }
-
                 /*
                  
                  Options

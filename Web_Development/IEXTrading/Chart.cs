@@ -114,7 +114,7 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
                                         result
                                     , new IsoDateTimeConverter { DateTimeFormat = "yyyyMMdd" }
                                         );
-
+                    this.ShareDetails.ShareDetail.ForEach(sharedetail => sharedetail.Symbol = this.Symbol);
                     this.Api_Called = true;
                     return true;
                 } else
@@ -140,11 +140,18 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
                 this.Range = range;
                 this.Symbol = symbol;
             }
+            if (String.IsNullOrEmpty(this.Symbol))
+            {
+                Logger.Log_Error("[" + this.GetType().FullName + "." + System.Reflection.MethodBase.GetCurrentMethod().Name + "] Failed. Symbol is empty.");
+                return false;
+            }
+
             try
             {
                 this.ShareDetails.ShareDetail = JsonConvert.DeserializeObject<List<ShareDetail>>(
                                     Utility.HttpRequestor.Chart(this.Symbol, this.Range)
                                     );
+                this.ShareDetails.ShareDetail.ForEach(sharedetail => sharedetail.Symbol = this.Symbol);
 
                 this.Api_Called = true;
                 return true;

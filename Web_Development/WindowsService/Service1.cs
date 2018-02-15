@@ -28,13 +28,9 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
         private static int IEXTrading_Tops_Last_interval = 60 * 60;
         private Timer IEXTrading_Tops_Last_timer = new Timer(IEXTrading_Tops_Last_interval * 1000);
 
-        /*
-        private static int IEXTrading_Download_Companies_interval = 6 * 30 * 24 * 60 * 60; // once in six months
-        private Timer IEXTrading_Download_Companies_timer = new Timer(IEXTrading_Download_Companies_interval * 1000);
-                
-        private static int update_share_interval = 10; // seconds
-        private Timer update_share_timer = new Timer(update_share_interval * 1000);
-        */
+        private static int IEXTrading_Get_News_interval = 60 * 60;
+        private Timer IEXTrading_Get_News_timer = new Timer(IEXTrading_Get_News_interval * 1000);
+
         public Service1()
         {
             InitializeComponent();
@@ -44,9 +40,6 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
         protected override void OnStart(string[] args)
         {
             eventLog_i_am_active.WriteEntry("Austin Stock Windows Service started.");
-
-            //this.IEXTrading_Download_Companies_timer.Elapsed += IEXTrading_Download_Symbols;
-            //this.IEXTrading_Download_Companies_timer.Enabled = true;
 
             this.Upload_Files_timer.Elapsed += Upload_Files;
             this.Upload_Files_timer.Enabled = true;
@@ -60,8 +53,8 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
             this.IEXTrading_Tops_Last_timer.Elapsed += IEXTrading_Top_Last;
             this.IEXTrading_Tops_Last_timer.Enabled = true;
 
-            //this.update_share_timer.Elapsed += Update_Share_IEXTrading_Chart;
-            //this.update_share_timer.Enabled = true;
+            this.IEXTrading_Get_News_timer.Elapsed += IEXTrading_Get_News;
+            this.IEXTrading_Get_News_timer.Enabled = true;
 
             this.i_am_active_timer.Elapsed += I_AM_ACTIVE;
             this.i_am_active_timer.Enabled = true;
@@ -74,9 +67,7 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
             this.IEXTrading_Chart_timer.Enabled = false;
             this.IEXTrading_Chart_Date_timer.Enabled = false;
             this.IEXTrading_Tops_Last_timer.Enabled = false;
-
-            //this.update_share_timer.Enabled = false;            
-            //this.IEXTrading_Download_Companies_timer.Enabled = false;
+            this.IEXTrading_Get_News_timer.Enabled = false;
 
             this.Upload_Files_timer.Enabled = false;
         }
@@ -88,9 +79,7 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
             this.IEXTrading_Chart_timer.Enabled = false;
             this.IEXTrading_Chart_Date_timer.Enabled = false;
             this.IEXTrading_Tops_Last_timer.Enabled = false;
-
-            //this.update_share_timer.Enabled = false;
-            //this.IEXTrading_Download_Companies_timer.Enabled = false;
+            this.IEXTrading_Get_News_timer.Enabled = false;
 
             this.Upload_Files_timer.Enabled = false;
         }
@@ -102,9 +91,7 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
             this.IEXTrading_Chart_timer.Enabled = true;
             this.IEXTrading_Chart_Date_timer.Enabled = true;
             this.IEXTrading_Tops_Last_timer.Enabled = true;
-
-            //this.update_share_timer.Enabled = true;
-            //this.IEXTrading_Download_Companies_timer.Enabled = true;
+            this.IEXTrading_Get_News_timer.Enabled = true;
 
             this.Upload_Files_timer.Enabled = true;
         }

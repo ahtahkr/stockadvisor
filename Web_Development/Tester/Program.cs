@@ -21,78 +21,12 @@ namespace AustinsFirstProject.Tester
             //Symbols.Download_Symbols();
             string connection_string = "Data Source=AADHIKARI10\\SQLEXPRESS;Initial Catalog=austin_stock_processor;User ID=developer;Password=developer";
 
-            News news = new News();
-            if (news.Get_Symbols_From_Database(connection_string))
+
+            Lasts lasts = new Lasts();
+            if (lasts.Call_Api())
             {
-                if (news.Call_Api())
-                {
-                    if (news.Save_In_File())
-                    {
-                        Console.WriteLine("Saved in File.");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Fail : Save in file.");
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Fail : Call Api");
-                }
-            } else
-            {
-                Console.WriteLine("Fail : Get_Symbols_From_Database");
+                lasts.Save_In_File();
             }
-            Console.ReadLine();
-
-
-            //Lasts lasts = new Lasts();
-            //if (lasts.Call_Api())
-            //{
-            //    lasts.save_in_file();
-            //}
-
-            //string directory = @"F:\features\austin_first_project\Web_Development\Tester\bin\Debug\netcoreapp2.0\IEXTrading\Api";
-            //string file = AustinsFirstProject.Library.Utility.FileUtility.GetFile(directory,0);
-            //string jsondata = File.ReadAllText(file);
-
-            //List<Last> unsuccessful_lasts = new List<Last>();
-
-            //List<Last> lasts_ = new List<Last>();
-            //lasts_ = JsonConvert.DeserializeObject<List<Last>>(jsondata);
-
-            //for (int a = 0; a < lasts_.Count; a++)
-            //{
-            //    if (lasts_[a].Save_in_Database(connection_string) != 0)
-            //    {
-            //        unsuccessful_lasts.Add(lasts_[a]);
-            //    }
-            //}
-
-            //Chart oHLC = new Chart();
-            //string result = oHLC.Download_Chart_Date(connection_string);
-            //if (!String.IsNullOrEmpty(result))
-            //{
-            //    dynamic jsonparse = JObject.Parse(result);
-
-            //    oHLC.Call_Api_Date(
-            //            jsonparse["Symbol"].ToString()
-            //            , jsonparse["Date"].ToString()
-            //            , true
-            //    );
-            //    oHLC.save_in_file();
-            //}
-
-            //Chart oHLC = new Chart();
-            //if (oHLC.Set_Symbol_Range_from_DB(connection_string))
-            //{
-            //    oHLC.Call_Api();
-            //    oHLC.save_in_file();
-            //}            
-
-            //oHLC.Call_Api("AAPL","5y");
-            //oHLC.save_in_file();
-            //Symbols.Download_Symbols();
 
             Console.WriteLine("DONE");
             Console.ReadLine();
