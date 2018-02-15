@@ -24,12 +24,12 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
             {
                 string full_file_name;
                 
-                    do
-                    {
-                        full_file_name = Utility.Get_Full_FileName_to_Save_Api_Result(directory, "Last");
-                    } while (File.Exists(full_file_name));
+                do
+                {
+                    full_file_name = Utility.Get_Full_FileName_to_Save_Api_Result(directory, "Last");
+                } while (File.Exists(full_file_name));
 
-                    File.AppendAllText(full_file_name, JsonConvert.SerializeObject(this.Last));
+                File.AppendAllText(full_file_name, JsonConvert.SerializeObject(this.Last));
                 
             } else
             {
@@ -67,10 +67,16 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
 
         public int Save_in_Database(string connection_string = "")
         {
+            Dictionary<string, object> param = new Dictionary<string, object>();
             string result = "Before";
             try
             {
-                Dictionary<string, object> param = new Dictionary<string, object>();
+                /* Do Not save data if the share close price is way too high. */
+                if (this.Price >= 100000)
+                {
+                    return 0;
+                }
+                
                 param.Add("Symbol", this.Symbol);
                 param.Add("Close", this.Price);
                 param.Add("Date", (new DateTime(1970,1,1)).AddMilliseconds(this.Time));
@@ -89,7 +95,9 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
             }
             catch (Exception ex)
             {
-                Logger.Log_Error("[AustinsFirstProject.StockAdvisor.IEXTrading.Last.Save_in_Database]. Result: " + result + "failed. Message: " + ex.Message);
+                string s = string.Join(";", param.Select(x => x.Key + "=" + x.Value).ToArray());
+
+                Logger.Log_Error("[AustinsFirstProject.StockAdvisor.IEXTrading.Last.Save_in_Database]. Result: " + result + " failed. Parameter: "+s+ "Message: " + ex.Message);
             }
 
             return 1;

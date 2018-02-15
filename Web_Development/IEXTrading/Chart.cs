@@ -86,10 +86,11 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
             this.Symbol = symbol;
 
             string result = "";
+            string _RESULT = "";
             try
             {
                 result = Utility.HttpRequestor.Chart(this.Symbol, "date/" + date);
-
+                _RESULT = "";
                 if (!String.IsNullOrEmpty(result))
                 {
                     if (result == "[]")
@@ -123,7 +124,7 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
             }
             catch (Exception ex)
             {
-                Logger.Log_Error("AustinsFirstProject.StockAdvisor.IEXTrading.Chart.Call_Api_Date(" + symbol+", "+ "date/" + date + ") failed. Result: [" + result + "] Error Msg: " + ex.Message);
+                Logger.Log_Error("AustinsFirstProject.StockAdvisor.IEXTrading.Chart.Call_Api_Date(" + symbol+", "+ "date/" + date + ") failed. Result: $" + _RESULT + "$ Error Msg: " + ex.Message);
                 return false;
             }
         }
