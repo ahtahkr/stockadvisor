@@ -29,12 +29,17 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
                 result = Library.Database.ExecuteProcedure_Get(
                         "[fsn].[IEXTrading_Get_Symbol_For_Chart]", null, connection_string);
 
-                result = result.Split('[')[1];
-                result = result.Split(']')[0];
-                dynamic jsonparse = JObject.Parse(result);
+                if (result.Equals("[]"))
+                { }
+                else
+                {
+                    result = result.Split('[')[1];
+                    result = result.Split(']')[0];
+                    dynamic jsonparse = JObject.Parse(result);
 
-                this.Symbol = jsonparse["Symbol"];
-                this.Range = jsonparse["Range"];
+                    this.Symbol = jsonparse["Symbol"];
+                    this.Range = jsonparse["Range"];
+                }
                 return true;
             } catch (Exception ex)
             {

@@ -23,11 +23,11 @@ namespace AustinsFirstProject.Library
 
             if (!String.IsNullOrEmpty(_filename))
             {
-                filename = _filename + "_" + DateTime.Now.ToString("yyyy_MM_dd_HH_mm") + ".error";
+                filename = _filename + "_" + DateTime.Now.ToString("yyyy_MM_dd") + ".error";
             }
             else
             {
-                filename = "Error_" + DateTime.Now.ToString("yyyy_MM_dd_HH_mm") + ".error";
+                filename = "Error_" + DateTime.Now.ToString("yyyy_MM_dd") + ".error";
             }
 
             if (!Directory.Exists(base_directory))
