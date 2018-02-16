@@ -98,8 +98,8 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
                 _RESULT = "";
                 if (!String.IsNullOrEmpty(result))
                 {
-                    if (result == "[]")
-                    {
+                    if (result.Equals("[]"))
+                    { } else { 
                         DateTime dt = DateTime.ParseExact(date, "yyyyMMdd", System.Globalization.CultureInfo.InvariantCulture);
                         Dictionary<string, object> parameters = new Dictionary<string, object>
                         {
