@@ -25,7 +25,14 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
                 Directory.CreateDirectory(base_directory);
             }
 
-            File.WriteAllText(_filename, DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss") + " : " + "Upload_Files.");            
+            string go_ahead = Convert.ToString(ConfigurationManager.AppSettings["Upload_Files"]);
+
+            File.WriteAllText(_filename, DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss") + " : Upload_Files. " + go_ahead); 
+            
+            if (!go_ahead.Equals("true"))
+            {
+                return;
+            }
 
             string directory = Convert.ToString(ConfigurationManager.AppSettings["IEXTrading_Files_dir"]);
 

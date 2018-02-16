@@ -20,6 +20,23 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
     {
         private void IEXTrading_Get_News(object sender = null, ElapsedEventArgs e = null)
         {
+            string base_directory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs");
+            string _filename = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs", "IEXTrading_Get_News.log");
+
+            if (!Directory.Exists(base_directory))
+            {
+                Directory.CreateDirectory(base_directory);
+            }
+
+            string go_ahead = Convert.ToString(ConfigurationManager.AppSettings["IEXTrading_Get_News"]);
+
+            File.WriteAllText(_filename, DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss") + " : IEXTrading_Get_News. " + go_ahead);
+
+            if (!go_ahead.Equals("true"))
+            {
+                return;
+            }
+
             try
             {
                 News news = new News();
@@ -60,8 +77,15 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
                 Directory.CreateDirectory(base_directory);
             }
 
-            File.WriteAllText(filename, DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss") + " : " + "IEXTrading_Top_Last.");
-                                    
+            string go_ahead = Convert.ToString(ConfigurationManager.AppSettings["IEXTrading_Top_Last"]);
+
+            File.WriteAllText(filename, DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss") + " : " + "IEXTrading_Top_Last. " + go_ahead);
+
+            if (!go_ahead.Equals("true"))
+            {
+                return;
+            }
+
             try
             {
                 DateTime current_time = DateTime.Now;
@@ -104,7 +128,14 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
                 Directory.CreateDirectory(base_directory);
             }
 
-            File.WriteAllText(filename, DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss") + " : " + "IEXTrading_Chart.");
+            string go_ahead = Convert.ToString(ConfigurationManager.AppSettings["IEXTrading_Chart"]);
+
+            File.WriteAllText(filename, DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss") + " : IEXTrading_Chart. " + go_ahead);
+
+            if (!go_ahead.Equals("true"))
+            {
+                return;
+            }
 
             try
             {
@@ -132,7 +163,15 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
                 Directory.CreateDirectory(base_directory);
             }
 
-            File.WriteAllText(filename, DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss") + " : " + "IEXTrading_Chart_log.");
+            string go_ahead = Convert.ToString(ConfigurationManager.AppSettings["IEXTrading_Chart_Date"]);
+
+            File.WriteAllText(filename, DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss") + " : " + "IEXTrading_Chart_Date. " + go_ahead);
+
+            if (!go_ahead.Equals("true"))
+            {
+                return;
+            }
+
             string result = "Before";
             try
             {
