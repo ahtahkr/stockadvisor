@@ -53,7 +53,7 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
                         string filename = Path.GetFileName(file);
                         string[] filename_ = filename.Split('_');
 
-                        if (filename_[0].Equals("Symbol") || filename_[0].Equals("ShareDetail") || filename_[0].Equals("Last") || filename_[0].Equals("Last"))
+                        if (filename_[0].Equals("Symbol") || filename_[0].Equals("ShareDetail") || filename_[0].Equals("Last") || filename_[0].Equals("News"))
                         {
                             string jsondata = File.ReadAllText(file);
 
