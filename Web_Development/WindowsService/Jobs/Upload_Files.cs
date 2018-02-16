@@ -46,13 +46,13 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
                         string filename = Path.GetFileName(file);
                         string[] filename_ = filename.Split('_');
 
-                        if (filename_[0].Equals("Symbol") || filename_[0].Equals("ShareDetail") || filename_[0].Equals("Last"))
+                        if (filename_[0].Equals("Symbol") || filename_[0].Equals("ShareDetail") || filename_[0].Equals("Last") || filename_[0].Equals("Last"))
                         {
                             string jsondata = File.ReadAllText(file);
 
                             if (String.IsNullOrEmpty(jsondata))
                             {
-                                Logger.Log_Error("The file " + file + " is empty.");
+                                Logger.Log_Error("Windows Service. Upload Files. The file " + file + " is empty.");
                                 File.Move(file, Path.Combine(error, filename));
                             }
                             else
@@ -83,7 +83,7 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
                                     catch (Exception ex)
                                     {
                                         File.WriteAllText(Path.Combine(error, filename), jsondata);
-                                        Logger.Log_Error("Converting " + jsondata + " to List<Symbol_> failed. Error Msg: " + ex.Message);
+                                        Logger.Log_Error("Windows Service. Upload Files. Converting " + jsondata + " to List<Symbol_> failed. Error Msg: " + ex.Message);
                                     }
                                 }
                                 else if (filename_[0].Equals("ShareDetail"))
@@ -109,7 +109,7 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
                                     catch (Exception ex)
                                     {
                                         File.WriteAllText(Path.Combine(error, filename), jsondata);
-                                        Logger.Log_Error("Converting " + jsondata + " to List<ShareDetail> failed. Error Msg: " + ex.Message);
+                                        Logger.Log_Error("Windows Service. Upload Files. Converting " + jsondata + " to List<ShareDetail> failed. Error Msg: " + ex.Message);
                                     }
                                 } else if (filename_[0].Equals("Last"))
                                 {
@@ -135,7 +135,7 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
                                     catch (Exception ex)
                                     {
                                         File.WriteAllText(Path.Combine(error, filename), jsondata);
-                                        Logger.Log_Error("Converting " + jsondata + " to List<Last> failed. Error Msg: " + ex.Message);
+                                        Logger.Log_Error("Windows Service. Upload Files. Converting " + jsondata + " to List<Last> failed. Error Msg: " + ex.Message);
                                     }
                                 }
                                 else if (filename_[0].Equals("News"))
@@ -162,7 +162,7 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
                                     catch (Exception ex)
                                     {
                                         File.WriteAllText(Path.Combine(error, filename), jsondata);
-                                        Logger.Log_Error("Converting " + jsondata + " to List<Gen> failed. Error Msg: " + ex.Message);
+                                        Logger.Log_Error("Windows Service. Upload Files. Converting " + jsondata + " to List<Gen> failed. Error Msg: " + ex.Message);
                                     }
                                 }
                             }
@@ -170,16 +170,17 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
                         else
                         {
                             Logger.Log_Error(file + " received from AustinsFirstProject.Library.Utility.FileUtility.GetFile will not be processed.");
+                            File.Move(file, Path.Combine(error, filename));
                         }
                     }
                     else
                     {
-                        Logger.Log_Error(file + " received from AustinsFirstProject.Library.Utility.FileUtility.GetFile is invalid.");
+                        Logger.Log_Error(file + " received from AustinsFirstProject.Library.Utility.FileUtility.GetFile does not exist.");
                     }
                 }
             } else
             {
-                Logger.Log_Error("The IEXTrading_Files_dir in App.config file is not a valid directory. IEXTrading_Files_dir = " + directory);
+                Logger.Log_Error("Windows Service. Upload Files. The IEXTrading_Files_dir in App.config file is not a valid directory. IEXTrading_Files_dir = " + directory);
             }
         }
     }
