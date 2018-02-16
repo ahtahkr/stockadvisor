@@ -42,6 +42,10 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
         public bool IsEnabled { get; set; }
         public string Type { get; set; }
         public int IexId { get; set; }
+        public bool IEXTrading { get; set; }
+        public bool News { get; set; }
+        public bool Get_Share_Data { get; set; }
+        public bool Robinhood { get; set; }
 
         public Symbol_()
         {
@@ -51,6 +55,10 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
             this.IsEnabled = false;
             this.Type = "";
             this.IexId = 0;
+            this.IEXTrading = false;
+            this.News = false;
+            this.Get_Share_Data = false;
+            this.Robinhood = false;
         }
 
         public int Save_in_Database()

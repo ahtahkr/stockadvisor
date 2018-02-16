@@ -7,7 +7,6 @@
   <ItemGroup>
     <Folder Include="Areas\Company\Data\" />
     <Folder Include="Areas\Home\Data\" />
-    <Folder Include="Areas\Home\Models\" />
     <Folder Include="Areas\Index\Data\" />
     <Folder Include="Areas\Index\Models\" />
     <Folder Include="Areas\RobinhoodAll\Data\" />
@@ -29,6 +28,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CoreLibrary\CoreLibrary.csproj" />
+    <ProjectReference Include="..\IEXTrading\IEXTrading.csproj" />
     <ProjectReference Include="..\Library\Library.csproj" />
   </ItemGroup>
 

@@ -1,15 +1,59 @@
-﻿
+﻿@model AustinsFirstProject.WebApplication.Areas.Home.Models.Home;
 @{
     ViewData["Title"] = "Index";
+    Layout = "~/Views/Static/Layout.cshtml";
 }
 
-<h2>Home Controller Index</h2>
+<div class="container-fluid">
+    <table class="table table-striped table-responsive">       
 
-@for (int a = 0; a <= 200; a++)
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Symbol</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">IsEnabled</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">IEXId</th>
+                    <th scope="col">IEXTrading</th>
+                    <th scope="col">News</th>
+                    <th scope="col">Get Share Data</th>
+                    <th scope="col">Robinhood</th>
+                </tr>
+            </thead>
+            <tbody class="pre-scrollable">
+@{
+    var index = 0;
+    foreach (var item in Model.Symbols)
+    {
+        index++;
+                <tr>
+                    <th scope="row">@index</th>
+                    <td>@item.Symbol</td>
+                    <td>@item.Name</td>
+                    <td>@item.IsEnabled</td>
+                    <td>@item.Type</td>
+                    <td>@item.IexId</td>
+                    <td>@item.IEXTrading</td>
+                    <td>@item.News</td>
+                    <td>@item.Get_Share_Data</td>
+                    <td>@item.Robinhood</td>
+                </tr>
+                }
+                }
+            </tbody>
+        </table>
+    </div>
+
+
+
+@*<h2>Home Controller Index</h2>*@
+
+@*@for (int a = 0; a <= 200; a++)
 {
     <br />
     @Html.ActionLink("" + a, "Index", "RobinhoodAll", new { area = "RobinhoodAll", open = a, page = 0 })
-}
+}*@
 
 
 @*public static string ActionLink(this HtmlHelper htmlHelper,
