@@ -88,22 +88,13 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
 
             try
             {
-                DateTime current_time = DateTime.Now;
-                int current_hour_min = (current_time.Hour * 60) + current_time.Minute;
+                DateTime current_time = DateTime.UtcNow;
+                int current_hour = current_time.Hour;
 
                 int hour = Convert.ToInt32(ConfigurationManager.AppSettings["IEXTrading_Top_Last_hour"]);
-                int minute = Convert.ToInt32(ConfigurationManager.AppSettings["IEXTrading_Top_Last_minute"]);
 
-                int hour_min = (hour * 60) + minute;
-
-                if (hour_min == 0)
+                if (current_hour == hour)
                 {
-                    hour_min = (18 * 60) + 00;
-                }
-
-                if (current_hour_min >= hour_min)
-                {
-
                     Lasts lasts = new Lasts();
                     if (lasts.Call_Api())
                     {
