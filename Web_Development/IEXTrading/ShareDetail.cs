@@ -14,16 +14,22 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
         public List<ShareDetail> ShareDetail { get; set; } = new List<ShareDetail>();
         public void Save_In_File(string directory = "")
         {
-            string full_file_name;
-
-            do
+            string full_file_name = "";
+            try
             {
-                full_file_name = Utility.Get_Full_FileName_to_Save_Api_Result(directory, "ShareDetail" + "_" 
-                    + ((this.ShareDetail[0].Symbol.Length > 0) ? this.ShareDetail[0].Symbol : "")
-                    );
-            } while (File.Exists(full_file_name));
+                do
+                {
+                    full_file_name = Utility.Get_Full_FileName_to_Save_Api_Result(directory, "ShareDetail" + "_"
+                        + ((this.ShareDetail[0].Symbol.Length > 0) ? this.ShareDetail[0].Symbol : "")
+                        );
+                } while (File.Exists(full_file_name));
 
-            File.AppendAllText(full_file_name, JsonConvert.SerializeObject(this.ShareDetail));
+                File.AppendAllText(full_file_name, JsonConvert.SerializeObject(this.ShareDetail));
+            } catch (Exception ex)
+            {
+                /* MethodFullName. */
+                Logger.Log_Error("[" + this.GetType().FullName + "." + System.Reflection.MethodBase.GetCurrentMethod().Name + "] Full_File_Name: [" + full_file_name + "] Error Msg: " + ex.Message);
+            }
         }
     }
     public class ShareDetail

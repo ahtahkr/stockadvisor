@@ -1,0 +1,84 @@
+﻿@model AustinsFirstProject.WebApplication.Areas.Robinhood.Models.ShareCanvas
+@using AustinsFirstProject.CoreLibrary.Modal;
+@using Newtonsoft.Json;
+
+@{
+    Layout = "~/Views/Static/Layout.cshtml";
+}
+
+<head>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
+    <script src="~/js/canvasjs.min.js"></script>
+
+    @*@section scripts {*@
+
+    <script type="text/javascript">
+        function Render_All_Canvas(div_id, data) {
+            //window.onload = function () {
+            return new CanvasJS.Chart(div_id,
+                {
+                    zoomEnabled: true,
+
+                    title: {
+                        text: "Chart With Date-Time Stamps Inputs"
+                    },
+
+                    data: [
+                        {
+                            type: "line",
+                            xValueType: "dateTime",
+                            dataPoints: data
+                            @*@Html.Raw(Model.Shares_Date_Close()) *@
+                        }
+                        ]
+                    }).render();
+            }
+        //}
+    </script>
+
+</head>
+
+
+
+@{
+    var counter = 0; var chart_id = "";
+
+    foreach (var item in Model.Canvas)
+    {
+        <p>@item.Key.Name - @item.Key.Symbol</p>
+        chart_id = "chartContainer_" + counter;
+        <div id="@chart_id"></div>
+        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+        counter++;
+
+        <p>@item.Key.Name</p>
+        List<DataPoint> data_points = new List<DataPoint>();
+
+        foreach (var share in item.Value)
+        {
+            data_points.Add(
+                new DataPoint(
+                        (Convert.ToInt64(share.Date))
+                        , Convert.ToDouble(share.Close)
+                    )
+                );
+        }
+
+        <script> Render_All_Canvas(@chart_id, @Html.Raw(@JsonConvert.SerializeObject(data_points))).render() </script>
+    }
+
+}
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        @for (int a = 0; a <= 1; a++)
+            {
+            <li class="page-item page-link">@Html.ActionLink("" + a, "Index", "RobinhoodAll", new { open = a, page = a })</li>
+        }
+    </ul>
+</nav>

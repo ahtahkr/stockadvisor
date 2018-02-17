@@ -25,9 +25,10 @@
     <nav class="nav fixed-top bg-primary">
         <div class="nav-link text-white text-lg-center font-weight-bold">Website Name</div>
         <div class="nav-link">@Html.RouteLink("Symbol", new { action = "Index", controller = "Symbol", area = "Symbol" }, new { @class = "text-white text-sm-center font-weight-bold" })</div>
+        <div class="nav-link">@Html.RouteLink("Robinhood", new { action = "Index", controller = "Robinhood", area = "Robinhood" }, new { @class = "text-white text-sm-center font-weight-bold" })</div>
     </nav>
     
-    <br />
+    <br /><br />
     
     <div class="container-fluid"> @RenderBody() </div>
 
