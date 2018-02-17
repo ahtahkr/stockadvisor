@@ -95,11 +95,11 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
             try
             {
                 result = Utility.HttpRequestor.Chart(this.Symbol, "date/" + date);
-                _RESULT = "";
+                _RESULT = result;
                 if (!String.IsNullOrEmpty(result))
                 {
                     if (result.Equals("[]"))
-                    { } else { 
+                    {
                         DateTime dt = DateTime.ParseExact(date, "yyyyMMdd", System.Globalization.CultureInfo.InvariantCulture);
                         Dictionary<string, object> parameters = new Dictionary<string, object>
                         {
@@ -108,19 +108,23 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
                         };
                         this.DB_Invalid_Symbol_Date(parameters);
                     }
-                    if (last_record)
+                    else
                     {
-                        string[] results = result.Split('{');
-                        result = results[results.Length - 1];
-                        result = "[{" + result.Split(']')[0] + "]";
-                    }
+                        if (last_record)
+                        {
+                            string[] results = result.Split('{');
+                            result = results[results.Length - 1];
+                            result = "[{" + result.Split(']')[0] + "]";
+                        }
 
-                    this.ShareDetails.ShareDetail = JsonConvert.DeserializeObject<List<ShareDetail>>(
-                                        result
-                                    , new IsoDateTimeConverter { DateTimeFormat = "yyyyMMdd" }
-                                        );
-                    this.ShareDetails.ShareDetail.ForEach(sharedetail => sharedetail.Symbol = this.Symbol);
-                    this.Api_Called = true;
+                        this.ShareDetails.ShareDetail = JsonConvert.DeserializeObject<List<ShareDetail>>(
+                                            result
+                                        , new IsoDateTimeConverter { DateTimeFormat = "yyyyMMdd" }
+                                            );
+                        this.ShareDetails.ShareDetail.ForEach(sharedetail => sharedetail.Symbol = this.Symbol);
+                        this.Api_Called = true;
+                    }
+                
                     return true;
                 } else
                 {
@@ -170,14 +174,7 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
 
         public void Save_In_File(string directory = "")
         {
-            try
-            {
-                this.ShareDetails.Save_In_File();
-            }
-            catch (Exception ex)
-            {
-                Logger.Log_Error("AustinsFirstProject.StockAdvisor.IEXTrading.Chart.Save_In_File(" + directory + ") failed. Error Msg: " + ex.Message);
-            }
+            this.ShareDetails.Save_In_File();
         }
     }
 }
