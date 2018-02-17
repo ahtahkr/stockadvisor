@@ -43,7 +43,7 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
 
             if (Directory.Exists(directory))
             {
-                string file = AustinsFirstProject.Library.Utility.FileUtility.GetFile(directory);
+                string file = AustinsFirstProject.Library.Utility.FileUtility.GetFile(directory, 1);
 
                 if (String.IsNullOrEmpty(file)) { }
                 else
