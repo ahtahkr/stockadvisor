@@ -10,6 +10,7 @@
     <Folder Include="Areas\Index\Data\" />
     <Folder Include="Areas\Index\Models\" />
     <Folder Include="Areas\RobinhoodAll\Data\" />
+    <Folder Include="Areas\Symbol\Data\" />
   </ItemGroup>
 
   <ItemGroup>

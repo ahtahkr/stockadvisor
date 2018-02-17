@@ -19,30 +19,12 @@
     @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>*@
 
-    <script>
-        var tableOffset = $("#table-1").offset().top;
-        var $header = $("#table-1 > thead").clone();
-        var $fixedHeader = $("#header-fixed").append($header);
-
-        $(window).bind("scroll", function () {
-            var offset = $(this).scrollTop();
-
-            if (offset >= tableOffset && $fixedHeader.is(":hidden")) {
-                $fixedHeader.show();
-            }
-            else if (offset < tableOffset) {
-                $fixedHeader.hide();
-            }
-        });
-    </script>
-
 </head>
 
 <body>
     <nav class="nav fixed-top bg-primary">
         <div class="nav-link text-white text-lg-center font-weight-bold">Website Name</div>
-        <div class="nav-link">@Html.RouteLink("Home", new { action = "Index", controller = "Home", area = "Home" }, new { @class = "text-white text-sm-center" })</div>
-        <div class="nav-link">@Html.RouteLink("Setup", new { action = "Index", controller = "Url", area = "Url" }, new { @class = "text-white text-sm-center" })</div>
+        <div class="nav-link">@Html.RouteLink("Symbol", new { action = "Index", controller = "Symbol", area = "Symbol" }, new { @class = "text-white text-sm-center font-weight-bold" })</div>
     </nav>
     
     <br />
