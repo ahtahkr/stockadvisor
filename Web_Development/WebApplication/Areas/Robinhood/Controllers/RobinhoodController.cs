@@ -26,7 +26,7 @@ namespace AustinsFirstProject.WebApplication.Areas.Robinhood.Controllers
         }
 
         [Route("[action]/{closemin:int?}/{closemax:int?}/{page:int?}")]
-        public IActionResult Index(int closemin, int closemax, int page)
+        public IActionResult Index(int closemin = 0, int closemax = 2, int page = 1)
         {
             Dictionary<string, object> param = new Dictionary<string, object>
             {

@@ -52,24 +52,23 @@
     {
         <p>@item.Key.Name - @item.Key.Symbol</p>
         chart_id = "chartContainer_" + counter;
-        <div id="@chart_id"></div>
-        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-        counter++;
+    <div id="@chart_id"></div>
+    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+    counter++;
 
-        <p>@item.Key.Name</p>
-        List<DataPoint> data_points = new List<DataPoint>();
+    List<DataPoint> data_points = new List<DataPoint>();
 
-        foreach (var share in item.Value)
-        {
-            data_points.Add(
-                new DataPoint(
-                        (Convert.ToInt64(share.Date))
-                        , Convert.ToDouble(share.Close)
-                    )
-                );
-        }
-
-        <script> Render_All_Canvas(@chart_id, @Html.Raw(@JsonConvert.SerializeObject(data_points))).render() </script>
+    foreach (var share in item.Value)
+    {
+        data_points.Add(
+            new DataPoint(
+                    (Convert.ToInt64(share.Date))
+                    , Convert.ToDouble(share.Close)
+                )
+            );
+    }
+    
+    <script> Render_All_Canvas(@chart_id, @Html.Raw(@JsonConvert.SerializeObject(data_points))) </script>
     }
 
 }

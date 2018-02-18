@@ -20,12 +20,14 @@ namespace AustinsFirstProject.Tester
         {
             //Symbols.Download_Symbols();
             string connection_string = "Data Source=AADHIKARI10\\SQLEXPRESS;Initial Catalog=austin_stock_processor;User ID=developer;Password=developer";
+            connection_string = "Data Source=DESKTOP-BJ0AH8G;Initial Catalog=austin_stock_processor;User ID=ashadhik;Password=ashadhik;";
 
 
-            Lasts lasts = new Lasts();
-            if (lasts.Call_Api())
+            Chart oHLC = new Chart();
+            if (oHLC.Set_Symbol_Range_from_DB(connection_string))
             {
-                lasts.Save_In_File();
+                oHLC.Call_Api();
+                oHLC.Save_In_File();
             }
 
             Console.WriteLine("DONE");
