@@ -40,6 +40,10 @@
 </div>
 
 <script>
+    function Commit_Selected(sha) {
+        console.log(sha);
+    }
+
     function Committer_Selected(_email, _repo_url) {
         var jsonData = {};
         jsonData['email'] = _email;
@@ -57,19 +61,20 @@
 
                 var html_code = '<div class="row container-fluid"><p class="h6 text-center text-capitalize">Commit Messages</p></div>';
                 html_code += '<div class="row">';
-                html_code += '<div class="list-group">';                
+                html_code += '<div class="list-group">';
 
                 for (var a = 0; a < result.length; a++)
                 {
-                    html_code += '<a class="list-group-item list-group-item-action flex-column align-items-start">';
+                    var input = {};
+                    input['Sha'] = result[a].Sha;
+                    input['Repo_Path'] = _repo_url;
+                    html_code += '<a onclick="Commit_Selected(' + JSON.stringify(input)+')" class="list-group-item list-group-item-action flex-column align-items-start">';
                     html_code += '<div class="d-flex w-100 justify-content-between">';
                     html_code += '<h5 class="mb-1">' + result[a].MessageShort + '</h5>';
                     html_code += '<small></small>';
                     html_code += '</div>';
                     html_code += '<p class="mb-1"></p>';
                     html_code += '<small></small></a >';
-
-                    console.log(result[a]);
                 }
                 html_code += '</div>';
                 html_code += '</div>';

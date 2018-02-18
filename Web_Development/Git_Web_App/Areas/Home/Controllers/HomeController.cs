@@ -49,6 +49,13 @@ namespace AustinsFirstProject.Git_Web_App.Areas.Home.Controllers
         }
 
         [Route("[action]")]
+        public string Commit_Selected(string _input)
+        {
+            string result = "";
+            return result;
+        }
+
+        [Route("[action]")]
         public string Committer_Selected(string _input)
         {
             var input = JObject.Parse(_input);
