@@ -17,6 +17,14 @@ namespace AustinsFirstProject.Git_Web_App.Areas.Home.Controllers
     [Route("Home")]
     public class HomeController : Controller
     {
+        [Route("")]
+        public void ReRoute()
+        {
+
+            string baseUrl = $"{this.Request.Scheme}://{this.Request.Host}{this.Request.PathBase}";
+            Response.Redirect(baseUrl + "/Home/Index");
+        }
+
         [Route("[action]")]
         public IActionResult Index()
         {
