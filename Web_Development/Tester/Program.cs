@@ -23,16 +23,12 @@ namespace AustinsFirstProject.Tester
             connection_string = "Data Source=DESKTOP-BJ0AH8G;Initial Catalog=austin_stock_processor;User ID=ashadhik;Password=ashadhik;";
 
 
-            Chart oHLC = new Chart();
-            if (oHLC.Set_Symbol_Range_from_DB(connection_string))
+            Lasts lasts = new Lasts();
+            if (lasts.Call_Api())
             {
-                oHLC.Call_Api();
-                oHLC.Save_In_File();
+                lasts.Save_In_File();
             }
 
-            Console.WriteLine("DONE");
-            Console.ReadLine();
-            
             /*
                 string git_url = "https://asadhikari@bitbucket.org/austinsfirstproject/asp-net-core.git";
                 string username = "as.adhikari@outlook.com";

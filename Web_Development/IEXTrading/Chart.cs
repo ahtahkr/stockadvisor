@@ -30,7 +30,7 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
                         "[fsn].[IEXTrading_Get_Symbol_For_Chart]", null, connection_string);
 
                 if (result.Equals("[]"))
-                { }
+                { return false; }
                 else
                 {
                     result = result.Split('[')[1];
@@ -107,6 +107,7 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
                             { "Date", dt }
                         };
                         this.DB_Invalid_Symbol_Date(parameters);
+                        return false;
                     }
                     else
                     {

@@ -16,13 +16,13 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
         private static int i_am_active_interval = 1; // seconds
         private Timer i_am_active_timer = new Timer(i_am_active_interval * 1000);
 
-        private static int IEXTrading_Chart_Date_interval = 60 * 5; // seconds
+        private static int IEXTrading_Chart_Date_interval = 10; // seconds
         private Timer IEXTrading_Chart_Date_timer = new Timer(IEXTrading_Chart_Date_interval * 1000);
         
         private static int Upload_Files_interval = 3;
         private Timer Upload_Files_timer = new Timer(Upload_Files_interval * 1000);
 
-        private static int IEXTrading_Chart_interval = 2 * 60;
+        private static int IEXTrading_Chart_interval = 30;
         private Timer IEXTrading_Chart_timer = new Timer(IEXTrading_Chart_interval * 1000);
 
         private static int IEXTrading_Tops_Last_interval = 60 * 60;
