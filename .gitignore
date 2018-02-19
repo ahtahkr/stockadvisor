@@ -27,5 +27,9 @@ Git_Info_Accessor/Git_Info_Accessor/Git_Info_Accessor/bin/*
 Git_Info_Accessor/Git_Info_Accessor/Git_Info_Accessor/obj/*
 Git_Info_Accessor/Git_Info_Accessor/LibGit2Sharp/bin/*
 Git_Info_Accessor/Git_Info_Accessor/LibGit2Sharp/obj/*
+Web_Development/Git_Info_Accessor/bin
+Web_Development/Git_Info_Accessor/obj
+Web_Development/Github_Api/bin
+Web_Development/Github_Api/obj
 Git_Info_Accessor/Git_Info_Accessor/Tester/bin/*
 Git_Info_Accessor/Git_Info_Accessor/Tester/obj/*
