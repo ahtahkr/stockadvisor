@@ -22,3 +22,10 @@ Web_Development/SQLiteDB/bin/*
 Web_Development/SQLiteDB/obj/*
 Web_Development/IEXTrading/obj/*
 Web_Development/IEXTrading/bin/*
+Git_Info_Accessor/Git_Info_Accessor/.vs
+Git_Info_Accessor/Git_Info_Accessor/Git_Info_Accessor/bin/*
+Git_Info_Accessor/Git_Info_Accessor/Git_Info_Accessor/obj/*
+Git_Info_Accessor/Git_Info_Accessor/LibGit2Sharp/bin/*
+Git_Info_Accessor/Git_Info_Accessor/LibGit2Sharp/obj/*
+Git_Info_Accessor/Git_Info_Accessor/Tester/bin/*
+Git_Info_Accessor/Git_Info_Accessor/Tester/obj/*
