@@ -60,6 +60,29 @@ namespace AustinsFirstProject.Github_Api.Api
                 }
                 return result;
             }
+
+            public static string Get_Commits_RepoId(string app_name, int repo_id, string token)
+            {
+                string result;
+                try
+                {
+                    var client = new GitHubClient(new ProductHeaderValue(app_name));
+
+                    if (!String.IsNullOrEmpty(token))
+                    {
+                        var tokenAuth = new Octokit.Credentials(token);
+                        client.Credentials = tokenAuth;
+                    }
+                    IReadOnlyList<Octokit.GitHubCommit> commits = client.Repository.Commit.GetAll(repo_id).Result;
+                    result = JsonConvert.SerializeObject(commits);
+                }
+                catch (Exception ex)
+                {
+                    Logger.Log_Error("AustinsFirstProject.Github_Api.Api.Rest_Api_V3.Repositories.Get_Commits_RepoId failed. Error Msg: " + ex.Message);
+                    result = "";
+                }
+                return result;
+            }
         }
     }
 }

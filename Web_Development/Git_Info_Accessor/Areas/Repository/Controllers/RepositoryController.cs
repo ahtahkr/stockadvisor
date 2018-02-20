@@ -86,7 +86,7 @@ namespace AustinsFirstProject.Git_Info_Accessor.Areas.Repository.Controllers
         }
         
         [Route("[action]/{owner}/{repo}")]
-        public IActionResult Commits(string owner, string repo)
+        public string Commits(string owner, string repo)
         {
             if (String.IsNullOrEmpty(owner) || String.IsNullOrEmpty(repo))
             {
@@ -105,7 +105,7 @@ namespace AustinsFirstProject.Git_Info_Accessor.Areas.Repository.Controllers
                 result = Github_Api.Api.Rest_Api_V3.Repositories.Get_Commits(App_Name, owner, repo, Api_Key);
             }
 
-            List<Github_Api.Model.CommitEvent> commit_event_list = new List<Github_Api.Model.CommitEvent>();
+            /*List<Github_Api.Model.CommitEvent> commit_event_list = new List<Github_Api.Model.CommitEvent>();
 
             if (String.IsNullOrEmpty(result)) { }
             else
@@ -118,8 +118,47 @@ namespace AustinsFirstProject.Git_Info_Accessor.Areas.Repository.Controllers
                 {
                     commit_event_list = new List<Github_Api.Model.CommitEvent>();
                 }
+            }*/
+
+            return result;
+        }
+
+        [Route("[action]/{repo_id:int?}")]
+        public IActionResult RepoCommits(int repo_id)
+        {
+            if (repo_id <= 0)
+            {
+                string baseUrl = $"{this.Request.Scheme}://{this.Request.Host}{this.Request.PathBase}";
+                Response.Redirect(baseUrl);
             }
-            return View(commit_event_list);
+            string result;
+            if (String.IsNullOrEmpty(App_Name)) { App_Name = ""; }
+            if (String.IsNullOrEmpty(Api_Key))
+            {
+                Library.Logger.Log_Error("[" + this.GetType().FullName + "." + System.Reflection.MethodBase.GetCurrentMethod().Name + "] Error: Variable 'Api_Key' was empty.");
+                result = "";
+            }
+            else
+            {
+                result = Github_Api.Api.Rest_Api_V3.Repositories.Get_Commits_RepoId(App_Name, repo_id, Api_Key);
+            }
+
+            Github_Api.Model.Commits Commits = new Github_Api.Model.Commits();
+
+            if (String.IsNullOrEmpty(result)) { }
+            else
+            {
+                try
+                {
+                    Commits.Commit_Event_List = JsonConvert.DeserializeObject<List<Github_Api.Model.CommitEvent>>(result);
+                    Commits.Repository_Id = repo_id;
+                }
+                catch (Exception ex)
+                {
+                    Commits = new Github_Api.Model.Commits();
+                }
+            }
+            return View(Commits);
         }
     }
 }

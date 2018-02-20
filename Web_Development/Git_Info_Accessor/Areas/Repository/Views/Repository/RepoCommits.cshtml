@@ -1,0 +1,35 @@
+﻿@model AustinsFirstProject.Github_Api.Model.Commits
+
+@{
+    ViewData["Title"] = "RepoCommits";
+    Layout = "~/Views/Layout.cshtml";
+}
+
+<script>
+    function Commit_Clicked(_repo_id, _sha)
+    {
+        console.log(_repo_id + " : " + _sha);
+    }
+</script>
+<h2>Commits</h2>
+<div class="row">
+    <div class="col">
+        <div class="list-group">
+            @foreach (var item in Model.Commit_Event_List)
+            {
+                <a href="" onclick="Commit_Clicked('@Model.Repository_Id', '@item.Sha')" class="list-group-item list-group-item-action flex-column align-items-start bg-transparent">
+                    <p class="mb-1">@item.Commit.Message</p>
+                    <div class="d-flex w-100 justify-content-between">
+                        <p class="mb-1">@item.Commit.Committer.Name (@item.Commit.Committer.Email)</p>
+                        <small>@item.Commit.Committer.Date</small>
+                    </div>
+                </a>
+            }
+        </div>
+    </div>
+
+    <div class="col"></div>
+
+    <div class="col"></div>
+
+</div>

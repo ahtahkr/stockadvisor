@@ -13,6 +13,7 @@ namespace AustinsFirstProject.Github_Api.Model
     }
     public class Owner
     {
+        public Owner() { this.Name = ""; }
         public object Permissions { get; set; }
         public bool SiteAdmin { get; set; }
         public object SuspendedAt { get; set; }
@@ -34,7 +35,7 @@ namespace AustinsFirstProject.Github_Api.Model
         public int Id { get; set; }
         public object Location { get; set; }
         public string Login { get; set; }
-        public object Name { get; set; }
+        public string Name { get; set; }
         public int Type { get; set; }
         public int OwnedPrivateRepos { get; set; }
         public object Plan { get; set; }
@@ -138,6 +139,7 @@ namespace AustinsFirstProject.Github_Api.Model
 
     public class Repository
     {
+        public Repository() { this.Owner = new Owner(); }
         public string Url { get; set; }
         public string HtmlUrl { get; set; }
         public string CloneUrl { get; set; }
