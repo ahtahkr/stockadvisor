@@ -26,10 +26,12 @@ namespace Git_Info_Accessor
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseStaticFiles();
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute("areaRoute", "{area:exists}/{controller=Index}/{action=Index}/{id?}");
-                //routes.MapRoute("areaRoute", "{area:exists}/{controller=Company}/{action=Company}/{id?}");
+
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Index}/{action=Index}/{id?}");

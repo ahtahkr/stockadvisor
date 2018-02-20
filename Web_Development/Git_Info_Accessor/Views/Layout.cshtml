@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewData["Title"] = "Layout";
+}
+
+<head>
+    <link href="@Url.Content("~/bootstrap-4.0.0-dist/css/bootstrap.min.css")" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <nav class="nav fixed-top bg-primary">
+        <div class="nav-link text-white text-lg-center font-weight-bold">Website Name</div>
+        @*<div class="nav-link">@Html.RouteLink("Home", new { action = "Index", controller = "Symbol", area = "Symbol" }, new { @class = "text-white text-sm-center font-weight-bold" })</div>*@
+    </nav>
+
+    <br /> <br />
+
+    <div class="container-fluid"> @RenderBody() </div>
+
+</body>
