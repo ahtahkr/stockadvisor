@@ -12,17 +12,26 @@ namespace AustinsFirstProject.Git_Info_Accessor.Areas.Repository.Controllers
     [Route("Repository")]
     public class RepositoryController : Controller
     {
+        public RepositoryController()
+        {
+        }
+
         [Route("")]
         public void ReRoute()
         {
             string baseUrl = $"{this.Request.Scheme}://{this.Request.Host}{this.Request.PathBase}";
-            Response.Redirect(baseUrl + "/Repository/Index");
+            Response.Redirect(baseUrl + "/Repository/Index/github/fetch");
         }
 
-        [Route("[action]")]
-        public IActionResult Index()
+        [Route("[action]/{owner}/{repo}")]
+        public IActionResult Index(string owner, string repo)
         {
-            string result = Github_Api.Api.Rest_Api_V3.Repositories.Get_Basic_Info("bwillis", "jekyll-github-sample");
+            if (String.IsNullOrEmpty(owner) || String.IsNullOrEmpty(repo))
+            {
+                string baseUrl = $"{this.Request.Scheme}://{this.Request.Host}{this.Request.PathBase}";
+                Response.Redirect(baseUrl);
+            }
+            string result = Github_Api.Api.Rest_Api_V3.Repositories.Get_Basic_Info(owner, repo);
 
             Github_Api.Model.Repository repository = new Github_Api.Model.Repository();
             if (String.IsNullOrEmpty(result)) { }
@@ -37,6 +46,7 @@ namespace AustinsFirstProject.Git_Info_Accessor.Areas.Repository.Controllers
                     repository = new Github_Api.Model.Repository();
                 }
             }
+            repository.Api_String = result;
 
             return View(repository);
         }

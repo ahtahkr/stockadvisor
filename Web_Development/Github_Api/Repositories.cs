@@ -29,7 +29,6 @@ namespace AustinsFirstProject.Github_Api.Api
                         var tokenAuth = new Octokit.Credentials(token);
                         client.Credentials = tokenAuth;
                     }
-
                     result = JsonConvert.SerializeObject(client.Repository.Get(_owner, _repo));
                     dynamic dynamic = JObject.Parse(result);
                     result = dynamic.Result.ToString();

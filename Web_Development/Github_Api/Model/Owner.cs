@@ -1,299 +1,98 @@
-﻿using System;
+﻿using Octokit.Internal;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace AustinsFirstProject.Github_Api.Model
 {
+    public enum AccountType
+    {
+        User = 0,
+        Organization = 1,
+        Bot = 2
+    }
     public class Owner
     {
-        public string Login { get; set; }
+        public object Permissions { get; set; }
+        public bool SiteAdmin { get; set; }
+        public object SuspendedAt { get; set; }
+        public bool Suspended { get; set; }
+        public object LdapDistinguishedName { get; set; }
+        public DateTime UpdatedAt { get; set; }
+        public string AvatarUrl { get; set; }
+        public object Bio { get; set; }
+        public object Blog { get; set; }
+        public object Collaborators { get; set; }
+        public object Company { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public object DiskUsage { get; set; }
+        public object Email { get; set; }
+        public int Followers { get; set; }
+        public int Following { get; set; }
+        public object Hireable { get; set; }
+        public string HtmlUrl { get; set; }
         public int Id { get; set; }
-        public string Avatar_url { get; set; }
-        public string Gravatar_id { get; set; }
+        public object Location { get; set; }
+        public string Login { get; set; }
+        public object Name { get; set; }
+        public int Type { get; set; }
+        public int OwnedPrivateRepos { get; set; }
+        public object Plan { get; set; }
+        public object PrivateGists { get; set; }
+        public int PublicGists { get; set; }
+        public int PublicRepos { get; set; }
+        public int TotalPrivateRepos { get; set; }
         public string Url { get; set; }
-        public string Html_url { get; set; }
-        public string Followers_url { get; set; }
-        public string Following_url { get; set; }
-        public string Gists_url { get; set; }
-        public string Starred_url { get; set; }
-        public string Subscriptions_url { get; set; }
-        public string Organizations_url { get; set; }
-        public string Repos_url { get; set; }
-        public string Events_url { get; set; }
-        public string Received_events_url { get; set; }
-        public string Type { get; set; }
-        public bool Site_admin { get; set; }
-    }
-
-    public class Permissions
-    {
-        public bool Admin { get; set; }
-        public bool Push { get; set; }
-        public bool Pull { get; set; }
     }
 
     public class License
     {
         public string Key { get; set; }
         public string Name { get; set; }
-        public string Spdx_id { get; set; }
+        public string SpdxId { get; set; }
         public string Url { get; set; }
-        public string Html_url { get; set; }
-    }
-
-    public class Organization
-    {
-        public string Login { get; set; }
-        public int Id { get; set; }
-        public string Avatar_url { get; set; }
-        public string Gravatar_id { get; set; }
-        public string Url { get; set; }
-        public string Html_url { get; set; }
-        public string Followers_url { get; set; }
-        public string Following_url { get; set; }
-        public string Gists_url { get; set; }
-        public string Starred_url { get; set; }
-        public string Subscriptions_url { get; set; }
-        public string Organizations_url { get; set; }
-        public string Repos_url { get; set; }
-        public string Events_url { get; set; }
-        public string Received_events_url { get; set; }
-        public string Type { get; set; }
-        public bool Site_admin { get; set; }
-    }    
-
-    public class Parent
-    {
-        public int Id { get; set; }
-        public Owner Owner { get; set; }
-        public string Name { get; set; }
-        public string Full_name { get; set; }
-        public string Description { get; set; }
-        public bool Private { get; set; }
-        public bool Fork { get; set; }
-        public string Url { get; set; }
-        public string Html_url { get; set; }
-        public string Archive_url { get; set; }
-        public string Assignees_url { get; set; }
-        public string Blobs_url { get; set; }
-        public string Branches_url { get; set; }
-        public string Clone_url { get; set; }
-        public string Collaborators_url { get; set; }
-        public string Comments_url { get; set; }
-        public string Commits_url { get; set; }
-        public string Compare_url { get; set; }
-        public string Contents_url { get; set; }
-        public string Contributors_url { get; set; }
-        public string Deployments_url { get; set; }
-        public string Downloads_url { get; set; }
-        public string Events_url { get; set; }
-        public string Forks_url { get; set; }
-        public string Git_commits_url { get; set; }
-        public string Git_refs_url { get; set; }
-        public string Git_tags_url { get; set; }
-        public string Git_url { get; set; }
-        public string Hooks_url { get; set; }
-        public string Issue_comment_url { get; set; }
-        public string Issue_events_url { get; set; }
-        public string Issues_url { get; set; }
-        public string Keys_url { get; set; }
-        public string Labels_url { get; set; }
-        public string Languages_url { get; set; }
-        public string Merges_url { get; set; }
-        public string Milestones_url { get; set; }
-        public string Mirror_url { get; set; }
-        public string Notifications_url { get; set; }
-        public string Pulls_url { get; set; }
-        public string Releases_url { get; set; }
-        public string Ssh_url { get; set; }
-        public string Stargazers_url { get; set; }
-        public string Statuses_url { get; set; }
-        public string Subscribers_url { get; set; }
-        public string Subscription_url { get; set; }
-        public string Svn_url { get; set; }
-        public string Tags_url { get; set; }
-        public string Teams_url { get; set; }
-        public string Trees_url { get; set; }
-        public string Homepage { get; set; }
-        public object Language { get; set; }
-        public int Forks_count { get; set; }
-        public int Stargazers_count { get; set; }
-        public int Watchers_count { get; set; }
-        public int Size { get; set; }
-        public string Default_branch { get; set; }
-        public int Open_issues_count { get; set; }
-        public List<string> Topics { get; set; }
-        public bool Has_issues { get; set; }
-        public bool Has_wiki { get; set; }
-        public bool Has_pages { get; set; }
-        public bool Has_downloads { get; set; }
-        public bool Archived { get; set; }
-        public DateTime Pushed_at { get; set; }
-        public DateTime Created_at { get; set; }
-        public DateTime Updated_at { get; set; }
-        public Permissions Permissions { get; set; }
-        public bool Allow_rebase_merge { get; set; }
-        public bool Allow_squash_merge { get; set; }
-        public bool Allow_merge_commit { get; set; }
-        public int Subscribers_count { get; set; }
-        public int Network_count { get; set; }
-    }
-    
-    public class Source
-    {
-        public int Id { get; set; }
-        public Owner Owner { get; set; }
-        public string Name { get; set; }
-        public string Full_name { get; set; }
-        public string Description { get; set; }
-        public bool Private { get; set; }
-        public bool Fork { get; set; }
-        public string Url { get; set; }
-        public string Html_url { get; set; }
-        public string Archive_url { get; set; }
-        public string Assignees_url { get; set; }
-        public string Blobs_url { get; set; }
-        public string Branches_url { get; set; }
-        public string Clone_url { get; set; }
-        public string Collaborators_url { get; set; }
-        public string Comments_url { get; set; }
-        public string Commits_url { get; set; }
-        public string Compare_url { get; set; }
-        public string Contents_url { get; set; }
-        public string Contributors_url { get; set; }
-        public string Deployments_url { get; set; }
-        public string Downloads_url { get; set; }
-        public string Events_url { get; set; }
-        public string Forks_url { get; set; }
-        public string Git_commits_url { get; set; }
-        public string Git_refs_url { get; set; }
-        public string Git_tags_url { get; set; }
-        public string Git_url { get; set; }
-        public string Hooks_url { get; set; }
-        public string Issue_comment_url { get; set; }
-        public string Issue_events_url { get; set; }
-        public string Issues_url { get; set; }
-        public string Keys_url { get; set; }
-        public string Labels_url { get; set; }
-        public string Languages_url { get; set; }
-        public string Merges_url { get; set; }
-        public string Milestones_url { get; set; }
-        public string Mirror_url { get; set; }
-        public string Notifications_url { get; set; }
-        public string Pulls_url { get; set; }
-        public string Releases_url { get; set; }
-        public string Ssh_url { get; set; }
-        public string Stargazers_url { get; set; }
-        public string Statuses_url { get; set; }
-        public string Subscribers_url { get; set; }
-        public string Subscription_url { get; set; }
-        public string Svn_url { get; set; }
-        public string Tags_url { get; set; }
-        public string Teams_url { get; set; }
-        public string Trees_url { get; set; }
-        public string Homepage { get; set; }
-        public object Language { get; set; }
-        public int Forks_count { get; set; }
-        public int Stargazers_count { get; set; }
-        public int Watchers_count { get; set; }
-        public int Size { get; set; }
-        public string Default_branch { get; set; }
-        public int Open_issues_count { get; set; }
-        public List<string> Topics { get; set; }
-        public bool Has_issues { get; set; }
-        public bool Has_wiki { get; set; }
-        public bool Has_pages { get; set; }
-        public bool Has_downloads { get; set; }
-        public bool Archived { get; set; }
-        public DateTime Pushed_at { get; set; }
-        public DateTime Created_at { get; set; }
-        public DateTime Updated_at { get; set; }
-        public Permissions Permissions { get; set; }
-        public bool Allow_rebase_merge { get; set; }
-        public bool Allow_squash_merge { get; set; }
-        public bool Allow_merge_commit { get; set; }
-        public int Subscribers_count { get; set; }
-        public int Network_count { get; set; }
+        public bool Featured { get; set; }
     }
 
     public class Repository
     {
+        public string Url { get; set; }
+        public string HtmlUrl { get; set; }
+        public string CloneUrl { get; set; }
+        public string GitUrl { get; set; }
+        public string SshUrl { get; set; }
+        public string SvnUrl { get; set; }
+        public object MirrorUrl { get; set; }
         public int Id { get; set; }
         public Owner Owner { get; set; }
         public string Name { get; set; }
-        public string Full_name { get; set; }
+        public string FullName { get; set; }
         public string Description { get; set; }
+        public object Homepage { get; set; }
+        public string Language { get; set; }
         public bool Private { get; set; }
         public bool Fork { get; set; }
-        public string Url { get; set; }
-        public string Html_url { get; set; }
-        public string Archive_url { get; set; }
-        public string Assignees_url { get; set; }
-        public string Blobs_url { get; set; }
-        public string Branches_url { get; set; }
-        public string Clone_url { get; set; }
-        public string Collaborators_url { get; set; }
-        public string Comments_url { get; set; }
-        public string Commits_url { get; set; }
-        public string Compare_url { get; set; }
-        public string Contents_url { get; set; }
-        public string Contributors_url { get; set; }
-        public string Deployments_url { get; set; }
-        public string Downloads_url { get; set; }
-        public string Events_url { get; set; }
-        public string Forks_url { get; set; }
-        public string Git_commits_url { get; set; }
-        public string Git_refs_url { get; set; }
-        public string Git_tags_url { get; set; }
-        public string Git_url { get; set; }
-        public string Hooks_url { get; set; }
-        public string Issue_comment_url { get; set; }
-        public string Issue_events_url { get; set; }
-        public string Issues_url { get; set; }
-        public string Keys_url { get; set; }
-        public string Labels_url { get; set; }
-        public string Languages_url { get; set; }
-        public string Merges_url { get; set; }
-        public string Milestones_url { get; set; }
-        public string Mirror_url { get; set; }
-        public string Notifications_url { get; set; }
-        public string Pulls_url { get; set; }
-        public string Releases_url { get; set; }
-        public string Ssh_url { get; set; }
-        public string Stargazers_url { get; set; }
-        public string Statuses_url { get; set; }
-        public string Subscribers_url { get; set; }
-        public string Subscription_url { get; set; }
-        public string Svn_url { get; set; }
-        public string Tags_url { get; set; }
-        public string Teams_url { get; set; }
-        public string Trees_url { get; set; }
-        public string Homepage { get; set; }
-        public object Language { get; set; }
-        public int Forks_count { get; set; }
-        public int Stargazers_count { get; set; }
-        public int Watchers_count { get; set; }
-        public int Size { get; set; }
-        public string Default_branch { get; set; }
-        public int Open_issues_count { get; set; }
-        public List<string> Topics { get; set; }
-        public bool Has_issues { get; set; }
-        public bool Has_wiki { get; set; }
-        public bool Has_pages { get; set; }
-        public bool Has_downloads { get; set; }
-        public bool Archived { get; set; }
-        public DateTime Pushed_at { get; set; }
-        public DateTime Created_at { get; set; }
-        public DateTime Updated_at { get; set; }
-        public Permissions Permissions { get; set; }
-        public bool Allow_rebase_merge { get; set; }
-        public bool Allow_squash_merge { get; set; }
-        public bool Allow_merge_commit { get; set; }
-        public int Subscribers_count { get; set; }
-        public int Network_count { get; set; }
+        public int ForksCount { get; set; }
+        public int StargazersCount { get; set; }
+        public string DefaultBranch { get; set; }
+        public int OpenIssuesCount { get; set; }
+        public DateTime PushedAt { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
+        public object Permissions { get; set; }
+        public object Parent { get; set; }
+        public object Source { get; set; }
         public License License { get; set; }
-        public Organization Organization { get; set; }
-        public Parent parent { get; set; }
-        public Source source { get; set; }
+        public bool HasIssues { get; set; }
+        public bool HasWiki { get; set; }
+        public bool HasDownloads { get; set; }
+        public object AllowRebaseMerge { get; set; }
+        public object AllowSquashMerge { get; set; }
+        public object AllowMergeCommit { get; set; }
+        public bool HasPages { get; set; }
+        public int SubscribersCount { get; set; }
+        public int Size { get; set; }
+
+        public string Api_String { get; set; }
     }
 }
