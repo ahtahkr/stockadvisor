@@ -11,6 +11,21 @@ namespace AustinsFirstProject.Github_Api.Model
         Organization = 1,
         Bot = 2
     }
+    public class File
+    {
+        public string Filename { get; set; }
+        public int Additions { get; set; }
+        public int Deletions { get; set; }
+        public int Changes { get; set; }
+        public string Status { get; set; }
+        public string BlobUrl { get; set; }
+        public string ContentsUrl { get; set; }
+        public string RawUrl { get; set; }
+        public string Sha { get; set; }
+        public string Patch { get; set; }
+        public object PreviousFileName { get; set; }
+    }
+
     public class Owner
     {
         public Owner() { this.Name = ""; }
@@ -119,7 +134,7 @@ namespace AustinsFirstProject.Github_Api.Model
         public string HtmlUrl { get; set; }
         public object Stats { get; set; }
         public List<Tree> Parents { get; set; }
-        public object Files { get; set; }
+        public List<File> Files { get; set; }
         public string Url { get; set; }
         public object Label { get; set; }
         public object Ref { get; set; }

@@ -6,30 +6,61 @@
 }
 
 <script>
-    function Commit_Clicked(_repo_id, _sha)
+    function Commit_Clicked(_counter, _repo_id, _sha)
     {
-        console.log(_repo_id + " : " + _sha);
+        var url = "/Repository/Get_Files_in_a_Commit/" + _repo_id + "/" + _sha;
+        console.log(url);
+        // post request
+        $.post(url, { })
+            .fail(function (e) {
+                console.log(url + ' Msg: ' + e);
+            })
+            .done(function (result) {
+                var html_code = '<p>'+result+'</p>';
+                console.log(result);
+
+                $('#result').empty();
+                $('#result')[0].innerHTML = html_code;
+            });
     }
 </script>
 <h2>Commits</h2>
 <div class="row">
-    <div class="col">
+    <div class="col-4">
         <div class="list-group">
-            @foreach (var item in Model.Commit_Event_List)
-            {
-                <a href="" onclick="Commit_Clicked('@Model.Repository_Id', '@item.Sha')" class="list-group-item list-group-item-action flex-column align-items-start bg-transparent">
+            @{  var counter = 0;
+                foreach (var item in Model.Commit_Event_List)
+                {
+                    counter++;
+                <a href="#" id="commit_@counter" onclick="Commit_Clicked('commit_@counter', '@Model.Repository_Id', '@item.Sha')" class="list-group-item list-group-item-action flex-column align-items-start bg-transparent">
                     <p class="mb-1">@item.Commit.Message</p>
                     <div class="d-flex w-100 justify-content-between">
                         <p class="mb-1">@item.Commit.Committer.Name (@item.Commit.Committer.Email)</p>
                         <small>@item.Commit.Committer.Date</small>
                     </div>
                 </a>
-            }
+                }
+                }
         </div>
     </div>
 
-    <div class="col"></div>
+    <div class="col-2">
+        @{
+            var a = 0;
+            for (a = 1; a <= counter; a++)
+            {
+                <div id="files_@a"></div>
+            }
+        }        
+    </div>
 
-    <div class="col"></div>
+    <div class="col">
+        @{
+            for (a = 1; a <= counter; a++)
+            {
+                <div id="patches_@a"></div>
+            }
+        }
+    </div>
 
 </div>

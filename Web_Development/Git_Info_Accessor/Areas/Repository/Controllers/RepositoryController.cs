@@ -40,7 +40,7 @@ namespace AustinsFirstProject.Git_Info_Accessor.Areas.Repository.Controllers
             }
         }
 
-        [Route("")]
+        [Route("Reload")]
         public void ReRoute()
         {
             string baseUrl = $"{this.Request.Scheme}://{this.Request.Host}{this.Request.PathBase}";
@@ -140,7 +140,7 @@ namespace AustinsFirstProject.Git_Info_Accessor.Areas.Repository.Controllers
             }
             else
             {
-                result = Github_Api.Api.Rest_Api_V3.Repositories.Get_Commits_RepoId(App_Name, repo_id, Api_Key);
+                result = Github_Api.Api.Rest_Api_V3.Repositories.Get_Commits(App_Name, repo_id, Api_Key);
             }
 
             Github_Api.Model.Commits Commits = new Github_Api.Model.Commits();
@@ -159,6 +159,29 @@ namespace AustinsFirstProject.Git_Info_Accessor.Areas.Repository.Controllers
                 }
             }
             return View(Commits);
+        }
+
+        [Route("[action]/{repo_id:int?}/{sha}")]
+        public string Get_Files_in_a_Commit(int repo_id, string sha)
+        {
+            if (repo_id <= 0)
+            {
+                string baseUrl = $"{this.Request.Scheme}://{this.Request.Host}{this.Request.PathBase}";
+                Response.Redirect(baseUrl);
+            }
+            string result;
+            if (String.IsNullOrEmpty(App_Name)) { App_Name = ""; }
+            if (String.IsNullOrEmpty(Api_Key))
+            {
+                Library.Logger.Log_Error("[" + this.GetType().FullName + "." + System.Reflection.MethodBase.GetCurrentMethod().Name + "] Error: Variable 'Api_Key' was empty.");
+                result = "";
+            }
+            else
+            {
+                result = Github_Api.Api.Rest_Api_V3.Repositories.Get_Files_in_a_Commit(App_Name, repo_id, sha, Api_Key);
+            }
+
+            return result;
         }
     }
 }
