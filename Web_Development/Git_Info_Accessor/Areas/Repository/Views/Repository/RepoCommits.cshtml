@@ -6,8 +6,24 @@
 }
 
 <script>
+    function File_Clicked(_commit_counter, _file_counter, _FileName ,_RawUrl)
+    {
+        $('.patches.active').removeClass('active');
+        $('.patches.show').removeClass('show');
+
+        if (!$('#patches_' + _commit_counter + '_' + _file_counter).hasClass('show')) {
+            $('#patches_' + _commit_counter + '_' + _file_counter).addClass("show");
+        }
+
+        if (!$('#patches_' + _commit_counter + '_' + _file_counter).hasClass('active')) {
+            $('#patches_' + _commit_counter + '_' + _file_counter).addClass("active");
+        }
+    }
     function Commit_Clicked(_counter, _repo_id, _sha)
     {
+        $('.patches.active').removeClass('active');
+        $('.patches.show').removeClass('show');
+        
         $('#col-b-tabcontent div.active').removeClass('active');
         $('#col-b-tabcontent div.show').removeClass('show');
 
@@ -19,8 +35,11 @@
             $('#col_b_' + _counter).addClass("active");
         }
 
-        if ($('#author_' + _counter).has("p").length)
+        if ($('#author_' + _counter).has("img").length)
         {
+            $('#patches_' + _counter + '_1').addClass("active");
+            $('#patches_' + _counter + '_1').addClass("show");
+
             console.log('Already assigned.');
             return;
         } else {
@@ -38,14 +57,14 @@
 
                 var html_code = '<div>';
                 html_code += '<a href="' + result.Author.HtmlUrl + '" target="_blank">';
-                html_code += '<img alt="" width="100" height="100" src="' + result.Author.AvatarUrl + '"></img>';
+                html_code += '<img alt="" width="80" height="80" src="' + result.Author.AvatarUrl + '"></img>';
                 html_code += '<h6>Author: ' + result.Author.Login + '</h6>';
                 html_code += '</a>';
                 html_code += '</div>';
 
                 html_code += '<div>';
                 html_code += '<a href="' + result.Committer.HtmlUrl + '" target="_blank">';
-                html_code += '<img alt="" width="100" height="100" src="' + result.Committer.AvatarUrl + '"></img>';
+                html_code += '<img alt="" width="80" height="80" src="' + result.Committer.AvatarUrl + '"></img>';
                 html_code += '<h6>Committer: ' + result.Committer.Login + '</h6>';
                 html_code += '</a>';
                 html_code += '</div>';
@@ -63,6 +82,24 @@
                 if (!$('#col_b_' + _counter).hasClass('active')) {
                     $('#col_b_' + _counter).addClass("active");
                 }
+
+                var patches_counter = 0;
+                html_code = '<div class="list-group" id="file_list_' + _counter + '" role= "tablist" >';
+                $.each(result.Files, function (i, item) {
+
+                    patches_counter++;
+                    $('#col-c-tabcontent').append('<div class="patches tab-pane fade" id="patches_' + _counter + '_' + patches_counter + '"><p><h6><a href="' + item.RawUrl + '" target="_blank">' + item.Filename + '</a></h6></p><p>' + item.Patch + '</p></div>');
+                    
+                    html_code += '<a href="#" onclick="File_Clicked(' + _counter + ',' + patches_counter + ',' + '\'' + item.Filename + '\',\'' + item.RawUrl + '\')" class="list-group-item list-group-item-action flex-column align-items-start bg-transparent">';
+                    html_code += '<p class="mb-1">' + item.Filename + '</p></a>';
+                });
+                html_code += '</div>';
+
+                $('#files_' + _counter).empty();
+                $('#files_' + _counter)[0].innerHTML = html_code;
+                
+                $('#patches_' + _counter + '_1').addClass("active");
+                $('#patches_' + _counter + '_1').addClass("show");
             });
     }
 </script>
@@ -104,12 +141,16 @@
     </div>
 
     <div class="col h-100">
-        @{
-            for (a = 1; a <= counter; a++)
-            {
-                <div id="patches_@a"></div>
-            }
-        }
+        <div class="tab-content" id="col-c-tabcontent">
+            @*@{
+                for (a = 1; a <= counter; a++)
+                {
+                    <div id="patch_@a">
+                    </div>
+                    
+                }
+            }*@
+        </div>
     </div>
 
 </div>
