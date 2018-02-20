@@ -50,5 +50,32 @@ namespace AustinsFirstProject.Git_Info_Accessor.Areas.Repository.Controllers
 
             return View(repository);
         }
+
+        [Route("[action]/{owner}/{repo}")]
+        public IActionResult Commits(string owner, string repo)
+        {
+            if (String.IsNullOrEmpty(owner) || String.IsNullOrEmpty(repo))
+            {
+                string baseUrl = $"{this.Request.Scheme}://{this.Request.Host}{this.Request.PathBase}";
+                Response.Redirect(baseUrl);
+            }
+            string result = Github_Api.Api.Rest_Api_V3.Repositories.Get_Commits(owner, repo);
+
+            List<Github_Api.Model.CommitEvent> commit_event_list = new List<Github_Api.Model.CommitEvent>();
+
+            if (String.IsNullOrEmpty(result)) { }
+            else
+            {
+                try
+                {
+                    commit_event_list = JsonConvert.DeserializeObject<List<Github_Api.Model.CommitEvent>>(result);
+                }
+                catch (Exception ex)
+                {
+                    commit_event_list = new List<Github_Api.Model.CommitEvent>();
+                }
+            }
+            return View(commit_event_list);
+        }
     }
 }

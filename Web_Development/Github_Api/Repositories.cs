@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Octokit;
 using System;
+using System.Collections.Generic;
 
 namespace AustinsFirstProject.Github_Api.Api
 {
@@ -36,6 +37,30 @@ namespace AustinsFirstProject.Github_Api.Api
                 } catch (Exception ex)
                 {
                     Logger.Log_Error("AustinsFirstProject.Github_Api.Api.Rest_Api_V3.Repositories.Get_Basic_Info failed. Error Msg: " + ex.Message);
+                    result = "";
+                }
+                return result;
+            }
+
+            public static string Get_Commits(string _owner, string _repo, string token = "")
+            {
+                string result;
+                try
+                {
+                    var client = new GitHubClient(new ProductHeaderValue(APP_NAME));
+
+                    if (!String.IsNullOrEmpty(token))
+                    {
+                        var tokenAuth = new Octokit.Credentials(token);
+                        client.Credentials = tokenAuth;
+                    }
+                    result = JsonConvert.SerializeObject(client.Repository.Commit.GetAll(_owner, _repo));
+                    dynamic dynamic = JObject.Parse(result);
+                    result = dynamic.Result.ToString();                    
+                }
+                catch (Exception ex)
+                {
+                    Logger.Log_Error("AustinsFirstProject.Github_Api.Api.Rest_Api_V3.Repositories.Get_Commits failed. Error Msg: " + ex.Message);
                     result = "";
                 }
                 return result;

@@ -7,8 +7,8 @@
 
 <h2>Repository</h2>
 
+<p>@Html.RouteLink("Commits", new { controller = "Repository", area = "Repository", action = "Commits", owner = Model.Owner.Login, repo = Model.Name }) </p>
+
 <p>GitHub Url: <a href="@Model.HtmlUrl" target="_blank">@Model.HtmlUrl</a></p>
-
-
 
 <p>@Model.Api_String</p>
