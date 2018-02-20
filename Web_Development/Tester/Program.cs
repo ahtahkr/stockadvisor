@@ -23,11 +23,14 @@ namespace AustinsFirstProject.Tester
             connection_string = "Data Source=DESKTOP-BJ0AH8G;Initial Catalog=austin_stock_processor;User ID=ashadhik;Password=ashadhik;";
 
 
-            Lasts lasts = new Lasts();
-            if (lasts.Call_Api())
-            {
-                lasts.Save_In_File();
-            }
+            string api_key = "f1a471df899699b74ad6cbc021b5cb6d9a963908";
+            int repo_id = 8445877;
+            string sha = "344dbf5ecd16a97e9115deac1350eb4c5fd19000";
+
+            string result = Github_Api.Api.Rest_Api_V3.Repositories.Get_Commit("test", repo_id, sha, api_key);
+
+            Console.WriteLine(result);
+            Console.ReadLine();
 
             /*
                 string git_url = "https://asadhikari@bitbucket.org/austinsfirstproject/asp-net-core.git";
