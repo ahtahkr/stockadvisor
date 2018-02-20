@@ -84,7 +84,7 @@ namespace AustinsFirstProject.Github_Api.Api
                 return result;
             }
 
-            public static string Get_Files_in_a_Commit(string app_name, int repo_id, string sha, string token)
+            public static string Get_Commit(string app_name, int repo_id, string sha, string token)
             {
                 string result;
                 try
@@ -96,8 +96,8 @@ namespace AustinsFirstProject.Github_Api.Api
                         var tokenAuth = new Octokit.Credentials(token);
                         client.Credentials = tokenAuth;
                     }
-                    IReadOnlyList<Octokit.GitHubCommitFile> files = client.Repository.Commit.Get(repo_id, sha).Result.Files;
-                    result = JsonConvert.SerializeObject(files);
+                    Octokit.GitHubCommit commit = client.Repository.Commit.Get(repo_id, sha).Result;
+                    result = JsonConvert.SerializeObject(commit);
                 }
                 catch (Exception ex)
                 {

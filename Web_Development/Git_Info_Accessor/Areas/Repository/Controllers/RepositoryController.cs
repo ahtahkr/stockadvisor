@@ -162,7 +162,7 @@ namespace AustinsFirstProject.Git_Info_Accessor.Areas.Repository.Controllers
         }
 
         [Route("[action]/{repo_id:int?}/{sha}")]
-        public string Get_Files_in_a_Commit(int repo_id, string sha)
+        public string Get_Commit(int repo_id, string sha)
         {
             if (repo_id <= 0)
             {
@@ -178,7 +178,7 @@ namespace AustinsFirstProject.Git_Info_Accessor.Areas.Repository.Controllers
             }
             else
             {
-                result = Github_Api.Api.Rest_Api_V3.Repositories.Get_Files_in_a_Commit(App_Name, repo_id, sha, Api_Key);
+                result = Github_Api.Api.Rest_Api_V3.Repositories.Get_Commit(App_Name, repo_id, sha, Api_Key);
             }
 
             return result;
