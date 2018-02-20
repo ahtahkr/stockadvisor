@@ -8,31 +8,73 @@
 <script>
     function Commit_Clicked(_counter, _repo_id, _sha)
     {
-        var url = "/Repository/Get_Files_in_a_Commit/" + _repo_id + "/" + _sha;
-        console.log(url);
+        $('#col-b-tabcontent div.active').removeClass('active');
+        $('#col-b-tabcontent div.show').removeClass('show');
+
+        if (!$('#col_b_' + _counter).hasClass('show')) {
+            $('#col_b_' + _counter).addClass("show");
+        }
+
+        if (!$('#col_b_' + _counter).hasClass('active')) {
+            $('#col_b_' + _counter).addClass("active");
+        }
+
+        if ($('#author_' + _counter).has("p").length)
+        {
+            console.log('Already assigned.');
+            return;
+        } else {
+            console.log('Not Assigned Yet.');
+        }
+        var url = "/Repository/Get_Commit/" + _repo_id + "/" + _sha;
+
         // post request
         $.post(url, { })
             .fail(function (e) {
                 console.log(url + ' Msg: ' + e);
             })
             .done(function (result) {
-                var html_code = '<p>'+result+'</p>';
-                console.log(result);
+                result = JSON.parse(result);
 
-                $('#result').empty();
-                $('#result')[0].innerHTML = html_code;
+                var html_code = '<div>';
+                html_code += '<a href="' + result.Author.HtmlUrl + '" target="_blank">';
+                html_code += '<img alt="" width="100" height="100" src="' + result.Author.AvatarUrl + '"></img>';
+                html_code += '<h6>Author: ' + result.Author.Login + '</h6>';
+                html_code += '</a>';
+                html_code += '</div>';
+
+                html_code += '<div>';
+                html_code += '<a href="' + result.Committer.HtmlUrl + '" target="_blank">';
+                html_code += '<img alt="" width="100" height="100" src="' + result.Committer.AvatarUrl + '"></img>';
+                html_code += '<h6>Committer: ' + result.Committer.Login + '</h6>';
+                html_code += '</a>';
+                html_code += '</div>';
+
+                $('#author_' + _counter).empty();
+                $('#author_' + _counter)[0].innerHTML = html_code;
+
+                $('#col-b-tabcontent div.active').removeClass('active');
+                $('#col-b-tabcontent div.show').removeClass('show');
+
+                if (!$('#col_b_' + _counter).hasClass('show')) {
+                    $('#col_b_' + _counter).addClass("show");
+                }
+
+                if (!$('#col_b_' + _counter).hasClass('active')) {
+                    $('#col_b_' + _counter).addClass("active");
+                }
             });
     }
 </script>
-<h2>Commits</h2>
-<div class="row">
-    <div class="col-4">
-        <div class="list-group">
+<h5>Commit Messages</h5>
+<div class="row h-100">
+    <div class="col-4 h-100">
+        <div class="list-group h-100 mh-100 pre-scrollable">
             @{  var counter = 0;
                 foreach (var item in Model.Commit_Event_List)
                 {
                     counter++;
-                <a href="#" id="commit_@counter" onclick="Commit_Clicked('commit_@counter', '@Model.Repository_Id', '@item.Sha')" class="list-group-item list-group-item-action flex-column align-items-start bg-transparent">
+                <a href="#" id="commit_@counter" onclick="Commit_Clicked('@counter', '@Model.Repository_Id', '@item.Sha')" class="list-group-item list-group-item-action flex-column align-items-start bg-transparent">
                     <p class="mb-1">@item.Commit.Message</p>
                     <div class="d-flex w-100 justify-content-between">
                         <p class="mb-1">@item.Commit.Committer.Name (@item.Commit.Committer.Email)</p>
@@ -44,17 +86,24 @@
         </div>
     </div>
 
-    <div class="col-2">
-        @{
-            var a = 0;
-            for (a = 1; a <= counter; a++)
-            {
-                <div id="files_@a"></div>
+    <div class="col-2 h-100" id="col-b">
+        <div class="tab-content" id="col-b-tabcontent">
+            @{
+                var a = 0;
+                for (a = 1; a <= counter; a++)
+                {
+                    <div class="tab-pane fade" id="col_b_@a">
+                            <div class="container-fluid" id="author_@a">
+
+                            </div>
+                            <div id="files_@a"></div>                        
+                    </div>
+                }
             }
-        }        
+        </div>
     </div>
 
-    <div class="col">
+    <div class="col h-100">
         @{
             for (a = 1; a <= counter; a++)
             {
