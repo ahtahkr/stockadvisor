@@ -20,173 +20,133 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
     {
         private void IEXTrading_Get_News(object sender = null, ElapsedEventArgs e = null)
         {
-            string base_directory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs");
-            string _filename = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs", "IEXTrading_Get_News.log");
-
-            if (!Directory.Exists(base_directory))
-            {
-                Directory.CreateDirectory(base_directory);
-            }
-
             string go_ahead = Convert.ToString(ConfigurationManager.AppSettings["IEXTrading_Get_News"]);
 
-            File.WriteAllText(_filename, DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss") + " : IEXTrading_Get_News. " + go_ahead);
-
-            if (!go_ahead.Equals("true"))
+            if (go_ahead.Equals("true"))
             {
-                return;
-            }
 
-            try
-            {
-                News news = new News();
-                if (news.Get_Symbols_From_Database())
+                try
                 {
-                    if (news.Call_Api())
+                    News news = new News();
+                    if (news.Get_Symbols_From_Database())
                     {
-                        if (news.Save_In_File())
+                        if (news.Call_Api())
                         {
-                            /* Console.WriteLine("Saved in File."); */
+                            if (news.Save_In_File())
+                            {
+                                /* Console.WriteLine("Saved in File."); */
+                            }
+                            else
+                            {
+                                /*Console.WriteLine("Fail : Save in file.");*/
+                            }
                         }
                         else
                         {
-                            /*Console.WriteLine("Fail : Save in file.");*/
+                            /*Console.WriteLine("Fail : Call Api");*/
                         }
                     }
                     else
                     {
-                        /*Console.WriteLine("Fail : Call Api");*/
+                        /*Console.WriteLine("Fail : Get_Symbols_From_Database");*/
                     }
                 }
-                else
+                catch (Exception ex)
                 {
-                    /*Console.WriteLine("Fail : Get_Symbols_From_Database");*/
+                    Logger.Log_Error("Windows_Service IEXTrading_Get_News failed. Error Msg: " + ex.Message);
                 }
-            } catch (Exception ex)
-            {
-                Logger.Log_Error("Windows_Service IEXTrading_Get_News failed. Error Msg: " + ex.Message);
             }
         }
             private void IEXTrading_Top_Last(object sender = null, ElapsedEventArgs e = null)
         {
-            string base_directory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs");
-            string filename = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs", "IEXTrading_Top_Last.log");
-
-            if (!Directory.Exists(base_directory))
-            {
-                Directory.CreateDirectory(base_directory);
-            }
-
             string go_ahead = Convert.ToString(ConfigurationManager.AppSettings["IEXTrading_Top_Last"]);
 
-            File.WriteAllText(filename, DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss") + " : " + "IEXTrading_Top_Last. " + go_ahead);
-
-            if (!go_ahead.Equals("true"))
+            if (go_ahead.Equals("true"))
             {
-                return;
-            }
 
-            try
-            {
-                DateTime current_time = DateTime.UtcNow;
-                int current_hour = current_time.Hour;
-
-                int hour = Convert.ToInt32(ConfigurationManager.AppSettings["IEXTrading_Top_Last_hour"]);
-
-                if (current_hour == hour)
+                try
                 {
-                    Lasts lasts = new Lasts();
-                    if (lasts.Call_Api())
+                    DateTime current_time = DateTime.UtcNow;
+                    int current_hour = current_time.Hour;
+
+                    int hour = Convert.ToInt32(ConfigurationManager.AppSettings["IEXTrading_Top_Last_hour"]);
+
+                    if (current_hour == hour)
                     {
-                        lasts.Save_In_File();
+                        Lasts lasts = new Lasts();
+                        if (lasts.Call_Api())
+                        {
+                            lasts.Save_In_File();
+                        }
                     }
                 }
+                catch (Exception ex)
+                {
+                    Logger.Log_Error("Windows Service Failed. IEXTrading_Top_Last. Error: [" + ex.Message + "]");
+                }
+                finally { }
             }
-            catch (Exception ex)
-            {
-                Logger.Log_Error("Windows Service Failed. IEXTrading_Top_Last. Error: [" + ex.Message + "]");
-            }
-            finally { }
         }
 
         private void IEXTrading_Chart(object sender = null, ElapsedEventArgs e = null)
         {
-            string base_directory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs");
-            string filename = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs", "IEXTrading_Chart.log");
-
-            if (!Directory.Exists(base_directory))
-            {
-                Directory.CreateDirectory(base_directory);
-            }
-
             string go_ahead = Convert.ToString(ConfigurationManager.AppSettings["IEXTrading_Chart"]);
 
-            File.WriteAllText(filename, DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss") + " : IEXTrading_Chart. " + go_ahead);
-
-            if (!go_ahead.Equals("true"))
+            if (go_ahead.Equals("true"))
             {
-                return;
-            }
 
-            try
-            {
-                Chart oHLC = new Chart();
-                if (oHLC.Set_Symbol_Range_from_DB())
+                try
                 {
-                    oHLC.Call_Api();
-                    oHLC.Save_In_File();
+                    Chart oHLC = new Chart();
+                    if (oHLC.Set_Symbol_Range_from_DB())
+                    {
+                        oHLC.Call_Api();
+                        oHLC.Save_In_File();
+
+                        Dictionary<string, object> dictionary = new Dictionary<string, object>();
+                        dictionary.Add("Symbol", oHLC.Symbol);
+
+                        Library.Database.ExecuteProcedure_Get("[fsn].[Symbol_Change_Five_Years_Data]", dictionary);    }
                 }
+                catch (Exception ex)
+                {
+                    Logger.Log_Error("Windows Service Failed. IEXTrading_Chart. Error: [" + ex.Message + "]");
+                }
+                finally { }
             }
-            catch (Exception ex)
-            {
-                Logger.Log_Error("Windows Service Failed. IEXTrading_Chart. Error: [" + ex.Message + "]");
-            }
-            finally { }
         }
 
         private void IEXTrading_Chart_Date(object sender = null, ElapsedEventArgs e = null)
         {
-            string base_directory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs");
-            string filename = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs", "IEXTrading_Chart_Date.log");
-
-            if (!Directory.Exists(base_directory))
-            {
-                Directory.CreateDirectory(base_directory);
-            }
-
             string go_ahead = Convert.ToString(ConfigurationManager.AppSettings["IEXTrading_Chart_Date"]);
 
-            File.WriteAllText(filename, DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss") + " : " + "IEXTrading_Chart_Date. " + go_ahead);
-
-            if (!go_ahead.Equals("true"))
+            if (go_ahead.Equals("true"))
             {
-                return;
-            }
-
-            string result = "Before";
-            try
-            {
-                Chart oHLC = new Chart();
-                result = oHLC.Download_Chart_Date();
-                if (!String.IsNullOrEmpty(result))
+                string result = "Before";
+                try
                 {
-                    dynamic jsonparse = JObject.Parse(result);
-
-                    if (oHLC.Call_Api_Date(
-                            jsonparse["Symbol"].ToString()
-                            , jsonparse["Date"].ToString()
-                            , true
-                    ))
+                    Chart oHLC = new Chart();
+                    result = oHLC.Download_Chart_Date();
+                    if (!String.IsNullOrEmpty(result))
                     {
-                        oHLC.Save_In_File();
+                        dynamic jsonparse = JObject.Parse(result);
+
+                        if (oHLC.Call_Api_Date(
+                                jsonparse["Symbol"].ToString()
+                                , jsonparse["Date"].ToString()
+                                , true
+                        ))
+                        {
+                            oHLC.Save_In_File();
+                        }
                     }
                 }
+                catch (Exception ex)
+                {
+                    Logger.Log_Error("Windows Service Failed. IEXTrading_Chart_Date. Result: " + result + "Error: [" + ex.Message + "]");
+                }
+                finally { }
             }
-            catch (Exception ex)
-            {
-                Logger.Log_Error("Windows Service Failed. IEXTrading_Chart_Date. Result: " + result + "Error: [" + ex.Message + "]");
-            }
-            finally { }
         }
 
 

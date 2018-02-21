@@ -4,6 +4,7 @@ using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Text;
 
@@ -90,13 +91,23 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
         {
             this.Symbol = symbol;
 
-            string result = "";
-            string _RESULT = "";
             try
             {
-                result = Utility.HttpRequestor.Chart(this.Symbol, "date/" + date);
-                _RESULT = result;
-                if (!String.IsNullOrEmpty(result))
+                DateTime _date = DateTime.ParseExact(date, "yyyyMMdd", CultureInfo.InvariantCulture);
+
+                string result = Utility.HttpRequestor.Chart(this.Symbol, "date/" + date);
+
+                if (String.IsNullOrEmpty(result))
+                {
+                    DateTime dt = DateTime.ParseExact(date, "yyyyMMdd", System.Globalization.CultureInfo.InvariantCulture);
+                    Dictionary<string, object> parameters = new Dictionary<string, object>
+                        {
+                            { "Symbol", this.Symbol },
+                            { "Date", dt }
+                        };
+                    this.DB_Invalid_Symbol_Date(parameters);
+                    return false;
+                } else
                 {
                     if (result.Equals("[]"))
                     {
@@ -108,33 +119,35 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
                         };
                         this.DB_Invalid_Symbol_Date(parameters);
                         return false;
-                    }
-                    else
-                    {
-                        if (last_record)
-                        {
-                            string[] results = result.Split('{');
-                            result = results[results.Length - 1];
-                            result = "[{" + result.Split(']')[0] + "]";
-                        }
+                    } else {
 
-                        this.ShareDetails.ShareDetail = JsonConvert.DeserializeObject<List<ShareDetail>>(
-                                            result
-                                        , new IsoDateTimeConverter { DateTimeFormat = "yyyyMMdd" }
-                                            );
-                        this.ShareDetails.ShareDetail.ForEach(sharedetail => sharedetail.Symbol = this.Symbol);
+                        List<ShareDetail> share_list = JsonConvert.DeserializeObject<List<ShareDetail>>(
+                                                            result
+                                                            , new IsoDateTimeConverter { DateTimeFormat = "yyyyMMdd" }
+                                                        );
+                        share_list[share_list.Count - 1].Date = _date;
+                        share_list[share_list.Count - 1].Close = share_list[share_list.Count - 1].High;
+                        share_list[share_list.Count - 1].Symbol = this.Symbol;
+
+                        this.ShareDetails.ShareDetail = new List<ShareDetail>(1);
+                        this.ShareDetails.ShareDetail.Add(share_list[share_list.Count - 1]);
                         this.Api_Called = true;
+                        return true;
                     }
-                
-                    return true;
-                } else
-                {
-                    return false;
                 }
             }
             catch (Exception ex)
             {
-                Logger.Log_Error("AustinsFirstProject.StockAdvisor.IEXTrading.Chart.Call_Api_Date(" + symbol+", "+ "date/" + date + ") failed. Result: $" + _RESULT + "$ Error Msg: " + ex.Message);
+                /* MethodFullName. */
+                Logger.Log_Error("[" + this.GetType().FullName + "." + System.Reflection.MethodBase.GetCurrentMethod().Name + "] Symbol: [" + symbol + "] date: [" + date + "] Error Msg: " + ex.Message);
+
+                DateTime dt = DateTime.ParseExact(date, "yyyyMMdd", System.Globalization.CultureInfo.InvariantCulture);
+                Dictionary<string, object> parameters = new Dictionary<string, object>
+                        {
+                            { "Symbol", this.Symbol },
+                            { "Date", dt }
+                        };
+                this.DB_Invalid_Symbol_Date(parameters);
                 return false;
             }
         }

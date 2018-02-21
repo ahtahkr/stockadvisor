@@ -22,20 +22,21 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
                     full_file_name = Utility.Get_Full_FileName_to_Save_Api_Result(directory, "ShareDetail" + "_"
                         + ((this.ShareDetail[0].Symbol.Length > 0) ? this.ShareDetail[0].Symbol : "")
                         );
+                    full_file_name = full_file_name.Replace("*", "");
                 } while (File.Exists(full_file_name));
 
                 File.AppendAllText(full_file_name, JsonConvert.SerializeObject(this.ShareDetail));
             } catch (Exception ex)
             {
                 /* MethodFullName. */
-                Logger.Log_Error("[" + this.GetType().FullName + "." + System.Reflection.MethodBase.GetCurrentMethod().Name + "] Full_File_Name: [" + full_file_name + "] Error Msg: " + ex.Message);
+                Logger.Log_Error("[" + this.GetType().FullName + "." + System.Reflection.MethodBase.GetCurrentMethod().Name + "] Full_File_Name: [" + full_file_name + "] ShareDetail: #"+ JsonConvert.SerializeObject(this.ShareDetail) + "#Error Msg: " + ex.Message);
             }
         }
     }
     public class ShareDetail
     {
         public string Symbol { get; set; } = "";
-        public DateTime Date { get; set; } = DateTime.UtcNow;
+        public DateTime Date { get; set; }
         public decimal  Open { get; set; } = 0;
         public decimal High { get; set; } = 0;
         public decimal Low { get; set; } = 0;
