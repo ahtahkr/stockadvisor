@@ -61,9 +61,9 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
             this.Robinhood = false;
         }
 
-        public int Save_in_Database()
+        public int Save_in_Database(string connection_string = "")
         {
-            return this.IEXTrading_Symbol_Insert_Update();
+            return this.IEXTrading_Symbol_Insert_Update(connection_string);
         }
 
         public int IEXTrading_Symbol_Insert_Update(string connection_string = "")

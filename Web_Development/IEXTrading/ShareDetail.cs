@@ -55,9 +55,9 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
         public decimal ChangePercent { get; set; } = 0;
         public decimal Vwap { get; set; } = 0;
 
-        public int Save_in_Database()
+        public int Save_in_Database(string connection_string = "")
         {
-            return this.IEXTrading_Share_Insert_Update();
+            return this.IEXTrading_Share_Insert_Update(connection_string);
         }
 
         public int IEXTrading_Share_Insert_Update(string connection_string = "")

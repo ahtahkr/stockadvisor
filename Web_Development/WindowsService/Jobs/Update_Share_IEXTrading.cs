@@ -56,7 +56,6 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
 
             if (go_ahead.Equals("true"))
             {
-
                 try
                 {
                     DateTime current_time = DateTime.UtcNow;
