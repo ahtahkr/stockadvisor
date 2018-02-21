@@ -23,7 +23,6 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
             }
 
             File.WriteAllText(filename, DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss") + " : " + "I AM ACTIVE.");
-
         }
     }
 }

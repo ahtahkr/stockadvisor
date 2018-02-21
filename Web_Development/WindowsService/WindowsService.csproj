@@ -78,9 +78,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Jobs\Get_Companies.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Jobs\IEXTrading_Chart.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -90,10 +87,13 @@
     <Compile Include="Jobs\IEXTrading_Download_Companies.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Jobs\I_AM_ACTIVE.cs">
+    <Compile Include="Jobs\IEXTrading_Get_News.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Jobs\Update_Share_IEXTrading.cs">
+    <Compile Include="Jobs\IEXTrading_Top_Last.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Jobs\I_AM_ACTIVE.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Jobs\Upload_Files.cs">
