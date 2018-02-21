@@ -12,8 +12,14 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
     public class ShareDetails
     {
         public List<ShareDetail> ShareDetail { get; set; } = new List<ShareDetail>();
-        public void Save_In_File(string directory = "")
+        public bool Save_In_File(string directory = "")
         {
+            if (this.ShareDetail.Count <= 0)
+            {
+                /* MethodFullName. */
+                Logger.Log_Error("[" + this.GetType().FullName + "." + System.Reflection.MethodBase.GetCurrentMethod().Name + "] this.ShareDetail.Count: [" + this.ShareDetail.Count + "] ShareDetail: #" + JsonConvert.SerializeObject(this.ShareDetail));
+                return false;
+            }
             string full_file_name = "";
             try
             {
@@ -26,10 +32,12 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
                 } while (File.Exists(full_file_name));
 
                 File.AppendAllText(full_file_name, JsonConvert.SerializeObject(this.ShareDetail));
+                return true;
             } catch (Exception ex)
             {
                 /* MethodFullName. */
                 Logger.Log_Error("[" + this.GetType().FullName + "." + System.Reflection.MethodBase.GetCurrentMethod().Name + "] Full_File_Name: [" + full_file_name + "] ShareDetail: #"+ JsonConvert.SerializeObject(this.ShareDetail) + "#Error Msg: " + ex.Message);
+                return false;
             }
         }
     }

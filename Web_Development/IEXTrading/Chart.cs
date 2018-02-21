@@ -40,8 +40,18 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
 
                     this.Symbol = jsonparse["Symbol"];
                     this.Range = jsonparse["Range"];
+
+                    if (String.IsNullOrEmpty(this.Symbol) || String.IsNullOrEmpty(this.Range))
+                    {
+                        /* MethodFullName. */
+                        Logger.Log_Error("[" + this.GetType().FullName + "." + System.Reflection.MethodBase.GetCurrentMethod().Name + "] Symbol: [" + this.Symbol + "] Range: [" + this.Range + "] Result: " + result);
+                        return false;
+                    }
+                    else
+                    {
+                        return true;
+                    }
                 }
-                return true;
             } catch (Exception ex)
             {
                 Logger.Log_Error("[AustinsFirstProject.StockAdvisor.IEXTrading.Chart.Set_Symbol_Range_from_DB] result = [" + result + "] Error Msg: " + ex.Message);
@@ -154,15 +164,16 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
 
         public bool Call_Api(string symbol = "", string range = "")
         {
-            if (String.IsNullOrEmpty(symbol))
+            if (!String.IsNullOrEmpty(symbol))
             {
-                //this.Set_Symbol_Range_from_DB();
-            }
-            else
-            {
-                this.Range = range;
                 this.Symbol = symbol;
             }
+
+            if (!String.IsNullOrEmpty(range))
+            {
+                this.Range = range;
+            }
+
             if (String.IsNullOrEmpty(this.Symbol))
             {
                 Logger.Log_Error("[" + this.GetType().FullName + "." + System.Reflection.MethodBase.GetCurrentMethod().Name + "] Failed. Symbol is empty.");
@@ -186,9 +197,9 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
             }
         }
 
-        public void Save_In_File(string directory = "")
+        public bool Save_In_File(string directory = "")
         {
-            this.ShareDetails.Save_In_File();
+            return this.ShareDetails.Save_In_File();
         }
     }
 }

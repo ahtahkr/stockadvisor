@@ -94,19 +94,24 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
 
             if (go_ahead.Equals("true"))
             {
-
                 try
                 {
                     Chart oHLC = new Chart();
                     if (oHLC.Set_Symbol_Range_from_DB())
                     {
-                        oHLC.Call_Api();
-                        oHLC.Save_In_File();
+                        if (oHLC.Call_Api())
+                        {
+                            if (oHLC.Save_In_File())
+                            {
+                                Dictionary<string, object> dictionary = new Dictionary<string, object>
+                                {
+                                    { "Symbol", oHLC.Symbol }
+                                };
 
-                        Dictionary<string, object> dictionary = new Dictionary<string, object>();
-                        dictionary.Add("Symbol", oHLC.Symbol);
-
-                        Library.Database.ExecuteProcedure_Get("[fsn].[Symbol_Change_Five_Years_Data]", dictionary);    }
+                                Library.Database.ExecuteProcedure_Get("[fsn].[Symbol_Change_Five_Years_Data]", dictionary);
+                            }
+                        }
+                    }
                 }
                 catch (Exception ex)
                 {
