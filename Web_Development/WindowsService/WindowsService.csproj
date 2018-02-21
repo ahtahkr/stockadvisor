@@ -81,6 +81,9 @@
     <Compile Include="Jobs\Get_Companies.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Jobs\IEXTrading_Chart.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Jobs\IEXTrading_Download_Companies.cs">
       <SubType>Component</SubType>
     </Compile>

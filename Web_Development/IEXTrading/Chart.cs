@@ -22,13 +22,13 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
             this.ShareDetails = new ShareDetails();
         }
 
-        public bool Set_Symbol_Range_from_DB(string connection_string = "")
+        public bool IEXTrading_Get_Symbol_For_Chart(string connection_string = "")
         {
             string result = "Before.";
             try
             {
                 result = Library.Database.ExecuteProcedure_Get(
-                        "[fsn].[IEXTrading_Get_Symbol_For_Chart]", null, connection_string);
+                        "[fsn].[Get_Symbol_For_Chart]", null, connection_string);
 
                 if (result.Equals("[]"))
                 { return false; }
@@ -39,9 +39,9 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
                     dynamic jsonparse = JObject.Parse(result);
 
                     this.Symbol = jsonparse["Symbol"];
-                    this.Range = jsonparse["Range"];
+                    this.Range = "";
 
-                    if (String.IsNullOrEmpty(this.Symbol) || String.IsNullOrEmpty(this.Range))
+                    if (String.IsNullOrEmpty(this.Symbol))
                     {
                         /* MethodFullName. */
                         Logger.Log_Error("[" + this.GetType().FullName + "." + System.Reflection.MethodBase.GetCurrentMethod().Name + "] Symbol: [" + this.Symbol + "] Range: [" + this.Range + "] Result: " + result);
@@ -52,9 +52,10 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
                         return true;
                     }
                 }
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
-                Logger.Log_Error("[AustinsFirstProject.StockAdvisor.IEXTrading.Chart.Set_Symbol_Range_from_DB] result = [" + result + "] Error Msg: " + ex.Message);
+                Logger.Log_Error("[" + this.GetType().FullName + "." + System.Reflection.MethodBase.GetCurrentMethod().Name + "] result = [" + result + "] Error Msg: " + ex.Message);
                 return false;
             }
         }

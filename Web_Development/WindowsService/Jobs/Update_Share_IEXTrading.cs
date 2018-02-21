@@ -88,38 +88,7 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
             }
         }
 
-        private void IEXTrading_Chart(object sender = null, ElapsedEventArgs e = null)
-        {
-            string go_ahead = Convert.ToString(ConfigurationManager.AppSettings["IEXTrading_Chart"]);
-
-            if (go_ahead.Equals("true"))
-            {
-                try
-                {
-                    Chart oHLC = new Chart();
-                    if (oHLC.Set_Symbol_Range_from_DB())
-                    {
-                        if (oHLC.Call_Api())
-                        {
-                            if (oHLC.Save_In_File())
-                            {
-                                Dictionary<string, object> dictionary = new Dictionary<string, object>
-                                {
-                                    { "Symbol", oHLC.Symbol }
-                                };
-
-                                Library.Database.ExecuteProcedure_Get("[fsn].[Symbol_Change_Five_Years_Data]", dictionary);
-                            }
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Logger.Log_Error("Windows Service Failed. IEXTrading_Chart. Error: [" + ex.Message + "]");
-                }
-                finally { }
-            }
-        }
+        
 
         private void IEXTrading_Chart_Date(object sender = null, ElapsedEventArgs e = null)
         {
