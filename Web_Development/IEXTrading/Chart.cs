@@ -60,6 +60,44 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
             }
         }
 
+        public bool IEXTrading_Get_Symbol_For_Chart_5y(string connection_string = "")
+        {
+            string result = "Before.";
+            try
+            {
+                result = Library.Database.ExecuteProcedure_Get(
+                        "[fsn].[Get_Symbol_For_Chart_5y]", null, connection_string);
+
+                if (result.Equals("[]"))
+                { return false; }
+                else
+                {
+                    result = result.Split('[')[1];
+                    result = result.Split(']')[0];
+                    dynamic jsonparse = JObject.Parse(result);
+
+                    this.Symbol = jsonparse["Symbol"];
+                    this.Range = "5y";
+
+                    if (String.IsNullOrEmpty(this.Symbol))
+                    {
+                        /* MethodFullName. */
+                        Logger.Log_Error("[" + this.GetType().FullName + "." + System.Reflection.MethodBase.GetCurrentMethod().Name + "] Symbol: [" + this.Symbol + "] Range: [" + this.Range + "] Result: " + result);
+                        return false;
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log_Error("[" + this.GetType().FullName + "." + System.Reflection.MethodBase.GetCurrentMethod().Name + "] result = [" + result + "] Error Msg: " + ex.Message);
+                return false;
+            }
+        }
+
         public string Download_Chart_Date(string connection_string = "")
         {
             string result = "Before.";

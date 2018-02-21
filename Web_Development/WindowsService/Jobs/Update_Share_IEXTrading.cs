@@ -1,18 +1,11 @@
-﻿using AustinsFirstProject.Library.DatabaseTable;
-using AustinsFirstProject.Library;
+﻿using AustinsFirstProject.Library;
 using Library.Stock;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.ServiceProcess;
-using System.Text;
-using System.Threading.Tasks;
 using System.Timers;
 using System.Configuration;
 using AustinsFirstProject.StockAdvisor.IEXTrading;
-using System.IO;
-using Newtonsoft.Json.Linq;
 
 namespace AustinsFirstProject.StockAdvisor.WindowsService
 {
@@ -90,38 +83,7 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
 
         
 
-        private void IEXTrading_Chart_Date(object sender = null, ElapsedEventArgs e = null)
-        {
-            string go_ahead = Convert.ToString(ConfigurationManager.AppSettings["IEXTrading_Chart_Date"]);
-
-            if (go_ahead.Equals("true"))
-            {
-                string result = "Before";
-                try
-                {
-                    Chart oHLC = new Chart();
-                    result = oHLC.Download_Chart_Date();
-                    if (!String.IsNullOrEmpty(result))
-                    {
-                        dynamic jsonparse = JObject.Parse(result);
-
-                        if (oHLC.Call_Api_Date(
-                                jsonparse["Symbol"].ToString()
-                                , jsonparse["Date"].ToString()
-                                , true
-                        ))
-                        {
-                            oHLC.Save_In_File();
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Logger.Log_Error("Windows Service Failed. IEXTrading_Chart_Date. Result: " + result + "Error: [" + ex.Message + "]");
-                }
-                finally { }
-            }
-        }
+        
 
 
         private void IEXTrading_Previous(object sender = null, ElapsedEventArgs e = null)

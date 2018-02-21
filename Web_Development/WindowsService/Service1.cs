@@ -47,7 +47,7 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
             this.IEXTrading_Chart_timer.Elapsed += IEXTrading_Chart;
             this.IEXTrading_Chart_timer.Enabled = true;
 
-            this.IEXTrading_Chart_Date_timer.Elapsed += IEXTrading_Chart_Date;
+            this.IEXTrading_Chart_Date_timer.Elapsed += IEXTrading_Chart_5y;
             this.IEXTrading_Chart_Date_timer.Enabled = true;
 
             this.IEXTrading_Tops_Last_timer.Elapsed += IEXTrading_Top_Last;
