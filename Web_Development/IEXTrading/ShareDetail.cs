@@ -17,7 +17,7 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
             if (this.ShareDetail.Count <= 0)
             {
                 /* MethodFullName. */
-                Logger.Log_Error("[" + this.GetType().FullName + "." + System.Reflection.MethodBase.GetCurrentMethod().Name + "] this.ShareDetail.Count: [" + this.ShareDetail.Count + "] ShareDetail: #" + JsonConvert.SerializeObject(this.ShareDetail));
+                /*Logger.Log_Error("[" + this.GetType().FullName + "." + System.Reflection.MethodBase.GetCurrentMethod().Name + "] this.ShareDetail.Count: [" + this.ShareDetail.Count + "] ShareDetail: #" + JsonConvert.SerializeObject(this.ShareDetail));*/
                 return false;
             }
             string full_file_name = "";
@@ -62,6 +62,10 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
 
         public int IEXTrading_Share_Insert_Update(string connection_string = "")
         {
+            if ((this.Open >= 100000) || (this.High >= 100000) || (this.Low >= 100000) || (this.Close >= 100000))
+            {
+                return 0;
+            }
             Dictionary<string, object> param = new Dictionary<string, object>();
             try
             {
