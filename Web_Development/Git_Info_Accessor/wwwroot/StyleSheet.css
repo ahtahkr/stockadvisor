@@ -1,4 +1,7 @@
-﻿.table tbody tr.success > td {
+﻿.table {
+    font-size: 12px;
+}
+.table tbody tr.success > td {
     background-color: #bcf7bb !important;
 }
 
@@ -32,4 +35,13 @@
 
 .table-hover tbody tr.info:hover > td {
     background-color: #c4e3f3 !important;
+}
+
+/* below is just to make things easier to see, not required */
+body > div {
+    margin-bottom: 10px;
+}
+
+html {
+    font-size:12px;
 }

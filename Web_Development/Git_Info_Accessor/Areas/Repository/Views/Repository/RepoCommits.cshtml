@@ -60,19 +60,29 @@
                 console.log(result);
                 result = JSON.parse(result);
 
-                var html_code = '<div>';
-                html_code += '<a href="' + result.Author.HtmlUrl + '" target="_blank">';
-                html_code += '<img alt="" width="80" height="80" src="' + result.Author.AvatarUrl + '"></img>';
-                html_code += '<h6>Author: ' + result.Author.Login + '</h6>';
-                html_code += '</a>';
+                var html_code = '<div class="container">';
+
+                html_code += '<div class="float-left card" style="width: 9rem;">';
+                html_code += '<img alt="" class="card-img-top" src="' + result.Author.AvatarUrl + '">';
+                html_code += '<div class="card-body">';
+                html_code += '<h5 class="card-title">Author</h5>';
+                html_code += '<a href="' + result.Author.HtmlUrl + '" target="_blank">' + result.Author.Login + '</a>';
+                html_code += '</div>';
                 html_code += '</div>';
 
-                html_code += '<div>';
-                html_code += '<a href="' + result.Committer.HtmlUrl + '" target="_blank">';
-                html_code += '<img alt="" width="80" height="80" src="' + result.Committer.AvatarUrl + '"></img>';
-                html_code += '<h6>Committer: ' + result.Committer.Login + '</h6>';
-                html_code += '</a>';
+                html_code += '<div class="card float-left" style="width: 9rem;">';
+                html_code += '<img alt="" class="card-img-top" src="' + result.Committer.AvatarUrl + '">';
+                html_code += '<div class="card-body">';
+                html_code += '<h5 class="card-title">Committer</h5>';
+                html_code += '<a href="' + result.Committer.HtmlUrl + '" target="_blank">' + result.Committer.Login + '</a>';
                 html_code += '</div>';
+                html_code += '</div>';
+
+                html_code += '<br><div class="container">';
+                html_code += '<a class="btn btn-primary" role="button" href="' + result.HtmlUrl + '" target="_blank">';
+                html_code += 'Details';
+                html_code += '</a>';
+                html_code += '</div></div><br>';
 
                 $('#author_' + _counter).empty();
                 $('#author_' + _counter)[0].innerHTML = html_code;
@@ -89,7 +99,7 @@
                 }
 
                 var patches_counter = 0;
-                html_code = '<div class="list-group" id="file_list_' + _counter + '" role= "tablist" >';
+                html_code = '<div class="list-group d-inline-flex p-2" id="file_list_' + _counter + '" role= "tablist" ><h6>Files</h6>';
                 $.each(result.Files, function (i, item) {
                                        
                     patches_counter++;
@@ -114,7 +124,7 @@
 </script>
 <h5>Commit Messages</h5>
 <div class="row h-100">
-    <div class="col-4 h-100">
+    <div class="col-2 h-100">
         <div class="list-group h-100 mh-100 pre-scrollable">
             @{  var counter = 0;
                 foreach (var item in Model.Commit_Event_List)
@@ -122,24 +132,24 @@
                     counter++;
                 <a href="#" id="commit_@counter" onclick="Commit_Clicked('@counter', '@Model.Repository_Id', '@item.Sha')" class="list-group-item list-group-item-action flex-column align-items-start bg-transparent">
                     <p class="mb-1">@item.Commit.Message</p>
-                    <div class="d-flex w-100 justify-content-between">
+                    @*<div class="d-flex w-100 justify-content-between">
                         <p class="mb-1">@item.Commit.Committer.Name (@item.Commit.Committer.Email)</p>
                         <small>@item.Commit.Committer.Date</small>
-                    </div>
+                    </div>*@
                 </a>
                 }
                 }
         </div>
     </div>
 
-    <div class="col-2 h-100" id="col-b">
+    <div class="col-auto h-100" id="col-b">
         <div class="tab-content" id="col-b-tabcontent">
             @{
                 var a = 0;
                 for (a = 1; a <= counter; a++)
                 {
                     <div class="tab-pane fade" id="col_b_@a">
-                            <div class="container-fluid" id="author_@a">
+                            <div class="container" id="author_@a">
 
                             </div>
                             <div id="files_@a"></div>                        
