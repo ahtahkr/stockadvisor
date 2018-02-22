@@ -5,6 +5,10 @@
     Layout = "~/Views/Layout.cshtml";
 }
 
+<head>
+    <script src="~/PatchBeautifier.js" type="text/javascript"></script>
+</head>
+
 <script>
     function File_Clicked(_commit_counter, _file_counter, _FileName ,_RawUrl)
     {
@@ -40,10 +44,10 @@
             $('#patches_' + _counter + '_1').addClass("active");
             $('#patches_' + _counter + '_1').addClass("show");
 
-            console.log('Already assigned.');
+           /* console.log('Already assigned.'); */
             return;
         } else {
-            console.log('Not Assigned Yet.');
+            /*console.log('Not Assigned Yet.');*/
         }
         var url = "/Repository/Get_Commit/" + _repo_id + "/" + _sha;
 
@@ -53,6 +57,7 @@
                 console.log(url + ' Msg: ' + e);
             })
             .done(function (result) {
+                console.log(result);
                 result = JSON.parse(result);
 
                 var html_code = '<div>';
@@ -86,10 +91,14 @@
                 var patches_counter = 0;
                 html_code = '<div class="list-group" id="file_list_' + _counter + '" role= "tablist" >';
                 $.each(result.Files, function (i, item) {
-
+                                       
                     patches_counter++;
-                    $('#col-c-tabcontent').append('<div class="patches tab-pane fade" id="patches_' + _counter + '_' + patches_counter + '"><p><h6><a href="' + item.RawUrl + '" target="_blank">' + item.Filename + '</a></h6></p><p>' + item.Patch + '</p></div>');
-                    
+
+                    var id = 'patch_draw_' + _counter + '_' + patches_counter;
+                    var filename = '<a href="' + item.RawUrl + '" target="_blank">' + item.Filename + '</a>';
+
+                    $('#col-c-tabcontent').append('<div class="patches tab-pane fade border-dark" id="patches_' + _counter + '_' + patches_counter + '"><div id="' + id + '">' + Beautify_Patch_for_Bootstrap(filename, item.Patch) + '</div></div>');
+
                     html_code += '<a href="#" onclick="File_Clicked(' + _counter + ',' + patches_counter + ',' + '\'' + item.Filename + '\',\'' + item.RawUrl + '\')" class="list-group-item list-group-item-action flex-column align-items-start bg-transparent">';
                     html_code += '<p class="mb-1">' + item.Filename + '</p></a>';
                 });
