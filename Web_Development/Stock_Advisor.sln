@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsService", "WindowsService\WindowsService.csproj", "{7C395456-6F4F-4A11-8232-D329FABCD34C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stock_Advisor_Window_Service", "WindowsService\Stock_Advisor_Window_Service.csproj", "{7C395456-6F4F-4A11-8232-D329FABCD34C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApplication", "WebApplication\WebApplication.csproj", "{F2AF9CFB-5B61-46E9-A063-7C22FFCB1E66}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stock_Advisor_Web_App", "WebApplication\Stock_Advisor_Web_App.csproj", "{F2AF9CFB-5B61-46E9-A063-7C22FFCB1E66}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library", "Library\Library.csproj", "{9CF26216-0CD8-41D2-A244-2BCF5046BF1B}"
 EndProject
