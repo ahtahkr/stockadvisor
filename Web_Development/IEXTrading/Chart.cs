@@ -231,7 +231,8 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
             }
             catch (Exception ex)
             {
-                Logger.Log_Error("AustinsFirstProject.StockAdvisor.IEXTrading.Chart.Call_Api(" + symbol + ") failed. Error Msg: " + ex.Message);
+                /* MethodFullName. */
+                Logger.Log_Error("[" + this.GetType().FullName + "." + System.Reflection.MethodBase.GetCurrentMethod().Name + "] Symbol: [" + this.Symbol + "] Range: [" + this.Range + "] Error Msg: " + ex.Message);
                 return false;
             }
         }
