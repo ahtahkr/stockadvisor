@@ -47,6 +47,7 @@ namespace AustinsFirstProject.WebApplication.Areas.Robinhood.Models
                                                 new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)
                                                 ).TotalMilliseconds);
                             shareInfo.Close = sharedetail[b].Close;
+                            shareInfo.Volume = sharedetail[b].Volume;
                             shareInfoList.Add(shareInfo);
                         }
                     }
