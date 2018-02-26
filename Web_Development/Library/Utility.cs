@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace AustinsFirstProject.Library
+namespace Library
 {
     public static partial class Utility
     {

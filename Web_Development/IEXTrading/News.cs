@@ -1,4 +1,4 @@
-﻿using AustinsFirstProject.Library;
+﻿using Library;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AustinsFirstProject.StockAdvisor.IEXTrading
+namespace StockAdvisor.IEXTrading
 {
     /* Gen is a British Slang word for News. */
     public class Gen
@@ -48,7 +48,7 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
             }
             catch (Exception ex)
             {
-                Logger.Log_Error("[AustinsFirstProject.StockAdvisor.IEXTrading.Symbol_.IEXTrading_Symbol_Insert_Update]. Result: " + result + "failed. Message: " + ex.Message);
+                Logger.Log_Error("[StockAdvisor.IEXTrading.Symbol_.IEXTrading_Symbol_Insert_Update]. Result: " + result + "failed. Message: " + ex.Message);
             }
             return 1;
         }

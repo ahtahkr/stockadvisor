@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using AustinsFirstProject.StockAdvisor.WebApplication.Helper;
-using AustinsFirstProject.Library;
-using AustinsFirstProject.CoreLibrary.Database;
+using StockAdvisor.WebApplication.Helper;
+using Library;
+using CoreLibrary.Database;
 using Newtonsoft.Json;
 using Microsoft.Extensions.Configuration;
 
-namespace AustinsFirstProject.WebApplication.Areas.Company.Controllers
+namespace WebApplication.Areas.Company.Controllers
 {
     [Area("Company")]
     [Route("Company")]
@@ -42,8 +42,8 @@ namespace AustinsFirstProject.WebApplication.Areas.Company.Controllers
         public int Update_Robinhood(string company)
         {
             configRoot = ConfigurationHelper.GetConfiguration();
-            AustinsFirstProject.CoreLibrary.Database.Company _company
-                    = JsonConvert.DeserializeObject<AustinsFirstProject.CoreLibrary.Database.Company>(company);
+            CoreLibrary.Database.Company _company
+                    = JsonConvert.DeserializeObject<CoreLibrary.Database.Company>(company);
             _company.Database_Connection_String = configRoot.GetConnectionString("DefaultConnection");
 
             return _company.Update_Robinhood();

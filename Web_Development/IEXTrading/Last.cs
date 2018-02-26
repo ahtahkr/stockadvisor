@@ -1,4 +1,4 @@
-﻿using AustinsFirstProject.Library;
+﻿using Library;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AustinsFirstProject.StockAdvisor.IEXTrading
+namespace StockAdvisor.IEXTrading
 {
     public class Lasts
     {
@@ -53,7 +53,7 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
             }
             catch (Exception ex)
             {
-                Logger.Log_Error("AustinsFirstProject.StockAdvisor.IEXTrading.Lasts.Call_Api() failed. Error Msg: " + ex.Message);
+                Logger.Log_Error("StockAdvisor.IEXTrading.Lasts.Call_Api() failed. Error Msg: " + ex.Message);
                 return false;
             }
         }
@@ -97,7 +97,7 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
             {
                 string s = string.Join(";", param.Select(x => x.Key + "=" + x.Value).ToArray());
 
-                Logger.Log_Error("[AustinsFirstProject.StockAdvisor.IEXTrading.Last.Save_in_Database]. Result: " + result + " failed. Parameter: "+s+ "Message: " + ex.Message);
+                Logger.Log_Error("[StockAdvisor.IEXTrading.Last.Save_in_Database]. Result: " + result + " failed. Parameter: "+s+ "Message: " + ex.Message);
             }
 
             return 1;

@@ -1,13 +1,13 @@
-﻿using AustinsFirstProject.Library;
+﻿using Library;
 using Library.Stock;
 using System;
 using System.Collections.Generic;
 using System.ServiceProcess;
 using System.Timers;
 using System.Configuration;
-using AustinsFirstProject.StockAdvisor.IEXTrading;
+using StockAdvisor.IEXTrading;
 
-namespace AustinsFirstProject.StockAdvisor.WindowsService
+namespace StockAdvisor.WindowsService
 {
     public partial class Service1 : ServiceBase
     {

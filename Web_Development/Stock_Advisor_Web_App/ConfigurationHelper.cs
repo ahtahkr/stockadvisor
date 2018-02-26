@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AustinsFirstProject.StockAdvisor.WebApplication.Helper
+namespace StockAdvisor.WebApplication.Helper
 {
     public static class ConfigurationHelper
     {

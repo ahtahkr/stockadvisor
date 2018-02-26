@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Text;
 
-namespace AustinsFirstProject.Library.Intrinio
+namespace Library.Intrinio
 {
     public static class Utility
     {

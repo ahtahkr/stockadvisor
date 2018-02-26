@@ -1,4 +1,4 @@
-﻿using AustinsFirstProject.Library;
+﻿using Library;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -7,7 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace AustinsFirstProject.StockAdvisor.IEXTrading
+namespace StockAdvisor.IEXTrading
 {
     public class ShareDetails
     {
@@ -97,7 +97,7 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
             {
                 string s = string.Join(";", param.Select(x => x.Key + "=" + x.Value).ToArray());
 
-                Logger.Log_Error("[AustinsFirstProject.StockAdvisor.IEXTrading.ShareDetail.IEXTrading_Share_Insert_Update] failed. Param: [" + s + "] Message: " + ex.Message);
+                Logger.Log_Error("[StockAdvisor.IEXTrading.ShareDetail.IEXTrading_Share_Insert_Update] failed. Param: [" + s + "] Message: " + ex.Message);
             }
 
             return 1;

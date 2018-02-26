@@ -1,5 +1,5 @@
-﻿using AustinsFirstProject.Library;
-using AustinsFirstProject.StockAdvisor.IEXTrading;
+﻿using Library;
+using StockAdvisor.IEXTrading;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 
-namespace AustinsFirstProject.StockAdvisor.WindowsService
+namespace StockAdvisor.WindowsService
 {
     public partial class Service1 : ServiceBase
     {

@@ -1,4 +1,4 @@
-﻿using AustinsFirstProject.Library;
+﻿using Library;
 using Library.Stock;
 using Newtonsoft.Json;
 using System;
@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace AustinsFirstProject.StockAdvisor.IEXTrading
+namespace StockAdvisor.IEXTrading
 {
     public static class Utility
     {

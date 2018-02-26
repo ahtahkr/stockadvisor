@@ -1,11 +1,11 @@
-﻿using AustinsFirstProject.Library;
+﻿using Library;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace AustinsFirstProject.StockAdvisor.IEXTrading
+namespace StockAdvisor.IEXTrading
 {
 
     public class Open
@@ -46,7 +46,7 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
             } catch (Exception ex)
             {
                 Logger.Log_Error(symbol + " : " + ex.Message, "Call_Api");
-                Logger.Log_Error("AustinsFirstProject.StockAdvisor.IEXTrading.OHLC.Call_Api(" + symbol + ") failed. Error Msg: " + ex.Message);
+                Logger.Log_Error("StockAdvisor.IEXTrading.OHLC.Call_Api(" + symbol + ") failed. Error Msg: " + ex.Message);
                 return false;
             }
         }
@@ -55,7 +55,7 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
         {
             if (!Api_Called)
             {
-                Logger.Log_Error("AustinsFirstProject.StockAdvisor.IEXTrading.OHLC.Save_In_File(" + directory + ") failed. Error Msg: Calling Save to file without calling call_api");
+                Logger.Log_Error("StockAdvisor.IEXTrading.OHLC.Save_In_File(" + directory + ") failed. Error Msg: Calling Save to file without calling call_api");
                 return;
             }
 
@@ -77,7 +77,7 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
             }
             catch (Exception ex)
             {
-                Logger.Log_Error("AustinsFirstProject.StockAdvisor.IEXTrading.OHLC.Save_In_File(" + directory + ") failed. Error Msg: " + ex.Message);
+                Logger.Log_Error("StockAdvisor.IEXTrading.OHLC.Save_In_File(" + directory + ") failed. Error Msg: " + ex.Message);
             }
         }
     }

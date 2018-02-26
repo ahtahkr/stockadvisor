@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AustinsFirstProject.WebApplication.Areas.Company.Models
+namespace WebApplication.Areas.Company.Models
 {
     public class Company
     {
@@ -13,7 +13,7 @@ namespace AustinsFirstProject.WebApplication.Areas.Company.Models
         public Company()
         {
             this.companies = new CoreLibrary.Database.Companies();
-            this.Title = "AustinsFirstProject.WebApplication.Areas.Company.Models.Company";
+            this.Title = "WebApplication.Areas.Company.Models.Company";
         }
     }
 }

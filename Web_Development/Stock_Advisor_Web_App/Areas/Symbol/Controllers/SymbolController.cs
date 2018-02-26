@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using AustinsFirstProject.StockAdvisor.WebApplication.Helper;
+using StockAdvisor.WebApplication.Helper;
 using System.IO;
 
-namespace AustinsFirstProject.WebApplication.Areas.Symbol.Controllers
+namespace WebApplication.Areas.Symbol.Controllers
 {
     [Area("Symbol")]
     [Route("")]

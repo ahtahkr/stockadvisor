@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using AustinsFirstProject.StockAdvisor.IEXTrading;
+using StockAdvisor.IEXTrading;
 using Microsoft.Extensions.Configuration;
-using AustinsFirstProject.StockAdvisor.WebApplication.Helper;
+using StockAdvisor.WebApplication.Helper;
 using System.IO;
 using Newtonsoft.Json;
 
 
-namespace AustinsFirstProject.WebApplication.Areas.Robinhood.Controllers
+namespace WebApplication.Areas.Robinhood.Controllers
 {
     [Area("Robinhood")]
     [Route("Robinhood")]
@@ -37,7 +37,7 @@ namespace AustinsFirstProject.WebApplication.Areas.Robinhood.Controllers
 
             configRoot = ConfigurationHelper.GetConfiguration(Directory.GetCurrentDirectory());
 
-            string result = AustinsFirstProject.Library.Database.ExecuteProcedure_Get("[webApp].[Get_ShareDetail_Close]", param, configRoot.GetConnectionString(configRoot.GetSection("environmentVariables")["ENVIRONMENT"]));
+            string result = Library.Database.ExecuteProcedure_Get("[webApp].[Get_ShareDetail_Close]", param, configRoot.GetConnectionString(configRoot.GetSection("environmentVariables")["ENVIRONMENT"]));
 
             List<Models.ShareDetail> sharedetail = JsonConvert.DeserializeObject<List<Models.ShareDetail>>(result);
 

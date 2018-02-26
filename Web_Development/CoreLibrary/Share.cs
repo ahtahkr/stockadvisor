@@ -1,11 +1,11 @@
-﻿using AustinsFirstProject.CoreLibrary.Modal;
-using AustinsFirstProject.Library;
+﻿using CoreLibrary.Modal;
+using Library;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 
-namespace AustinsFirstProject.CoreLibrary.Database
+namespace CoreLibrary.Database
 {
     public class Shares
     {

@@ -1,10 +1,10 @@
-﻿using AustinsFirstProject.Library;
+﻿using Library;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace AustinsFirstProject.CoreLibrary.Database
+namespace CoreLibrary.Database
 {
     public class Companies
     {
@@ -67,7 +67,7 @@ namespace AustinsFirstProject.CoreLibrary.Database
                 }
                 //this.Robinhood = !this.Robinhood;
             } catch (Exception ex) {
-                Logger.Log_Error("AustinsFirstProject.CoreLibrary.Database.Company.UPDATE_ROBINHOOD failed. Error Message: ", ex.Message);
+                Logger.Log_Error("CoreLibrary.Database.Company.UPDATE_ROBINHOOD failed. Error Message: ", ex.Message);
             }
 
             return 2;

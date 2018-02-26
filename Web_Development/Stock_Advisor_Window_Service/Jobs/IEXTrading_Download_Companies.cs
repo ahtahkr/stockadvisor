@@ -1,4 +1,4 @@
-﻿using AustinsFirstProject.Library;
+﻿using Library;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 
-namespace AustinsFirstProject.StockAdvisor.WindowsService
+namespace StockAdvisor.WindowsService
 {
     public partial class Service1 : ServiceBase
     {
@@ -15,7 +15,7 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
         {
             try
             {
-                if (AustinsFirstProject.StockAdvisor.IEXTrading.Symbols.Download_Symbols())
+                if (StockAdvisor.IEXTrading.Symbols.Download_Symbols())
                 {
 
                 } else

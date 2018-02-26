@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AustinsFirstProject.Library.DatabaseTable
+namespace Library.DatabaseTable
 {
     public class Share
     {

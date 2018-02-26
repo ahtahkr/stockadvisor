@@ -1,10 +1,10 @@
-﻿using AustinsFirstProject.CoreLibrary.Database;
+﻿using CoreLibrary.Database;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AustinsFirstProject.WebApplication.Areas.RobinhoodAll.Models
+namespace WebApplication.Areas.RobinhoodAll.Models
 {
     public class RobinhoodAll
     {

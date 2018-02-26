@@ -5,7 +5,7 @@ using System.Configuration;
 using Library.Intrinio;
 using Newtonsoft.Json;
 
-namespace AustinsFirstProject.Library.Intrinio
+namespace Library.Intrinio
 {
     public class Companies
     {

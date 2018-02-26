@@ -1,12 +1,12 @@
-﻿using AustinsFirstProject.Library;
-using AustinsFirstProject.StockAdvisor.IEXTrading;
+﻿using Library;
+using StockAdvisor.IEXTrading;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AustinsFirstProject.WebApplication.Areas.Home.Models
+namespace WebApplication.Areas.Home.Models
 {
     public class Home
     {

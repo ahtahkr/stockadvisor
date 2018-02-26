@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AustinsFirstProject.Library
+namespace Library
 {
     public static partial class Utility
     {

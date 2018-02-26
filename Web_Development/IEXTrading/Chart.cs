@@ -1,4 +1,4 @@
-﻿using AustinsFirstProject.Library;
+﻿using Library;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
@@ -8,7 +8,7 @@ using System.Globalization;
 using System.IO;
 using System.Text;
 
-namespace AustinsFirstProject.StockAdvisor.IEXTrading
+namespace StockAdvisor.IEXTrading
 {
     public class Chart
     {
@@ -114,7 +114,7 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
             }
             catch (Exception ex)
             {
-                Logger.Log_Error("[AustinsFirstProject.StockAdvisor.IEXTrading.Chart.Download_Chart_Date] result = [" + result + "] Error Msg: " + ex.Message);
+                Logger.Log_Error("[StockAdvisor.IEXTrading.Chart.Download_Chart_Date] result = [" + result + "] Error Msg: " + ex.Message);
                 return "";
             }
 
@@ -131,7 +131,7 @@ namespace AustinsFirstProject.StockAdvisor.IEXTrading
             }
             catch (Exception ex)
             {
-                Logger.Log_Error("[AustinsFirstProject.StockAdvisor.IEXTrading.Chart.DB_Invalid_Symbol_Date] result = [" + result + "] Error Msg: " + ex.Message);
+                Logger.Log_Error("[StockAdvisor.IEXTrading.Chart.DB_Invalid_Symbol_Date] result = [" + result + "] Error Msg: " + ex.Message);
             }
 
         }

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AustinsFirstProject.StockAdvisor.WebApplication
+namespace StockAdvisor.WebApplication
 {
     public class Startup
     {

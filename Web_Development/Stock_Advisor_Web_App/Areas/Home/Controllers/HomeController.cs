@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using AustinsFirstProject.StockAdvisor.WebApplication.Helper;
+using StockAdvisor.WebApplication.Helper;
 using System.IO;
 
-namespace AustinsFirstProject.WebApplication.Areas.Home.Controllers
+namespace WebApplication.Areas.Home.Controllers
 {
     [Area("Home")]
     [Route("Home")]

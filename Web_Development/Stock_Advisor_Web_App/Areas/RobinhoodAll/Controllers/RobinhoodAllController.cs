@@ -4,13 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using AustinsFirstProject.StockAdvisor.WebApplication.Helper;
+using StockAdvisor.WebApplication.Helper;
 using System.IO;
-using AustinsFirstProject.CoreLibrary.Database;
-using AustinsFirstProject.Library;
+using CoreLibrary.Database;
+using Library;
 using Newtonsoft.Json;
 
-namespace AustinsFirstProject.WebApplication.Areas.RobinhoodAll.Controllers
+namespace WebApplication.Areas.RobinhoodAll.Controllers
 {
     [Area("RobinhoodAll")]
     [Route("RobinhoodAll")]

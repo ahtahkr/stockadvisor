@@ -5,7 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Text;
 
-namespace AustinsFirstProject.Library
+namespace Library
 {
     public static class Database
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace AustinsFirstProject.CoreLibrary.Modal
+namespace CoreLibrary.Modal
 {
     [DataContract]
     public class DataPoint

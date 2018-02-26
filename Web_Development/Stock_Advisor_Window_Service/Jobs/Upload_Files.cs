@@ -1,5 +1,5 @@
-﻿using AustinsFirstProject.Library;
-using AustinsFirstProject.StockAdvisor.IEXTrading;
+﻿using Library;
+using StockAdvisor.IEXTrading;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 
-namespace AustinsFirstProject.StockAdvisor.WindowsService
+namespace StockAdvisor.WindowsService
 {
     public partial class Service1 : ServiceBase
     {
@@ -30,7 +30,7 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
 
                 if (Directory.Exists(directory))
                 {
-                    string file = AustinsFirstProject.Library.Utility.FileUtility.GetFile(directory, 1);
+                    string file = Library.Utility.FileUtility.GetFile(directory, 1);
 
                     if (String.IsNullOrEmpty(file)) { }
                     else
@@ -164,13 +164,13 @@ namespace AustinsFirstProject.StockAdvisor.WindowsService
                             }
                             else
                             {
-                                Logger.Log_Error(file + " received from AustinsFirstProject.Library.Utility.FileUtility.GetFile will not be processed.");
+                                Logger.Log_Error(file + " received from Library.Utility.FileUtility.GetFile will not be processed.");
                                 File.Move(file, Path.Combine(error, filename));
                             }
                         }
                         else
                         {
-                            Logger.Log_Error(file + " received from AustinsFirstProject.Library.Utility.FileUtility.GetFile does not exist.");
+                            Logger.Log_Error(file + " received from Library.Utility.FileUtility.GetFile does not exist.");
                         }
                     }
                 }

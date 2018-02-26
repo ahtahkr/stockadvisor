@@ -1,4 +1,4 @@
-﻿namespace AustinsFirstProject.StockAdvisor.WindowsService
+﻿namespace StockAdvisor.WindowsService
 {
     partial class Service1
     {

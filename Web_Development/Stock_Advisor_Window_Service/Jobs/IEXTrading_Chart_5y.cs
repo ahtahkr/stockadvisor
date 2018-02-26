@@ -1,14 +1,14 @@
-﻿using AustinsFirstProject.Library;
+﻿using Library;
 using System;
 using System.ServiceProcess;
 using System.Timers;
 using System.Configuration;
-using AustinsFirstProject.StockAdvisor.IEXTrading;
+using StockAdvisor.IEXTrading;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace AustinsFirstProject.StockAdvisor.WindowsService
+namespace StockAdvisor.WindowsService
 {
     public partial class Service1 : ServiceBase
     {

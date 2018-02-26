@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Configuration;
 
-namespace AustinsFirstProject.Library
+namespace Library
 {
     static class ConnectionString
     {

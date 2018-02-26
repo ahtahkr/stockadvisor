@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Configuration;
 using Microsoft.Extensions.Configuration;
-using AustinsFirstProject.StockAdvisor.WebApplication.Helper;
+using StockAdvisor.WebApplication.Helper;
 using System.IO;
-using AustinsFirstProject.Library;
-using AustinsFirstProject.CoreLibrary.Database;
+using Library;
+using CoreLibrary.Database;
 using Newtonsoft.Json;
 
-namespace AustinsFirstProject.WebApplication.Areas.Index.Controllers
+namespace WebApplication.Areas.Index.Controllers
 {
     [Area("Index")]
     [Route("index")]
