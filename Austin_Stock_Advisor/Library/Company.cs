@@ -23,7 +23,7 @@ namespace AustinStockAdvisor.Library
             parameters.Add("type", this.Type);
             parameters.Add("iexid", this.IexId);
 
-            return AustinStockAdvisor.LibraryStandard.Database.ExecuteProcedure.Get(
+            return AustinStockAdvisor.Library.Database.ExecuteProcedure.Get(
                 "[fsn].[Company_Insert_Update]",
                 connection_string,
                 parameters

@@ -10,17 +10,17 @@ namespace AustinStockAdvisor.IEXTrading.WebApi
         {
             if (String.IsNullOrEmpty(range))
             {
-                return LibraryStandard.HttpRequestUtility.GetRequest(URL + "stock/" + _symbol + "/chart");
+                return Library.HttpRequestUtility.GetRequest(URL + "stock/" + _symbol + "/chart");
             }
             else
             {
-                return LibraryStandard.HttpRequestUtility.GetRequest(URL + "stock/" + _symbol + "/chart/" + range);
+                return Library.HttpRequestUtility.GetRequest(URL + "stock/" + _symbol + "/chart/" + range);
             }
         }
 
         public static string Symbols()
         {
-            return LibraryStandard.HttpRequestUtility.GetRequest(URL + "ref-data/symbols");
+            return Library.HttpRequestUtility.GetRequest(URL + "ref-data/symbols");
         }
     }
 }

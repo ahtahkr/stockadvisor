@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace Austin_Stock_Advisor
+namespace AustinStockAdvisor
 {
     public class Program
     {
