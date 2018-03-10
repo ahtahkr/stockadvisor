@@ -6,6 +6,10 @@ using System.Data.SqlClient;
 
 namespace AustinStockAdvisor.Library.Database
 {
+    public class SP_Exec_Result
+    {
+        public string Result { get; set; }
+    }
     public static class ExecuteProcedure
     {
         private static IEnumerable<Dictionary<string, object>> Serialize(SqlDataReader reader)

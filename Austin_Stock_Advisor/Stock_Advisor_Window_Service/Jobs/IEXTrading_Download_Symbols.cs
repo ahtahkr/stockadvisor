@@ -29,7 +29,7 @@ namespace AustinStockAdvisor.WindowsService
             string connection_string = ConfigurationManager.ConnectionStrings[ConfigurationManager.AppSettings["environment"]].ConnectionString;
             for (int a = 0; a < Companies.Count; a++)
             {
-                Library.Logger.Log(Companies[a].Company_Insert_Update(connection_string));
+                Companies[a].Company_Insert_Update(connection_string);
             }
         }
     }

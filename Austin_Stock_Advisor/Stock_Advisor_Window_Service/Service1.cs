@@ -13,7 +13,7 @@ namespace AustinStockAdvisor.WindowsService
 {
     public partial class Service1 : ServiceBase
     {
-        private static int three_m_interval = 10; // seconds
+        private static int three_m_interval = 60*60*24*7*(52/4); // seconds
         private Timer three_m_timer = new Timer(three_m_interval * 1000);
 
         public Service1()

@@ -49,7 +49,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>AustinsFirstProject.StockAdvisor.WindowsService.Program</StartupObject>
+    <StartupObject>AustinStockAdvisor.WindowsService.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.IdentityModel.Protocols">
