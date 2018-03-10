@@ -78,7 +78,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Jobs\Stock_3M_Download.cs">
+    <Compile Include="Jobs\IEXTrading_Download_Symbols.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Service1.cs">

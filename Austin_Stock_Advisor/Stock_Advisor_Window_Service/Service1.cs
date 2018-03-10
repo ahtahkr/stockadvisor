@@ -26,7 +26,7 @@ namespace AustinStockAdvisor.WindowsService
         {
             eventLog_i_am_active.WriteEntry("Austin Stock Windows Service started.");
 
-            this.three_m_timer.Elapsed += Stock_3M_Download;
+            this.three_m_timer.Elapsed += IEXTrading_Get_Symbols;
             this.three_m_timer.Enabled = true;
         }
 
