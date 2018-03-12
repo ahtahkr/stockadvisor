@@ -2,6 +2,12 @@
 
 namespace AustinStockAdvisor.Library
 {
+    public class Change
+    {
+        public string Symbol { get; set; }
+        public int WeeksToGoBack { get; set; }
+        public int Max_High { get; set; }
+    }
     public class Share
     {
         public DateTime Date { get; set; }

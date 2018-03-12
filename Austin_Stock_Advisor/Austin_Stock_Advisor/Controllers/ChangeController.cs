@@ -4,24 +4,54 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using AustinStockAdvisor.Helper;
+using System.IO;
+using Newtonsoft.Json;
 
-namespace Austin_Stock_Advisor.Controllers
+namespace AustinStockAdvisor.Controllers
 {
     [Route("stock/[controller]")]
     public class ChangeController : Controller
     {
+        private IConfigurationRoot configRoot;
+
         // GET: api/Change
         [HttpGet]
-        public string Get()
+        public IActionResult Get()
         {
-            return 2 + ":" + 2 + ":" + 0;
+            configRoot = ConfigurationHelper.GetConfiguration(Directory.GetCurrentDirectory());
+            string connection_string = configRoot.GetConnectionString(configRoot.GetSection("environmentVariables")["ENVIRONMENT"]);
+
+            string companies = AustinStockAdvisor.Library.Database.ExecuteProcedure.Get(
+                "[fsn].[Share_Change]"
+                , connection_string);
+
+            List<Library.Change> changes = JsonConvert.DeserializeObject<List<Library.Change>>(companies);
+
+            return View(changes);
         }
 
-        // GET: api/Change/5
+        // GET: stock/Change/3/4/5
         [HttpGet("{WeeksToGoBack}/{MaxHigh}/{MinChange}", Name = "Get")]
-        public string Get(int WeeksToGoBack, int MaxHigh, int MinChange)
+        public IActionResult Get(int WeeksToGoBack, int MaxHigh, int MinChange)
         {
-            return WeeksToGoBack + ":" + MaxHigh + ":" + MinChange;
+            configRoot = ConfigurationHelper.GetConfiguration(Directory.GetCurrentDirectory());
+            string connection_string = configRoot.GetConnectionString(configRoot.GetSection("environmentVariables")["ENVIRONMENT"]);
+
+            Dictionary<string, object> param = new Dictionary<string, object>();
+            param.Add("WeeksToGoBack", WeeksToGoBack);
+            param.Add("Max_High", MaxHigh);
+            param.Add("Minimum_Change", MinChange);
+
+            string companies = AustinStockAdvisor.Library.Database.ExecuteProcedure.Get(
+                "[fsn].[Share_Change]"
+                , connection_string
+                , param);
+
+            List<Library.Change> changes = JsonConvert.DeserializeObject<List<Library.Change>>(companies);
+
+            return View(changes);
         }
         
         // POST: api/Change

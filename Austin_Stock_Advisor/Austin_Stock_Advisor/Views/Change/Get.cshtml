@@ -1,0 +1,14 @@
+﻿@model List<AustinStockAdvisor.Library.Change>;
+@{
+    ViewData["Title"] = "Get";
+}
+
+<h2>Get</h2>
+
+@{ 
+    foreach (var item in Model)
+    {
+        <p>@item.Symbol = @item.Max_High - @item.WeeksToGoBack</p>
+    }
+}
+
