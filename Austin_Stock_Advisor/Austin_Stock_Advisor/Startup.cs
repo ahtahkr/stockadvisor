@@ -34,7 +34,7 @@ namespace AustinStockAdvisor
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseMvc();
+            app.UseMvc().UseStaticFiles();
         }
     }
 }

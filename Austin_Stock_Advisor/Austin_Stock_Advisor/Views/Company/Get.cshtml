@@ -3,10 +3,27 @@
 @{
     ViewData["Title"] = "Stock_Companies";
 }
+<head>
+    <script src="~/jquery-3.3.1.min.js" type="text/javascript"></script>
+</head>
 
-<h2>Stock_Companies</h2>
+<script>
+    function robinhood_button(symbol) {
+        $.get("Company/Company_Alter_Robinhood", { symbol: symbol })
+            .done(function (result) {
+                console.log(result);
+            })
+            .fail(function (error) {
+                console.log(error)
+            })
+    }
+</script>
 
-@foreach (var item in Model)
-{
-    <p>@item.Symbol - @item.Name</p>
+@{  var robinhood_color = "";
+    foreach (var item in Model)
+    {
+        if (item.Robinhood) { robinhood_color = "#53f442"; } else { robinhood_color = "#f44242"; }
+
+        <p>@item.Symbol - @item.Name - <button style="background-color:@robinhood_color" class="Robinhood_Button" id="@item.Symbol" onclick="robinhood_button('@item.Symbol')">Robinhood</button></p>
+    }
 }
