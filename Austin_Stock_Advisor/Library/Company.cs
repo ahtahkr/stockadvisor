@@ -7,7 +7,9 @@ namespace AustinStockAdvisor.Library
         public string Symbol { get; set; }
         public int WeeksToGoBack { get; set; }
         public int Max_High { get; set; }
+        public string Url { get; set; }
     }
+
     public class Share
     {
         public DateTime Date { get; set; }
