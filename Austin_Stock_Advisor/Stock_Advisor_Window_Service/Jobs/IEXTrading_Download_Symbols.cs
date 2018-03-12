@@ -9,7 +9,7 @@ namespace AustinStockAdvisor.WindowsService
 {
     public partial class Service1 : ServiceBase
     {
-        private void IEXTrading_Get_Symbols(object sender = null, ElapsedEventArgs e = null)
+        public void IEXTrading_Get_Symbols(object sender = null, ElapsedEventArgs e = null)
         {
             List<Library.Company> Companies = new List<Library.Company>();
             try

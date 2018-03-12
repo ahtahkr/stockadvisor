@@ -78,6 +78,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Jobs\IEXTrading_Get_Chart_3M.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Jobs\IEXTrading_Download_Symbols.cs">
       <SubType>Component</SubType>
     </Compile>

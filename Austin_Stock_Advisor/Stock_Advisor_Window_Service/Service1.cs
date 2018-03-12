@@ -13,8 +13,11 @@ namespace AustinStockAdvisor.WindowsService
 {
     public partial class Service1 : ServiceBase
     {
-        private static int three_m_interval = 60*60*24*7*(52/4); // seconds
-        private Timer three_m_timer = new Timer(three_m_interval * 1000);
+        private static int iextrading_get_chart_Range_interval = 60 * 60; // seconds
+        private Timer iextrading_get_chart_Range_timer = new Timer(iextrading_get_chart_Range_interval * 1000);
+
+        private static int iextrading_previous_market_interval = 60 * 60; // seconds
+        private Timer iextrading_previous_market_timer = new Timer(iextrading_previous_market_interval * 1000);
 
         public Service1()
         {
@@ -26,26 +29,32 @@ namespace AustinStockAdvisor.WindowsService
         {
             eventLog_i_am_active.WriteEntry("Austin Stock Windows Service started.");
 
-            this.three_m_timer.Elapsed += IEXTrading_Get_Symbols;
-            this.three_m_timer.Enabled = true;
+            this.iextrading_get_chart_Range_timer.Elapsed += IEXTrading_Get_Chart_Range;
+            this.iextrading_get_chart_Range_timer.Enabled = true;
+
+            this.iextrading_previous_market_timer.Elapsed += IEXTrading_Market_Previous;
+            this.iextrading_previous_market_timer.Enabled = true;
         }
 
         protected override void OnStop()
         {
             eventLog_i_am_active.WriteEntry("Austin Stock Windows Service stopped.");
-            this.three_m_timer.Enabled = false;
+            this.iextrading_get_chart_Range_timer.Enabled = false;
+            this.iextrading_previous_market_timer.Enabled = false;
         }
         protected override void OnPause()
         {
             eventLog_i_am_active.WriteEntry("Austin Stock Windows Service paused.");
 
-            this.three_m_timer.Enabled = false;
+            this.iextrading_get_chart_Range_timer.Enabled = false;
+            this.iextrading_previous_market_timer.Enabled = false;
         }
         protected override void OnContinue()
         {
             eventLog_i_am_active.WriteEntry("Austin Stock Windows Service continued.");
 
-            this.three_m_timer.Enabled = true;
+            this.iextrading_get_chart_Range_timer.Enabled = true;
+            this.iextrading_previous_market_timer.Enabled = true;
         }
 
         private void CreateLog()

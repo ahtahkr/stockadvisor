@@ -22,5 +22,10 @@ namespace AustinStockAdvisor.IEXTrading.WebApi
         {
             return Library.HttpRequestUtility.GetRequest(URL + "ref-data/symbols");
         }
+
+        public static string Previous_Market()
+        {
+            return Library.HttpRequestUtility.GetRequest(URL + "stock/market/previous");
+        }
     }
 }
