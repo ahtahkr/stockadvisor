@@ -56,6 +56,9 @@ namespace AustinStockAdvisor.Library
         public bool isEnabled { get; set; }
         public string Type { get; set; }
         public int IexId { get; set; }
+        public int Iex_Chart_3m { get; set; }
+        public bool Iex_Trading { get; set; }
+        public bool Robinhood { get; set; }
 
         public Company() { }
 

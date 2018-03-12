@@ -1,0 +1,12 @@
+﻿@model List<AustinStockAdvisor.Library.Company>
+
+@{
+    ViewData["Title"] = "Stock_Companies";
+}
+
+<h2>Stock_Companies</h2>
+
+@foreach (var item in Model)
+{
+    <p>@item.Symbol - @item.Name</p>
+}
