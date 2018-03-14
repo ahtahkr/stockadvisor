@@ -33,8 +33,8 @@ namespace AustinStockAdvisor.Controllers
         }
 
         // GET: stock/Change/3/4/5
-        [HttpGet("{WeeksToGoBack}/{MaxHigh}/{MinChange}", Name = "Get")]
-        public IActionResult Get(int WeeksToGoBack, int MaxHigh, int MinChange)
+        [HttpGet("{WeeksToGoBack}/{MaxHigh}/{MinChange}/{Avg_Volume}", Name = "Get")]
+        public IActionResult Get(int WeeksToGoBack, int MaxHigh, int MinChange, int Avg_Volume)
         {
             configRoot = ConfigurationHelper.GetConfiguration(Directory.GetCurrentDirectory());
             string connection_string = configRoot.GetConnectionString(configRoot.GetSection("environmentVariables")["ENVIRONMENT"]);
@@ -43,6 +43,7 @@ namespace AustinStockAdvisor.Controllers
             param.Add("WeeksToGoBack", WeeksToGoBack);
             param.Add("Max_High", MaxHigh);
             param.Add("Minimum_Change", MinChange);
+            param.Add("Avg_Volume", Avg_Volume);
 
             string companies = AustinStockAdvisor.Library.Database.ExecuteProcedure.Get(
                 "[fsn].[Share_Change]"

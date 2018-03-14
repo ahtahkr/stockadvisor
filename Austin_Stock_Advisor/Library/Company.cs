@@ -8,6 +8,7 @@ namespace AustinStockAdvisor.Library
         public int WeeksToGoBack { get; set; }
         public int Max_High { get; set; }
         public string Url { get; set; }
+        public int Avg_Volume { get; set; }
     }
 
     public class Share
