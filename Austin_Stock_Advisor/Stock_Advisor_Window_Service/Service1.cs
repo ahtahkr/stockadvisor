@@ -13,7 +13,7 @@ namespace AustinStockAdvisor.WindowsService
 {
     public partial class Service1 : ServiceBase
     {
-        private static int iextrading_get_chart_Range_interval = 60 * 60; // seconds
+        private static int iextrading_get_chart_Range_interval = 60; // seconds
         private Timer iextrading_get_chart_Range_timer = new Timer(iextrading_get_chart_Range_interval * 1000);
 
         private static int iextrading_previous_market_interval = 60 * 60; // seconds
