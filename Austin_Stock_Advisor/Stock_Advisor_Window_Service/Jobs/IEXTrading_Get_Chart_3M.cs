@@ -15,6 +15,7 @@ namespace AustinStockAdvisor.WindowsService
         {
             string connection_string = ConfigurationManager.ConnectionStrings[ConfigurationManager.AppSettings["environment"]].ConnectionString;
             List<AustinStockAdvisor.Library.Share> shares = new List<AustinStockAdvisor.Library.Share>();
+            string webapi = "Before Try";
 
             try
             {
@@ -25,7 +26,7 @@ namespace AustinStockAdvisor.WindowsService
                 string symbol = stuff1[0].Symbol;
                 string range = stuff1[0].Range;
 
-                string webapi = AustinStockAdvisor.IEXTrading.WebApi.V_1.Chart(symbol, range);
+                webapi = AustinStockAdvisor.IEXTrading.WebApi.V_1.Chart(symbol, range);
                 shares = JsonConvert.DeserializeObject<List<AustinStockAdvisor.Library.Share>>(webapi);
                 for (int a = 0; a < shares.Count; a++)
                 {
@@ -42,7 +43,7 @@ namespace AustinStockAdvisor.WindowsService
 
                 /* MethodFullName. */
                 string methodfullname = "[" + this.GetType().FullName + "." + System.Reflection.MethodBase.GetCurrentMethod().Name + "]";
-                Library.Logger.Log_Error(methodfullname + " . Error Msg: " + ex.Message);
+                Library.Logger.Log_Error(methodfullname + " . Error Msg: " + ex.Message + ". Web Api returned value: [" + webapi + "]" );
 
                 AustinStockAdvisor.Library.Company company = new AustinStockAdvisor.Library.Company();
                 company.Symbol = shares[0].Symbol;
