@@ -19,6 +19,9 @@ namespace AustinStockAdvisor.WindowsService
         private static int iextrading_previous_market_interval = 60 * 60; // seconds
         private Timer iextrading_previous_market_timer = new Timer(iextrading_previous_market_interval * 1000);
 
+        private static int smtp = 60 * 60; // seconds
+        private Timer smtp_timer = new Timer(smtp * 1000);
+
         public Service1()
         {
             InitializeComponent();
@@ -34,6 +37,9 @@ namespace AustinStockAdvisor.WindowsService
 
             this.iextrading_previous_market_timer.Elapsed += IEXTrading_Market_Previous;
             this.iextrading_previous_market_timer.Enabled = true;
+
+            this.smtp_timer.Elapsed += Stock_Changes_Send_Email;
+            this.smtp_timer.Enabled = true;
         }
 
         protected override void OnStop()
@@ -41,6 +47,7 @@ namespace AustinStockAdvisor.WindowsService
             eventLog_i_am_active.WriteEntry("Austin Stock Windows Service stopped.");
             this.iextrading_get_chart_Range_timer.Enabled = false;
             this.iextrading_previous_market_timer.Enabled = false;
+            this.smtp_timer.Enabled = false;
         }
         protected override void OnPause()
         {
@@ -48,6 +55,7 @@ namespace AustinStockAdvisor.WindowsService
 
             this.iextrading_get_chart_Range_timer.Enabled = false;
             this.iextrading_previous_market_timer.Enabled = false;
+            this.smtp_timer.Enabled = false;
         }
         protected override void OnContinue()
         {
@@ -55,6 +63,7 @@ namespace AustinStockAdvisor.WindowsService
 
             this.iextrading_get_chart_Range_timer.Enabled = true;
             this.iextrading_previous_market_timer.Enabled = true;
+            this.smtp_timer.Enabled = true;
         }
 
         private void CreateLog()
