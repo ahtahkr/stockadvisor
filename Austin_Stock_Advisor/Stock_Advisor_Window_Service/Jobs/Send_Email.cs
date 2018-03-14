@@ -47,14 +47,15 @@ namespace AustinStockAdvisor.WindowsService
                     , param);
 
                 List<Library.Change> changes = JsonConvert.DeserializeObject<List<Library.Change>>(companies);
-                string body = "<div>";
+                string body = Environment.NewLine + Environment.NewLine + "Ascending Changes" + Environment.NewLine;
                 if (changes.Count > 0)
                 {
                     for (int a = 0; a < changes.Count; a++)
                     {
-                        body += "<p><a href=\"" + changes[a].Url + "\" target = \"_blank\">" + changes[a].Symbol + "</a> - " + changes[a].Avg_Volume + " - " + changes[a].Max_High + " - " + changes[a].WeeksToGoBack + "</p>";
+                        body += changes[a].Symbol + " - " + changes[a].Url + Environment.NewLine;
                     }
-                    body += "</div>";
+                    body += "";
+
                     string smtp_server = Convert.ToString(ConfigurationManager.AppSettings["smtp_server"]);
                     int smtp_server_port = Convert.ToInt32(ConfigurationManager.AppSettings["smtp_server_port"]);
                     string smtp_username = Convert.ToString(ConfigurationManager.AppSettings["smtp_username"]);
