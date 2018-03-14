@@ -84,6 +84,9 @@
     <Compile Include="Jobs\IEXTrading_Download_Symbols.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Jobs\Send_Email.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Service1.cs">
       <SubType>Component</SubType>
     </Compile>

@@ -6,7 +6,7 @@ using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Library
+namespace AustinStockAdvisor.Library
 {
     public static class Utility
     {
