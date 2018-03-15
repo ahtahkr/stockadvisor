@@ -52,7 +52,7 @@ namespace AustinStockAdvisor.WindowsService
 
                 AustinStockAdvisor.Library.Company company = new AustinStockAdvisor.Library.Company();
                 company.Symbol = shares[0].Symbol;
-                company.Company_Update_IEX_Chart_3M(connection_string);
+                company.Company_Alter_IEX_Trading(connection_string);
 
                 return;
             }
