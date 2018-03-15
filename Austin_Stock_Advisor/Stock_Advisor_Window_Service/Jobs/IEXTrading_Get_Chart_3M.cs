@@ -14,7 +14,12 @@ namespace AustinStockAdvisor.WindowsService
         private void IEXTrading_Get_Chart_Range(object sender = null, ElapsedEventArgs e = null)
         {
             string connection_string = ConfigurationManager.ConnectionStrings[ConfigurationManager.AppSettings["environment"]].ConnectionString;
+
+            AustinStockAdvisor.Library.Share sh = new AustinStockAdvisor.Library.Share();
+            sh.Symbol = "Before Try";
+
             List<AustinStockAdvisor.Library.Share> shares = new List<AustinStockAdvisor.Library.Share>();
+            shares.Add(sh);
             string webapi = "Before Try";
 
             try
@@ -43,7 +48,7 @@ namespace AustinStockAdvisor.WindowsService
 
                 /* MethodFullName. */
                 string methodfullname = "[" + this.GetType().FullName + "." + System.Reflection.MethodBase.GetCurrentMethod().Name + "]";
-                Library.Logger.Log_Error(methodfullname + " . Error Msg: " + ex.Message + ". Web Api returned value: [" + webapi + "]" );
+                Library.Logger.Log_Error(methodfullname + " . Error Msg: " + ex.Message + ". Web Api returned value: [" + webapi + "] Shares List: ["+ JsonConvert.SerializeObject(shares)+"]" );
 
                 AustinStockAdvisor.Library.Company company = new AustinStockAdvisor.Library.Company();
                 company.Symbol = shares[0].Symbol;
