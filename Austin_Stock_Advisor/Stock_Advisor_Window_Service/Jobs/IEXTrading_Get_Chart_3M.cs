@@ -21,7 +21,7 @@ namespace AustinStockAdvisor.WindowsService
             List<AustinStockAdvisor.Library.Share> shares = new List<AustinStockAdvisor.Library.Share>();
             shares.Add(sh);
             string webapi = "Before Try";
-
+            string str2 = "";
             try
             {
                 string result = AustinStockAdvisor.Library.Database.ExecuteProcedure.Get(
@@ -30,6 +30,7 @@ namespace AustinStockAdvisor.WindowsService
                 dynamic stuff1 = Newtonsoft.Json.JsonConvert.DeserializeObject(result);
                 string symbol = stuff1[0].Symbol;
                 string range = stuff1[0].Range;
+                str2 = symbol;
 
                 webapi = AustinStockAdvisor.IEXTrading.WebApi.V_1.Chart(symbol, range);
                 shares = JsonConvert.DeserializeObject<List<AustinStockAdvisor.Library.Share>>(webapi);
@@ -51,7 +52,7 @@ namespace AustinStockAdvisor.WindowsService
                 Library.Logger.Log_Error(methodfullname + " . Error Msg: " + ex.Message + ". Web Api returned value: [" + webapi + "] Shares List: ["+ JsonConvert.SerializeObject(shares)+"]" );
 
                 AustinStockAdvisor.Library.Company company = new AustinStockAdvisor.Library.Company();
-                company.Symbol = shares[0].Symbol;
+                company.Symbol = str2;
                 company.Company_Alter_IEX_Trading(connection_string);
 
                 return;

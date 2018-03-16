@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace AustinStockAdvisor.Library
 {
@@ -108,15 +109,23 @@ namespace AustinStockAdvisor.Library
         public void Company_Alter_IEX_Trading(string connection_string)
         {
             System.Collections.Generic.Dictionary<string, object> parameters
-                  = new System.Collections.Generic.Dictionary<string, object>();
+                      = new System.Collections.Generic.Dictionary<string, object>();
+            /* MethodFullName. */
+            string methodfullname = "[" + this.GetType().FullName + "." + System.Reflection.MethodBase.GetCurrentMethod().Name + "]";
 
             parameters.Add("Symbol", this.Symbol);
-
-            AustinStockAdvisor.Library.Database.ExecuteProcedure.Get(
-                "[fsn].[Company_Alter_IEX_Trading]",
-                connection_string,
-                parameters
-            );
+            try
+            {
+                Logger.Log(this.Symbol + " : " + AustinStockAdvisor.Library.Database.ExecuteProcedure.Get(
+                    "[fsn].[Company_Alter_IEX_Trading]",
+                    connection_string,
+                    parameters
+                ), methodfullname);
+            } catch (Exception ex)
+            {
+                
+                Library.Logger.Log_Error(methodfullname + " . Error Msg: " + ex.Message + ". Connection String: [" + connection_string + "] Shares List: [" + JsonConvert.SerializeObject(parameters) + "]");
+            }
 
         }
     }
