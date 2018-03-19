@@ -116,11 +116,11 @@ namespace AustinStockAdvisor.Library
             parameters.Add("Symbol", this.Symbol);
             try
             {
-                Logger.Log(this.Symbol + " : " + AustinStockAdvisor.Library.Database.ExecuteProcedure.Get(
+                AustinStockAdvisor.Library.Database.ExecuteProcedure.Get(
                     "[fsn].[Company_Alter_IEX_Trading]",
                     connection_string,
                     parameters
-                ), methodfullname);
+                );
             } catch (Exception ex)
             {
                 

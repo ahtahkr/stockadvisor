@@ -14,45 +14,57 @@ namespace AustinStockAdvisor.WindowsService
         private void IEXTrading_Get_Chart_Range(object sender = null, ElapsedEventArgs e = null)
         {
             string connection_string = ConfigurationManager.ConnectionStrings[ConfigurationManager.AppSettings["environment"]].ConnectionString;
-
-            AustinStockAdvisor.Library.Share sh = new AustinStockAdvisor.Library.Share();
-            sh.Symbol = "Before Try";
-
+            string symbol = "beforetry";
+            string result = "beforetry";
+            string webapi = "beforetry";
             List<AustinStockAdvisor.Library.Share> shares = new List<AustinStockAdvisor.Library.Share>();
-            shares.Add(sh);
-            string webapi = "Before Try";
-            string str2 = "";
             try
             {
-                string result = AustinStockAdvisor.Library.Database.ExecuteProcedure.Get(
+                result = AustinStockAdvisor.Library.Database.ExecuteProcedure.Get(
                 "[fsn].[Company_Get_Symbol_ChartRange]", connection_string);
 
-                dynamic stuff1 = Newtonsoft.Json.JsonConvert.DeserializeObject(result);
-                string symbol = stuff1[0].Symbol;
-                string range = stuff1[0].Range;
-                str2 = symbol;
+                /* MethodFullName. */
+                string methodfullname = "[" + this.GetType().FullName + "." + System.Reflection.MethodBase.GetCurrentMethod().Name + "]";
 
-                webapi = AustinStockAdvisor.IEXTrading.WebApi.V_1.Chart(symbol, range);
-                shares = JsonConvert.DeserializeObject<List<AustinStockAdvisor.Library.Share>>(webapi);
-                for (int a = 0; a < shares.Count; a++)
+                if (String.IsNullOrEmpty(result) || result.Equals("[]")) { }
+                else
                 {
-                    shares[a].Symbol = symbol;
-                    shares[a].Share_Insert_Update(connection_string);
-                }
+                    dynamic stuff1 = Newtonsoft.Json.JsonConvert.DeserializeObject(result);
+                    symbol = stuff1[0].Symbol;
+                    string range = stuff1[0].Range;
+                    webapi = AustinStockAdvisor.IEXTrading.WebApi.V_1.Chart(symbol, range);
+                    shares = JsonConvert.DeserializeObject<List<AustinStockAdvisor.Library.Share>>(webapi);
 
-                AustinStockAdvisor.Library.Company company = new AustinStockAdvisor.Library.Company();
-                company.Symbol = shares[0].Symbol;
-                    company.Company_Update_IEX_Chart_3M(connection_string);
+
+                    if (shares.Count > 0)
+                    {
+                        for (int a = 0; a < shares.Count; a++)
+                        {
+                            shares[a].Symbol = symbol;
+                            shares[a].Share_Insert_Update(connection_string);
+                        }
+
+                        AustinStockAdvisor.Library.Company company = new AustinStockAdvisor.Library.Company();
+                        company.Symbol = shares[0].Symbol;
+                        company.Company_Update_IEX_Chart_3M(connection_string);
+                    } else
+                    {
+                        //Library.Logger.Log("result [" + result + "] symbol: [" + symbol + "] webapi: [" + webapi + "]", methodfullname);
+                        AustinStockAdvisor.Library.Company company = new AustinStockAdvisor.Library.Company();
+                        company.Symbol = symbol;
+                        company.Company_Alter_IEX_Trading(connection_string);
+                    }
+                }
             
             } catch (Exception ex)
             {
 
                 /* MethodFullName. */
                 string methodfullname = "[" + this.GetType().FullName + "." + System.Reflection.MethodBase.GetCurrentMethod().Name + "]";
-                Library.Logger.Log_Error(methodfullname + " . Error Msg: " + ex.Message + ". Web Api returned value: [" + webapi + "] Shares List: ["+ JsonConvert.SerializeObject(shares)+"]" );
+                Library.Logger.Log_Error(methodfullname + " result ["+result+"] symbol:["+symbol+"] webapi: ["+webapi+"]Error Msg: " + ex.Message + ". Shares List: ["+ JsonConvert.SerializeObject(shares)+"]" );
 
                 AustinStockAdvisor.Library.Company company = new AustinStockAdvisor.Library.Company();
-                company.Symbol = str2;
+                company.Symbol = symbol;
                 company.Company_Alter_IEX_Trading(connection_string);
 
                 return;
