@@ -13,6 +13,13 @@ namespace AustinStockAdvisor.WindowsService
     {
         private void IEXTrading_Get_Chart_Range(object sender = null, ElapsedEventArgs e = null)
         {
+            string run = ConfigurationManager.AppSettings["IEXTrading_Get_Chart_Range"];
+
+            if (run.Equals("0"))
+            {
+                return;
+            }
+
             string connection_string = ConfigurationManager.ConnectionStrings[ConfigurationManager.AppSettings["environment"]].ConnectionString;
             string symbol = "beforetry";
             string result = "beforetry";
@@ -74,6 +81,7 @@ namespace AustinStockAdvisor.WindowsService
         private void IEXTrading_Market_Previous(object sender = null, ElapsedEventArgs e = null)
         {
             ArrayList DAYS = new ArrayList(5);
+            DAYS.Add("Monday");
             DAYS.Add("Tuesday");
             DAYS.Add("Wednesday");
             DAYS.Add("Thursday");
@@ -83,6 +91,7 @@ namespace AustinStockAdvisor.WindowsService
 
             if (DAYS.Contains(day))
             {
+                Library.Logger.Log("Getting data for " + day, "IEXTrading_Market_Previous");
                 string connection_string = ConfigurationManager.ConnectionStrings[ConfigurationManager.AppSettings["environment"]].ConnectionString;
                 string webapi = AustinStockAdvisor.IEXTrading.WebApi.V_1.Previous_Market();
                 AustinStockAdvisor.Library.Share SHARE = new AustinStockAdvisor.Library.Share();
@@ -95,6 +104,9 @@ namespace AustinStockAdvisor.WindowsService
                     SHARE = JsonConvert.DeserializeObject<AustinStockAdvisor.Library.Share>('{' + _shares[0] + '}');
                     SHARE.Share_Insert_Update(connection_string);
                 }
+            } else
+            {
+                Library.Logger.Log("Not Getting data for " + day, "IEXTrading_Market_Previous");
             }
         
         }

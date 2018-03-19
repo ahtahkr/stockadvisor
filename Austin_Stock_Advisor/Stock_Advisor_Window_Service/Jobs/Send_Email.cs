@@ -21,7 +21,7 @@ namespace AustinStockAdvisor.WindowsService
 
                 ArrayList DAYS = new ArrayList(5)
             {
-                "Tuesday",
+                "Monday","Tuesday",
                 "Wednesday",
                 "Thursday",
                 "Friday",
@@ -30,6 +30,7 @@ namespace AustinStockAdvisor.WindowsService
 
                 if (DAYS.Contains(dt.DayOfWeek.ToString()) && (dt.Hour == 10))
                 {
+                    Library.Logger.Log("Getting data for " + dt.DayOfWeek.ToString(), "Stock_Changes_Send_Email");
                     string connection_string = ConfigurationManager.ConnectionStrings[ConfigurationManager.AppSettings["environment"]].ConnectionString;
 
                     int WeeksToGoBack = Convert.ToInt32(ConfigurationManager.AppSettings["WeeksToGoBack"]);
@@ -64,7 +65,11 @@ namespace AustinStockAdvisor.WindowsService
                         string smtp_password = Convert.ToString(ConfigurationManager.AppSettings["smtp_password"]);
                         string[] recepient = { "ahtahkr@yahoo.com" };
                         Library.Utility.Email(smtp_server, smtp_server_port, smtp_username, smtp_password, "ahtahkr@gmail.com", recepient, "Changes", body);
+                        Library.Logger.Log("Email Sent. " + smtp_server + " " + smtp_server_port +" " + smtp_username +" " + smtp_password + " " + JsonConvert.SerializeObject(recepient), "Stock_Changes_Send_Email");
                     }
+                } else
+                {
+                    Library.Logger.Log("Not Getting data for " + dt.DayOfWeek.ToString(), "Stock_Changes_Send_Email");
                 }
             } catch (Exception ex)
             {
