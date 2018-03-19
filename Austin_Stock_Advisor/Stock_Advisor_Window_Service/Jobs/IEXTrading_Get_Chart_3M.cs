@@ -80,33 +80,44 @@ namespace AustinStockAdvisor.WindowsService
 
         private void IEXTrading_Market_Previous(object sender = null, ElapsedEventArgs e = null)
         {
-            ArrayList DAYS = new ArrayList(5);
-            DAYS.Add("Monday");
-            DAYS.Add("Tuesday");
-            DAYS.Add("Wednesday");
-            DAYS.Add("Thursday");
-            DAYS.Add("Friday");
-            DAYS.Add("Saturday");
-            string day = DateTime.UtcNow.DayOfWeek.ToString();
-
-            if (DAYS.Contains(day))
+            try
             {
-                Library.Logger.Log("Getting data for " + day, "IEXTrading_Market_Previous");
-                string connection_string = ConfigurationManager.ConnectionStrings[ConfigurationManager.AppSettings["environment"]].ConnectionString;
-                string webapi = AustinStockAdvisor.IEXTrading.WebApi.V_1.Previous_Market();
-                AustinStockAdvisor.Library.Share SHARE = new AustinStockAdvisor.Library.Share();
+                ArrayList DAYS = new ArrayList(5);
+                DAYS.Add("Monday");
+                DAYS.Add("Tuesday");
+                DAYS.Add("Wednesday");
+                DAYS.Add("Thursday");
+                DAYS.Add("Friday");
+                DAYS.Add("Saturday");
+                DateTime dt = DateTime.UtcNow;
 
-                JObject o = JObject.Parse(webapi);
-                foreach (var c in o)
+                if (DAYS.Contains(dt.DayOfWeek.ToString()) && (dt.Hour == 9))
                 {
-                    string _share = c.ToString();
-                    string[] _shares = _share.Split('{')[1].Split('}');
-                    SHARE = JsonConvert.DeserializeObject<AustinStockAdvisor.Library.Share>('{' + _shares[0] + '}');
-                    SHARE.Share_Insert_Update(connection_string);
+                    Library.Logger.Log("Getting data for " + dt.DayOfWeek.ToString()+ " on " + dt.Hour + " UTC", "IEXTrading_Market_Previous");
+                    string connection_string = ConfigurationManager.ConnectionStrings[ConfigurationManager.AppSettings["environment"]].ConnectionString;
+                    string webapi = AustinStockAdvisor.IEXTrading.WebApi.V_1.Previous_Market();
+                    AustinStockAdvisor.Library.Share SHARE = new AustinStockAdvisor.Library.Share();
+
+                    JObject o = JObject.Parse(webapi);
+                    foreach (var c in o)
+                    {
+                        string _share = c.ToString();
+                        string[] _shares = _share.Split('{')[1].Split('}');
+                        SHARE = JsonConvert.DeserializeObject<AustinStockAdvisor.Library.Share>('{' + _shares[0] + '}');
+                        SHARE.Share_Insert_Update(connection_string);
+                    }
                 }
-            } else
+                else
+                {
+                    Library.Logger.Log("Not Getting data for " + dt.DayOfWeek.ToString() + " on " + dt.Hour + " UTC", "IEXTrading_Market_Previous");
+                }
+            }
+            catch (Exception ex)
             {
-                Library.Logger.Log("Not Getting data for " + day, "IEXTrading_Market_Previous");
+
+                /* MethodFullName. */
+                string methodfullname = "[" + this.GetType().FullName + "." + System.Reflection.MethodBase.GetCurrentMethod().Name + "]";
+                Library.Logger.Log_Error(methodfullname + " Error Msg: " + ex.Message);
             }
         
         }

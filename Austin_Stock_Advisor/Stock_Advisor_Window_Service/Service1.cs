@@ -16,10 +16,10 @@ namespace AustinStockAdvisor.WindowsService
         private static int iextrading_get_chart_Range_interval = 3; // seconds
         private Timer iextrading_get_chart_Range_timer = new Timer(iextrading_get_chart_Range_interval * 1000);
 
-        private static int iextrading_previous_market_interval = 60 * 60; // seconds
+        private static int iextrading_previous_market_interval = 60*60; // seconds
         private Timer iextrading_previous_market_timer = new Timer(iextrading_previous_market_interval * 1000);
 
-        private static int smtp = 60 * 60; // seconds
+        private static int smtp = 60*60; // seconds
         private Timer smtp_timer = new Timer(smtp * 1000);
 
         public Service1()

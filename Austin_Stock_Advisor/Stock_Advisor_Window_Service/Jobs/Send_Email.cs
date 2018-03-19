@@ -30,7 +30,7 @@ namespace AustinStockAdvisor.WindowsService
 
                 if (DAYS.Contains(dt.DayOfWeek.ToString()) && (dt.Hour == 10))
                 {
-                    Library.Logger.Log("Getting data for " + dt.DayOfWeek.ToString(), "Stock_Changes_Send_Email");
+                    Library.Logger.Log("Getting data for " + dt.DayOfWeek.ToString() + " on " + dt.Hour + " UTC", "Stock_Changes_Send_Email");
                     string connection_string = ConfigurationManager.ConnectionStrings[ConfigurationManager.AppSettings["environment"]].ConnectionString;
 
                     int WeeksToGoBack = Convert.ToInt32(ConfigurationManager.AppSettings["WeeksToGoBack"]);
@@ -69,7 +69,7 @@ namespace AustinStockAdvisor.WindowsService
                     }
                 } else
                 {
-                    Library.Logger.Log("Not Getting data for " + dt.DayOfWeek.ToString(), "Stock_Changes_Send_Email");
+                    Library.Logger.Log("Not Getting data for " + dt.DayOfWeek.ToString() + " on " + dt.Hour + " UTC", "Stock_Changes_Send_Email");
                 }
             } catch (Exception ex)
             {
