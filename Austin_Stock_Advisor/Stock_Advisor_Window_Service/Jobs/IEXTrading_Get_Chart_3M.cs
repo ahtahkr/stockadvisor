@@ -33,9 +33,12 @@ namespace AustinStockAdvisor.WindowsService
                 /* MethodFullName. */
                 string methodfullname = "[" + this.GetType().FullName + "." + System.Reflection.MethodBase.GetCurrentMethod().Name + "]";
 
-                if (String.IsNullOrEmpty(result) || result.Equals("[]")) { }
+                if (String.IsNullOrEmpty(result) || result.Equals("[]")) {
+                    Library.Logger.Log("Not Getting data for result: [" + result + "]", "IEXTrading_Get_Chart_Range");
+                }
                 else
                 {
+                    Library.Logger.Log("Getting data for result: [" + result + "]", "IEXTrading_Get_Chart_Range");
                     dynamic stuff1 = Newtonsoft.Json.JsonConvert.DeserializeObject(result);
                     symbol = stuff1[0].Symbol;
                     string range = stuff1[0].Range;
@@ -54,9 +57,13 @@ namespace AustinStockAdvisor.WindowsService
                         AustinStockAdvisor.Library.Company company = new AustinStockAdvisor.Library.Company();
                         company.Symbol = shares[0].Symbol;
                         company.Company_Update_IEX_Chart_3M(connection_string);
+
+                        Library.Logger.Log("Got data for result: [" + result + "]", "IEXTrading_Get_Chart_Range");
                     } else
                     {
                         //Library.Logger.Log("result [" + result + "] symbol: [" + symbol + "] webapi: [" + webapi + "]", methodfullname);
+
+                        Library.Logger.Log("Didn't got data for result: [" + result + "]", "IEXTrading_Get_Chart_Range");
                         AustinStockAdvisor.Library.Company company = new AustinStockAdvisor.Library.Company();
                         company.Symbol = symbol;
                         company.Company_Alter_IEX_Trading(connection_string);
