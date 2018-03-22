@@ -44,12 +44,19 @@ namespace AustinStockAdvisor.WindowsService
                     param.Add("Minimum_Change", MinChange);
                     param.Add("Avg_Volume", Avg_Volume);
 
+                    Library.Logger.Log("Parameters supplied " + JsonConvert.SerializeObject(param), "Stock_Changes_Send_Email");
+
                     string companies = AustinStockAdvisor.Library.Database.ExecuteProcedure.Get(
                         "[fsn].[Share_Change]"
                         , connection_string
                         , param);
 
+                    Library.Logger.Log("Companies Received " + companies, "Stock_Changes_Send_Email");
+
                     List<Library.Change> changes = JsonConvert.DeserializeObject<List<Library.Change>>(companies);
+
+                    Library.Logger.Log("List of companies " + JsonConvert.SerializeObject(changes), "Stock_Changes_Send_Email");
+
                     string body = Environment.NewLine + Environment.NewLine + "Ascending Changes" + Environment.NewLine;
                     if (changes.Count > 0)
                     {
@@ -64,8 +71,14 @@ namespace AustinStockAdvisor.WindowsService
                         string smtp_username = Convert.ToString(ConfigurationManager.AppSettings["smtp_username"]);
                         string smtp_password = Convert.ToString(ConfigurationManager.AppSettings["smtp_password"]);
                         string[] recepient = { "ahtahkr@yahoo.com" };
-                        Library.Utility.Email(smtp_server, smtp_server_port, smtp_username, smtp_password, "ahtahkr@gmail.com", recepient, "Changes", body);
-                        Library.Logger.Log("Email Sent. " + smtp_server + " " + smtp_server_port +" " + smtp_username +" " + smtp_password + " " + JsonConvert.SerializeObject(recepient), "Stock_Changes_Send_Email");
+                        try
+                        {
+                            Library.Utility.Email(smtp_server, smtp_server_port, smtp_username, smtp_password, "ahtahkr@gmail.com", recepient, "Changes", body);
+                            Library.Logger.Log("Email Sent. " + smtp_server + " " + smtp_server_port + " " + smtp_username + " " + smtp_password + " " + JsonConvert.SerializeObject(recepient), "Stock_Changes_Send_Email");
+                        } catch (Exception ex)
+                        {
+                            Library.Logger.Log_Error("Email Sent failed. Error Message:" + ex.Message, "Error_Stock_Changes_Send_Email");
+                        }
                     }
                 } else
                 {

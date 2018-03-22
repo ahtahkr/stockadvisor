@@ -23,11 +23,11 @@ namespace AustinStockAdvisor.Library
 
             if (!String.IsNullOrEmpty(_filename))
             {
-                filename = _filename + "_" + DateTime.Now.ToString("yyyy_MM_dd") + ".error";
+                filename = _filename + "_" + DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss") + ".error";
             }
             else
             {
-                filename = "Error_" + DateTime.Now.ToString("yyyy_MM_dd") + ".error";
+                filename = "Error_" + DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss") + ".error";
             }
 
             if (!Directory.Exists(base_directory))
@@ -57,11 +57,11 @@ namespace AustinStockAdvisor.Library
 
             if (!String.IsNullOrEmpty(_filename))
             {
-                filename = _filename + "_" + DateTime.Now.ToString("yyyy_MM_dd") + ".log";
+                filename = _filename + "_" + DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss") + ".log";
             }
             else
             {
-                filename = "Log_" + DateTime.Now.ToString("yyyy_MM_dd") + ".log";
+                filename = "Log_" + DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss") + ".log";
             }
 
             if (!Directory.Exists(base_directory))
