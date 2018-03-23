@@ -57,11 +57,11 @@ namespace AustinStockAdvisor.Library
 
             if (!String.IsNullOrEmpty(_filename))
             {
-                filename = _filename + "_" + DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss") + ".log";
+                filename = _filename + "_" + DateTime.Now.ToString("yyyy_MM_dd") + ".log";
             }
             else
             {
-                filename = "Log_" + DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss") + ".log";
+                filename = "Log_" + DateTime.Now.ToString("yyyy_MM_dd") + ".log";
             }
 
             if (!Directory.Exists(base_directory))

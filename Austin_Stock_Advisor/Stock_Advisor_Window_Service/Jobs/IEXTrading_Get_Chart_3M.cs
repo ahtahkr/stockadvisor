@@ -38,9 +38,12 @@ namespace AustinStockAdvisor.WindowsService
                 }
                 else
                 {
-                    Library.Logger.Log("Getting data for result: [" + result + "]", "IEXTrading_Get_Chart_Range");
+                    
                     dynamic stuff1 = Newtonsoft.Json.JsonConvert.DeserializeObject(result);
                     symbol = stuff1[0].Symbol;
+
+                    Library.Logger.Log("Got data for "+ symbol +" result: [" + result + "]", "IEXTrading_Get_Chart_Range");
+
                     string range = stuff1[0].Range;
                     webapi = AustinStockAdvisor.IEXTrading.WebApi.V_1.Chart(symbol, range);
                     shares = JsonConvert.DeserializeObject<List<AustinStockAdvisor.Library.Share>>(webapi);
@@ -57,8 +60,6 @@ namespace AustinStockAdvisor.WindowsService
                         AustinStockAdvisor.Library.Company company = new AustinStockAdvisor.Library.Company();
                         company.Symbol = shares[0].Symbol;
                         company.Company_Update_IEX_Chart_3M(connection_string);
-
-                        Library.Logger.Log("Got data for result: [" + result + "]", "IEXTrading_Get_Chart_Range");
                     } else
                     {
                         //Library.Logger.Log("result [" + result + "] symbol: [" + symbol + "] webapi: [" + webapi + "]", methodfullname);
@@ -75,7 +76,7 @@ namespace AustinStockAdvisor.WindowsService
 
                 /* MethodFullName. */
                 string methodfullname = "[" + this.GetType().FullName + "." + System.Reflection.MethodBase.GetCurrentMethod().Name + "]";
-                Library.Logger.Log_Error(methodfullname + " result ["+result+"] symbol:["+symbol+"] webapi: ["+webapi+"]Error Msg: " + ex.Message + ". Shares List: ["+ JsonConvert.SerializeObject(shares)+"]" );
+                Library.Logger.Log_Error(methodfullname + " result ["+result+"] symbol:["+symbol+"] webapi: ["+webapi+"] Error Msg: " + ex.Message + ". Shares List: ["+ JsonConvert.SerializeObject(shares)+"]" );
 
                 AustinStockAdvisor.Library.Company company = new AustinStockAdvisor.Library.Company();
                 company.Symbol = symbol;
