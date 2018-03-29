@@ -79,13 +79,13 @@ namespace AustinStockAdvisor.WindowsService
 
                     } else
                     {
-                        log = "symbol: " + symbol + " range: " + range + " shares.count: " + shares.Count;
-                        
+                        log = "symbol: " + symbol + " range: " + range + " shares.count: " + shares.Count + " webapi: " + webapi + " IEX_Trading in Company table updated (not in catch).";
+
                         AustinStockAdvisor.Library.Company company = new AustinStockAdvisor.Library.Company();
                         company.Symbol = symbol;
                         company.Company_Alter_IEX_Trading(connection_string);
 
-                        log = "symbol: " + symbol + " range: " + range + " IEX_Trading in Company table updated (not in catch).";
+                        log = "symbol: " + symbol + " range: " + range + " shares.count: " + shares.Count + " webapi: " + webapi + " IEX_Trading in Company table updated (not in catch).";
                     }
                 }
             
