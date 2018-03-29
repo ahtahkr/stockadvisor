@@ -23,6 +23,7 @@ namespace AustinStockAdvisor.Library
         public int Volume { get; set; }
         public double Change { get; set; }
         public double ChangePercent { get; set; }
+        public string WeekDay { get; set; }
 
         public string Share_Insert_Update(string connection_string)
         {

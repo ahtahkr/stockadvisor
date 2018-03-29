@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 using AustinStockAdvisor.Helper;
+using Newtonsoft.Json;
 
 namespace Austin_Stock_Advisor.Controllers
 {
@@ -16,7 +17,7 @@ namespace Austin_Stock_Advisor.Controllers
         private IConfigurationRoot configRoot;
 
         [HttpGet]
-        public string Get()
+        public IActionResult Get()
         {
             configRoot = ConfigurationHelper.GetConfiguration(Directory.GetCurrentDirectory());
             string connection_string = configRoot.GetConnectionString(configRoot.GetSection("environmentVariables")["ENVIRONMENT"]);
@@ -28,12 +29,14 @@ namespace Austin_Stock_Advisor.Controllers
                 "[fsn].[Share_Get]"
                 , connection_string, param);
 
-            return companies;
+            List<AustinStockAdvisor.Library.Share> share = JsonConvert.DeserializeObject<List<AustinStockAdvisor.Library.Share>>(companies);
+
+            return View(share);
         }
 
         // GET: api/Share/5
         [HttpGet("{symbol}", Name = "ShareGet")]
-        public string Get(string symbol)
+        public IActionResult Get(string symbol)
         {
             configRoot = ConfigurationHelper.GetConfiguration(Directory.GetCurrentDirectory());
             string connection_string = configRoot.GetConnectionString(configRoot.GetSection("environmentVariables")["ENVIRONMENT"]);
@@ -45,7 +48,9 @@ namespace Austin_Stock_Advisor.Controllers
                 "[fsn].[Share_Get]"
                 , connection_string, param);
 
-            return companies;
+            List<AustinStockAdvisor.Library.Share> share = JsonConvert.DeserializeObject<List<AustinStockAdvisor.Library.Share>>(companies);
+
+            return View(share);
         }
         /*
         // POST: api/Share

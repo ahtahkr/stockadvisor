@@ -20,10 +20,12 @@
 </script>
 
 @{  var robinhood_color = "";
+    var link = "";
     foreach (var item in Model)
     {
         if (item.Robinhood) { robinhood_color = "#53f442"; } else { robinhood_color = "#f44242"; }
+        link = "/stock/share/" + item.Symbol;
 
-        <p>@item.Symbol - @item.Name - <button style="background-color:@robinhood_color" class="Robinhood_Button" id="@item.Symbol" onclick="robinhood_button('@item.Symbol')">Robinhood</button></p>
+        <p><a href="@link" target="_blank">@item.Symbol</a> - @item.Name - <button style="background-color:@robinhood_color" class="Robinhood_Button" id="@item.Symbol" onclick="robinhood_button('@item.Symbol')">Robinhood</button></p>
     }
 }
