@@ -28,8 +28,8 @@ namespace AustinStockAdvisor.WindowsService
                 "Saturday"
             };
 
-                if (DAYS.Contains(dt.DayOfWeek.ToString()) && (dt.Hour == 10))
-                    //if (true)
+                //if (DAYS.Contains(dt.DayOfWeek.ToString()) && (dt.Hour == 10))
+                    if (true)
                 {
                     Library.Logger.Log("Getting data for " + dt.DayOfWeek.ToString() + " on " + dt.Hour + " UTC", "Stock_Changes_Send_Email");
                     string connection_string = ConfigurationManager.ConnectionStrings[ConfigurationManager.AppSettings["environment"]].ConnectionString;
@@ -48,22 +48,18 @@ namespace AustinStockAdvisor.WindowsService
                     Library.Logger.Log("Parameters supplied " + JsonConvert.SerializeObject(param), "Stock_Changes_Send_Email");
 
                     string companies = AustinStockAdvisor.Library.Database.ExecuteProcedure.Get(
-                        "[fsn].[Share_Change]"
+                        "[fsn].[Change_Ascending]"
                         , connection_string
                         , param);
 
                     Library.Logger.Log("Companies Received " + companies, "Stock_Changes_Send_Email");
 
-                    List<Library.Change> changes = JsonConvert.DeserializeObject<List<Library.Change>>(companies);
+                    Library.Change_Ascending_Email changes = new Library.Change_Ascending_Email();
+                    changes.Change_Ascending = JsonConvert.DeserializeObject<List<Library.Change_Ascending>>(companies);
 
                     Library.Logger.Log("List of companies " + JsonConvert.SerializeObject(changes), "Stock_Changes_Send_Email");
 
-                    string body = Environment.NewLine + Environment.NewLine + "Ascending Changes" + Environment.NewLine;
-                    
-                        for (int a = 0; a < changes.Count; a++)
-                        {
-                            body += changes[a].Symbol + " - " + changes[a].Url + Environment.NewLine;
-                        }
+                    string body = changes.Get_Email_Body();
 
                     body += Environment.NewLine + Environment.NewLine + "Share ChangePercentage" + Environment.NewLine;
 

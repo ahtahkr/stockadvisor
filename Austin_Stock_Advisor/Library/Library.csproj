@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Company.cs" />
     <Compile Include="Database.cs" />
+    <Compile Include="Email.cs" />
     <Compile Include="HttpRequestUtility.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
