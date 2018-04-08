@@ -61,8 +61,6 @@ namespace AustinStockAdvisor.WindowsService
 
                     string body = changes.Get_Email_Body();
 
-                    body += Environment.NewLine + Environment.NewLine + "Share ChangePercentage" + Environment.NewLine;
-
 
                     int Change_percentage = -5;
                     int Max_Close = 5;
@@ -86,22 +84,18 @@ namespace AustinStockAdvisor.WindowsService
                     Library.Logger.Log("Parameters supplied " + JsonConvert.SerializeObject(param), "Stock_Changes_Send_Email");
 
                     companies = AustinStockAdvisor.Library.Database.ExecuteProcedure.Get(
-                        "[fsn].[Share_ChangePercentage]"
+                        "[fsn].[Change_Decreased]"
                         , connection_string
                         , param);
 
                     Library.Logger.Log("Shares Received " + companies, "Stock_Changes_Send_Email");
 
-                    List<Library.Share> shares = JsonConvert.DeserializeObject<List<Library.Share>>(companies);
+                    Library.Change_Decreased_Email shares = new Library.Change_Decreased_Email();
+                    shares.Change_Decreased = JsonConvert.DeserializeObject<List<Library.Change_Decreased>>(companies);
 
                     Library.Logger.Log("List of shares " + JsonConvert.SerializeObject(shares), "Stock_Changes_Send_Email");
 
-                    for (int a = 0; a < shares.Count; a++)
-                    {
-                        body += "https://www.tradingview.com/chart/?symbol=" + shares[a].Symbol + " : " + JsonConvert.SerializeObject(shares[a]) + Environment.NewLine;
-                    }
-
-                    body += "";
+                    body += shares.Get_Email_Body();
 
                     Library.Logger.Log("Email Body: " + body, "Stock_Changes_Send_Email");
 
