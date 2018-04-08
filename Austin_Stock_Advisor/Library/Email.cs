@@ -7,7 +7,61 @@ using System.Threading.Tasks;
 
 namespace AustinStockAdvisor.Library
 {
-    enum Email_Types { Change_Ascending, Change_Decreased }
+    enum Email_Types { Change_Ascending, Change_Decreased, Volume_Ascending }
+
+    public class Volume_Ascending
+    {
+        public string Symbol { get; set; }
+        public DateTime Latest_date { get; set; }
+        public DateTime Previous_date { get; set; }
+        public int Latest_volume { get; set; }
+        public int Previous_volume { get; set; }
+        public double Volume_change_percentage { get; set; }
+        public string Url { get; set; }
+    }
+    public class Volume_Ascending_Email
+    {
+        private int Email_Type;
+        public List<Volume_Ascending> Volume_Ascending { get; set; }
+
+        public string Get_Email_Body()
+        {
+            string body = Environment.NewLine + Environment.NewLine + Enum.GetName(typeof(Email_Types), this.Email_Type) + Environment.NewLine;
+
+            for (int a = 0; a < this.Volume_Ascending.Count; a++)
+            {
+                body += this.Volume_Ascending[a].Symbol + " - " + this.Volume_Ascending[a].Url + " Volume_Change_Percentage: ["+ this.Volume_Ascending[a].Volume_change_percentage +"] - Latest Date: [" + this.Volume_Ascending[a].Latest_date + "] [" + this.Volume_Ascending[a].Latest_volume + "] Previous Date: [" + this.Volume_Ascending[a].Previous_date + "] [" + this.Volume_Ascending[a].Previous_volume + "]" + Environment.NewLine;
+            }
+            return body;
+        }
+
+        public Volume_Ascending_Email()
+        {
+            Email_Type = (int)Email_Types.Volume_Ascending;
+
+        }
+
+        public void Get_Volume_Ascending_from_Database(string connection_string, Dictionary<string, object> param = null)
+        {
+            if (param == null || param.Count == 0)
+            {
+                string companies = AustinStockAdvisor.Library.Database.ExecuteProcedure.Get(
+                        "[fsn].[Volume_Ascending]"
+                        , connection_string);
+                try
+                {
+                    this.Volume_Ascending = JsonConvert.DeserializeObject<List<Volume_Ascending>>(companies);
+                } catch (Exception ex)
+                {
+                    /* MethodFullName. */
+                    string methodfullname = "[" + this.GetType().FullName + "." + System.Reflection.MethodBase.GetCurrentMethod().Name + "]";
+                    Logger.Log_Error(methodfullname + " : " + ex.Message);
+                    this.Volume_Ascending = new List<Library.Volume_Ascending>();
+                }
+            }
+        }
+
+    }
 
     public class Change_Decreased
     {

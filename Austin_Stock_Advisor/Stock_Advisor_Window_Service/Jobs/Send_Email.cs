@@ -99,6 +99,10 @@ namespace AustinStockAdvisor.WindowsService
 
                     Library.Logger.Log("Email Body: " + body, "Stock_Changes_Send_Email");
 
+                    Library.Volume_Ascending_Email volume_Ascending_Email = new Library.Volume_Ascending_Email();
+                    volume_Ascending_Email.Get_Volume_Ascending_from_Database(connection_string);
+                    body += volume_Ascending_Email.Get_Email_Body();
+
                     string smtp_server = Convert.ToString(ConfigurationManager.AppSettings["smtp_server"]);
                         int smtp_server_port = Convert.ToInt32(ConfigurationManager.AppSettings["smtp_server_port"]);
                         string smtp_username = Convert.ToString(ConfigurationManager.AppSettings["smtp_username"]);
