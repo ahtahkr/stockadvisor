@@ -28,8 +28,8 @@ namespace AustinStockAdvisor.WindowsService
                 "Saturday"
             };
 
-                //if (DAYS.Contains(dt.DayOfWeek.ToString()) && (dt.Hour == 10))
-                    if (true)
+                if (DAYS.Contains(dt.DayOfWeek.ToString()) && (dt.Hour == 10))
+                    //if (true)
                 {
                     Library.Logger.Log("Getting data for " + dt.DayOfWeek.ToString() + " on " + dt.Hour + " UTC", "Stock_Changes_Send_Email");
                     string connection_string = ConfigurationManager.ConnectionStrings[ConfigurationManager.AppSettings["environment"]].ConnectionString;
