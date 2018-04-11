@@ -45,7 +45,10 @@ namespace Stock_Advisor_Windows_Service
                     string symbol = stuff1[0].Symbol;
                     string range = stuff1[0].Range;
 
-                    IEXTrading.Operator.Save_Chart_Range_to_File(IEXTrading.Web_Api_Version.One_point_Zero, input_directory, symbol, range);
+                    if (symbol.Length > 0 && range.Length > 0)
+                    {
+                        IEXTrading.Operator.Save_Chart_Range_to_File(IEXTrading.Web_Api_Version.One_point_Zero, input_directory, symbol, range);
+                    }
                 } catch (Exception ex)
                 {
                     /* MethodFullName. */

@@ -97,6 +97,14 @@ namespace IEXTrading
 
         public static void Save_Chart_Range_to_File(Web_Api_Version web_api_version, string folder, string symbol, string range)
         {
+            if (!Library.FileCheck.IsValidPath(folder))
+            {
+                MethodBase method = System.Reflection.MethodBase.GetCurrentMethod();
+                string fullMethodName = method.ReflectedType.Name + "." + method.Name;
+                Library.Logger.Log_Error(fullMethodName, "Invalid folder: " + folder);
+                return;
+            }
+
             string filename = "Share_" + DateTime.UtcNow.ToString("yyyy_MM_dd_HH_mm_ss_fff") + ".txt";
             folder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, folder);
 
@@ -111,32 +119,43 @@ namespace IEXTrading
             if (web_api_version == Web_Api_Version.One_point_Zero)
             {
                 previous = WebApi.Api_1.Chart(symbol, range);
-
-                List<Modal.Api_1.Share> eShares = JsonConvert.DeserializeObject<List<Modal.Api_1.Share>>(previous);
-                List<ProductionDatabase.Share> pShares = new List<ProductionDatabase.Share>();
-                symbol = symbol.ToUpper();
-
-                for (int a = 0; a < eShares.Count; a++)
+                try
                 {
-                    ProductionDatabase.Share pShare = new ProductionDatabase.Share();
-                    pShare.Symbol = symbol;
-                    pShare.Date = eShares[a].Date;
-                    pShare.Change = eShares[a].Change;
-                    pShare.ChangePercent = eShares[a].ChangePercent;
-                    pShare.Close = eShares[a].Close;
-                    pShare.High = eShares[a].High;
-                    pShare.Low = eShares[a].Low;
-                    pShare.Open = eShares[a].Open;
-                    pShare.UnadjustedVolume = eShares[a].UnadjustedVolume;
-                    pShare.Volume = eShares[a].Volume;
-                    pShare.Vwap = eShares[a].Vwap;
+                    List<Modal.Api_1.Share> eShares = JsonConvert.DeserializeObject<List<Modal.Api_1.Share>>(previous);
+                    List<ProductionDatabase.Share> pShares = new List<ProductionDatabase.Share>();
+                    symbol = symbol.ToUpper();
 
-                    pShares.Add(pShare);
+                    for (int a = 0; a < eShares.Count; a++)
+                    {
+                        ProductionDatabase.Share pShare = new ProductionDatabase.Share();
+                        pShare.Symbol = symbol;
+                        pShare.Date = eShares[a].Date;
+                        pShare.Change = eShares[a].Change;
+                        pShare.ChangePercent = eShares[a].ChangePercent;
+                        pShare.Close = eShares[a].Close;
+                        pShare.High = eShares[a].High;
+                        pShare.Low = eShares[a].Low;
+                        pShare.Open = eShares[a].Open;
+                        pShare.UnadjustedVolume = eShares[a].UnadjustedVolume;
+                        pShare.Volume = eShares[a].Volume;
+                        pShare.Vwap = eShares[a].Vwap;
+
+                        pShares.Add(pShare);
+                    }
+                    File.AppendAllText(
+                         folder
+                        , JsonConvert.SerializeObject(pShares)
+                    );
                 }
-                File.AppendAllText(
-                     folder
-                    , JsonConvert.SerializeObject(pShares)
-                );
+                catch (Exception ex)
+                {
+                    MethodBase method = System.Reflection.MethodBase.GetCurrentMethod();
+                    string methodName = method.Name;
+                    string className = method.ReflectedType.Name;
+                    string fullMethodName = className + "." + methodName;
+
+                    Library.Logger.Log_Error(fullMethodName, "Web_Api returned: " + previous, ex.Message);
+                }
             }
             else
             {
