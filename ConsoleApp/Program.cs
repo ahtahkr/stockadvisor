@@ -9,7 +9,7 @@ namespace ConsoleApp
         {
             IEXTrading.Operator.Save_Previous_to_File(IEXTrading.Web_Api_Version.One_point_Zero, "IEXTrading");
             Console.WriteLine("done");
-            IEXTrading.Operator.Save_Previous_to_File(IEXTrading.Web_Api_Version.One_point_Zero, "IEXTrading", "aapl");
+            IEXTrading.Operator.Save_Chart_Range_to_File(IEXTrading.Web_Api_Version.One_point_Zero, "IEXTrading", "aapl","3m");
             Console.WriteLine("done");
             Console.ReadLine();
         }
