@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27428.2015
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stock_Advisor", "Stock_Advisor\Stock_Advisor.csproj", "{5FF89627-2FB8-499E-9665-37E573971434}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stock_Advisor_WinService", "Stock_Advisor_WinService\Stock_Advisor_WinService.csproj", "{1F59C378-A270-49DA-8F5E-5358654AC811}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{5FF89627-2FB8-499E-9665-37E573971434}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5FF89627-2FB8-499E-9665-37E573971434}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5FF89627-2FB8-499E-9665-37E573971434}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F59C378-A270-49DA-8F5E-5358654AC811}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F59C378-A270-49DA-8F5E-5358654AC811}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F59C378-A270-49DA-8F5E-5358654AC811}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F59C378-A270-49DA-8F5E-5358654AC811}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
