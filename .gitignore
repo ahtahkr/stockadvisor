@@ -24,6 +24,6 @@
 # Austin_Stock_Advisor/Library/bin
 # Austin_Stock_Advisor/Library/obj
 .vs
-bin
-obj
-packages
+bin/
+obj/
+packages/

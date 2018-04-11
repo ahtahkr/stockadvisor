@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library", "Library\Library.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stock_Advisor_WinSer", "Stock_Advisor_WinSer\Stock_Advisor_WinSer.csproj", "{F998D18C-6226-4B3E-B285-93B26B7E6432}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IEXTrading", "IEXTrading\IEXTrading.csproj", "{4759B216-7381-4A0A-9E3A-8E84AFFA373E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{F998D18C-6226-4B3E-B285-93B26B7E6432}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F998D18C-6226-4B3E-B285-93B26B7E6432}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F998D18C-6226-4B3E-B285-93B26B7E6432}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4759B216-7381-4A0A-9E3A-8E84AFFA373E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4759B216-7381-4A0A-9E3A-8E84AFFA373E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4759B216-7381-4A0A-9E3A-8E84AFFA373E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4759B216-7381-4A0A-9E3A-8E84AFFA373E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
