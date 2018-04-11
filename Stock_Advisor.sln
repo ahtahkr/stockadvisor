@@ -7,13 +7,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stock_Advisor", "Stock_Advi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library", "Library\Library.csproj", "{CB188E0C-5D8E-42FD-9CB2-BED3F691F11F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stock_Advisor_WinSer", "Stock_Advisor_WinSer\Stock_Advisor_WinSer.csproj", "{F998D18C-6226-4B3E-B285-93B26B7E6432}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IEXTrading", "IEXTrading\IEXTrading.csproj", "{4759B216-7381-4A0A-9E3A-8E84AFFA373E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp", "ConsoleApp\ConsoleApp.csproj", "{2350FE40-71DF-43A5-A4D1-E84AD042BF54}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductionDatabase", "ProductionDatabase\ProductionDatabase.csproj", "{3B764471-E1E6-42D4-ACBE-EE6CF7718957}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stock_Advisor_Windows_Service", "Stock_Advisor_Windows_Service\Stock_Advisor_Windows_Service.csproj", "{9F9D0689-FFF0-42C4-8CC4-D7EE49AE15A4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,6 @@ Global
 		{CB188E0C-5D8E-42FD-9CB2-BED3F691F11F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CB188E0C-5D8E-42FD-9CB2-BED3F691F11F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CB188E0C-5D8E-42FD-9CB2-BED3F691F11F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F998D18C-6226-4B3E-B285-93B26B7E6432}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F998D18C-6226-4B3E-B285-93B26B7E6432}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F998D18C-6226-4B3E-B285-93B26B7E6432}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F998D18C-6226-4B3E-B285-93B26B7E6432}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4759B216-7381-4A0A-9E3A-8E84AFFA373E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4759B216-7381-4A0A-9E3A-8E84AFFA373E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4759B216-7381-4A0A-9E3A-8E84AFFA373E}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -45,6 +41,10 @@ Global
 		{3B764471-E1E6-42D4-ACBE-EE6CF7718957}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B764471-E1E6-42D4-ACBE-EE6CF7718957}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B764471-E1E6-42D4-ACBE-EE6CF7718957}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F9D0689-FFF0-42C4-8CC4-D7EE49AE15A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F9D0689-FFF0-42C4-8CC4-D7EE49AE15A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F9D0689-FFF0-42C4-8CC4-D7EE49AE15A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F9D0689-FFF0-42C4-8CC4-D7EE49AE15A4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
