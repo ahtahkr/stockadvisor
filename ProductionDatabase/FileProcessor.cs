@@ -20,29 +20,39 @@ namespace ProductionDatabase
                     if (sFilename[0].ToLower().Equals("share"))
                     {
                         List<Share> Error = new List<Share>();
-
                         string text = File.ReadAllText(file_full_name);
 
-                        List<Share> Shares = JsonConvert.DeserializeObject<List<Share>>(text);
-                        for (int a = 0; a < Shares.Count; a++)
+                        try
                         {
-                            if (Shares[a].Save_in_Database(connection_string))
-                            { }
-                            else
+                            List<Share> Shares = JsonConvert.DeserializeObject<List<Share>>(text);
+                            for (int a = 0; a < Shares.Count; a++)
                             {
-                                Error.Add(Shares[a]);
+                                if (Shares[a].Save_in_Database(connection_string))
+                                { }
+                                else
+                                {
+                                    Error.Add(Shares[a]);
+                                }
                             }
-                        }
 
-                        if (Error.Count > 0)
-                        {
-                            if (!Directory.Exists(error_folder))
+                            if (Error.Count > 0)
                             {
-                                Directory.CreateDirectory(error_folder);
+                                if (!Directory.Exists(error_folder))
+                                {
+                                    Directory.CreateDirectory(error_folder);
+                                }
+                                File.AppendAllText(
+                                    Path.Combine(error_folder, "Share_" + DateTime.UtcNow.ToString("yyyy_MM_dd_HH_mm_ss_fff") + ".txt")
+                                    , JsonConvert.SerializeObject(Error));
                             }
-                            File.AppendAllText(
-                                Path.Combine(error_folder, "Share_" + DateTime.UtcNow.ToString("yyyy_MM_dd_HH_mm_ss_fff") + ".txt")
-                                , JsonConvert.SerializeObject(Error));
+                        } catch (Exception ex)
+                        {
+                            /* staticmethodfullname */
+                            MethodBase method = System.Reflection.MethodBase.GetCurrentMethod();
+                            string methodName = method.Name;
+                            string className = method.ReflectedType.Name;
+                            string fullMethodName = className + "." + methodName;
+                            Library.Logger.Log_Error(fullMethodName, "File Content: " + text, ex.Message);
                         }
                     }
                     else

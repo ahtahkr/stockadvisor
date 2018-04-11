@@ -16,8 +16,16 @@ namespace IEXTrading
     {
         public static void Save_Previous_to_File(Web_Api_Version web_api_version, string folder, string symbol = "market")
         {
+            if (!Library.FileCheck.IsValidPath(folder))
+            {
+                MethodBase method = System.Reflection.MethodBase.GetCurrentMethod();
+                string fullMethodName = method.ReflectedType.Name + "." + method.Name;
+                Library.Logger.Log_Error(fullMethodName, "Invalid folder: " + folder);
+                return;
+            }
+
             string filename = "Share_" + DateTime.UtcNow.ToString("yyyy_MM_dd_HH_mm_ss_fff") + ".txt";
-            folder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, folder);
+            //folder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, folder);            
 
             if (!Directory.Exists(folder))
             {
@@ -35,34 +43,45 @@ namespace IEXTrading
 
                 List<ProductionDatabase.Share> shares = new List<ProductionDatabase.Share>();
 
-                JObject o = JObject.Parse(previous);
-                foreach (var c in o)
+                try
                 {
-                    _share = c.ToString();
-                    _shares = _share.Split('{')[1].Split('}');
+                    JObject o = JObject.Parse(previous);
+                    foreach (var c in o)
+                    {
+                        _share = c.ToString();
+                        _shares = _share.Split('{')[1].Split('}');
 
-                    ProductionDatabase.Share pShare = new ProductionDatabase.Share();
-                    Modal.Api_1.Share eShare 
-                        = JsonConvert.DeserializeObject<Modal.Api_1.Share>('{' + _shares[0] + '}');
+                        ProductionDatabase.Share pShare = new ProductionDatabase.Share();
+                        Modal.Api_1.Share eShare
+                            = JsonConvert.DeserializeObject<Modal.Api_1.Share>('{' + _shares[0] + '}');
 
-                    pShare.Symbol = eShare.Symbol;
-                    pShare.Date = eShare.Date;
-                    pShare.Change = eShare.Change;
-                    pShare.ChangePercent = eShare.ChangePercent;
-                    pShare.Close = eShare.Close;
-                    pShare.High = eShare.High;
-                    pShare.Low = eShare.Low;
-                    pShare.Open = eShare.Open;
-                    pShare.UnadjustedVolume = eShare.UnadjustedVolume;
-                    pShare.Volume = eShare.Volume;
-                    pShare.Vwap = eShare.Vwap;
+                        pShare.Symbol = eShare.Symbol;
+                        pShare.Date = eShare.Date;
+                        pShare.Change = eShare.Change;
+                        pShare.ChangePercent = eShare.ChangePercent;
+                        pShare.Close = eShare.Close;
+                        pShare.High = eShare.High;
+                        pShare.Low = eShare.Low;
+                        pShare.Open = eShare.Open;
+                        pShare.UnadjustedVolume = eShare.UnadjustedVolume;
+                        pShare.Volume = eShare.Volume;
+                        pShare.Vwap = eShare.Vwap;
 
-                    shares.Add(pShare);
+                        shares.Add(pShare);
+                    }
+                    File.AppendAllText(
+                         folder
+                        , JsonConvert.SerializeObject(shares)
+                    );
+                } catch (Exception ex)
+                {
+                    MethodBase method = System.Reflection.MethodBase.GetCurrentMethod();
+                    string methodName = method.Name;
+                    string className = method.ReflectedType.Name;
+                    string fullMethodName = className + "." + methodName;
+
+                    Library.Logger.Log_Error(fullMethodName, "Web_Api returned: " + previous, ex.Message);
                 }
-                File.AppendAllText(
-                     folder
-                    , JsonConvert.SerializeObject(shares)
-                );
             } else
             {
                 MethodBase method = System.Reflection.MethodBase.GetCurrentMethod();
@@ -115,9 +134,9 @@ namespace IEXTrading
                     pShares.Add(pShare);
                 }
                 File.AppendAllText(
-                 folder
-                , JsonConvert.SerializeObject(pShares)
-            );
+                     folder
+                    , JsonConvert.SerializeObject(pShares)
+                );
             }
             else
             {
