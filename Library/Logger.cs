@@ -7,7 +7,7 @@ namespace Library
 {
     public static class Logger
     {
-        public static void Log_Error(string method, string message)
+        public static void Log_Error(string method, string message, string exception_message = "No Message")
         {
             string filename = "Error_" + DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss_fff") + ".error";
             string base_directory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs", "Error");
@@ -22,6 +22,8 @@ namespace Library
             body += "Method: " + method;
             body += Environment.NewLine + Environment.NewLine;
             body += "Message: " + message;
+            body += Environment.NewLine + Environment.NewLine;
+            body += "Exception Message: " + exception_message;
 
             File.AppendAllText(
                  Path.Combine(base_directory, filename)

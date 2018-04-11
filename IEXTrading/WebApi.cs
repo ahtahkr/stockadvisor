@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Reflection;
 
 namespace IEXTrading.WebApi
 {
@@ -9,6 +13,11 @@ namespace IEXTrading.WebApi
         public static string Previous(string symbol = "market")
         {
             return Library.HttpRequestUtility.GetRequest(URI + "stock/" + symbol + "/previous");
+        }
+
+        public static string Chart(string symbol, string range)
+        {
+            return Library.HttpRequestUtility.GetRequest(URI + "stock/" + symbol + "/chart/" + range);
         }
     }
 }
