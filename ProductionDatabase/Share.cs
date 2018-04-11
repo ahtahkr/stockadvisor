@@ -17,7 +17,7 @@ namespace ProductionDatabase
         public double ChangePercent { get; set; }
         public double Vwap { get; set; }
 
-        public string Save_in_Database(string connection_string)
+        public bool Save_in_Database(string connection_string)
         {
             Dictionary<string, object> parameters
                 = new Dictionary<string, object>
@@ -34,11 +34,20 @@ namespace ProductionDatabase
                     { "vwap", this.Vwap }
                 };
 
-            return Library.Database.ExecuteProcedure.Get(
+            string result = Library.Database.ExecuteProcedure.Get(
                 "[fsn].[Share_Insert_Update]",
                 connection_string,
                 parameters
             );
+
+            if (result.Contains("\"Result\":0"))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
