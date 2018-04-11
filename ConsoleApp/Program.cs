@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace ConsoleApp
 {
@@ -6,8 +7,10 @@ namespace ConsoleApp
     {
         static void Main(string[] args)
         {
-            string test = IEXTrading.WebApi.Api_1.Previous("aapl");
-            Console.WriteLine(test);
+            IEXTrading.Operator.Save_Previous_to_File(IEXTrading.Web_Api_Version.One_point_Zero, "IEXTrading");
+            Console.WriteLine("done");
+            IEXTrading.Operator.Save_Previous_to_File(IEXTrading.Web_Api_Version.One_point_Zero, "IEXTrading", "aapl");
+            Console.WriteLine("done");
             Console.ReadLine();
         }
     }
