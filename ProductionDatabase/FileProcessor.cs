@@ -15,7 +15,9 @@ namespace ProductionDatabase
             {
                 string filename = Path.GetFileName(file_full_name);
                 string error_dir = Path.GetDirectoryName(file_full_name);
+                string archive_dir = Path.GetDirectoryName(file_full_name);
                 error_dir = Path.Combine(error_dir, "error");
+                archive_dir = Path.Combine(archive_dir, "archive");
 
                 string[] sFilename = { };
                 try
@@ -54,6 +56,12 @@ namespace ProductionDatabase
                                     Error.Add(Shares[a]);
                                 }
                             }
+
+                            if (!Directory.Exists(archive_dir))
+                            {
+                                Directory.CreateDirectory(archive_dir);
+                            }
+                            File.Move(file_full_name, Path.Combine(archive_dir, Path.GetFileName(file_full_name)));
 
                             if (Error.Count > 0)
                             {

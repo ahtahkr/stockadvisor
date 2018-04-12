@@ -12,7 +12,7 @@ namespace Stock_Advisor_Windows_Service
     {
         public void IEXTrading_Get_Previous(object sender = null, ElapsedEventArgs e = null)
         {
-            /*ArrayList DAYS = new ArrayList(5)
+            ArrayList DAYS = new ArrayList(5)
             {
                 "Monday",
                 "Tuesday",
@@ -24,13 +24,13 @@ namespace Stock_Advisor_Windows_Service
             DateTime dt = DateTime.UtcNow;
 
             if (DAYS.Contains(dt.DayOfWeek.ToString()) && (dt.Hour == 9))
-            {*/
+            {
                 string input_directory = Convert.ToString(ConfigurationManager.AppSettings["Input_Directory"]);
                 IEXTrading.Operator.Save_Previous_to_File(IEXTrading.Web_Api_Version.One_point_Zero, input_directory);
-            //}
+            }
         }
 
-        private void IEXTrading_Get_Symbol_ChartRange(object sender = null, ElapsedEventArgs e = null)
+        public void IEXTrading_Get_Symbol_ChartRange(object sender = null, ElapsedEventArgs e = null)
         {
             string connection_string = ConfigurationManager.ConnectionStrings[ConfigurationManager.AppSettings["environment"]].ConnectionString;
             string input_directory = Convert.ToString(ConfigurationManager.AppSettings["Input_Directory"]);
@@ -48,6 +48,7 @@ namespace Stock_Advisor_Windows_Service
                     if (symbol.Length > 0 && range.Length > 0)
                     {
                         IEXTrading.Operator.Save_Chart_Range_to_File(IEXTrading.Web_Api_Version.One_point_Zero, input_directory, symbol, range);
+                        ProductionDatabase.Utility.Company_Update_Share_3M(symbol, connection_string);
                     }
                 } catch (Exception ex)
                 {

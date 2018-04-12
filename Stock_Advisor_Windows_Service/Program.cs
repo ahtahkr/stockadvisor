@@ -16,6 +16,9 @@ namespace Stock_Advisor_Windows_Service
                       ServiceBase.Run(ServicesToRun);
            #else
                        Service1 myServ = new Service1();
+            myServ.IEXTrading_Get_Previous();
+            myServ.Process_File();
+            myServ.IEXTrading_Get_Symbol_ChartRange();
             myServ.Process_File();
                        // here Process is my Service function
                        // that will run when my service onstart is call

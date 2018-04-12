@@ -5,8 +5,14 @@ namespace Stock_Advisor_Windows_Service
 {
     partial class Service1 : ServiceBase
     {
-        private static int iextrading_get_chart_Range_interval = 60; // seconds
+        private static int iextrading_get_chart_Range_interval = 10; // seconds
         private Timer iextrading_get_chart_Range_timer = new Timer(iextrading_get_chart_Range_interval * 1000);
+
+        private static int iextrading_get_previous_interval = 60 * 60; // seconds
+        private Timer iextrading_get_previous_timer = new Timer(iextrading_get_previous_interval * 1000);
+
+        private static int process_file_interval = 5; // seconds
+        private Timer process_file_timer = new Timer(process_file_interval * 1000);
 
         public Service1()
         {
@@ -18,8 +24,14 @@ namespace Stock_Advisor_Windows_Service
         {
             eventLog_i_am_active.WriteEntry("Austin Stock Windows Service started.");
 
-            //this.iextrading_get_chart_Range_timer.Elapsed += IEXTrading_Get_Chart_Range;
+            this.iextrading_get_chart_Range_timer.Elapsed += IEXTrading_Get_Symbol_ChartRange;
             this.iextrading_get_chart_Range_timer.Enabled = true;
+
+            this.iextrading_get_previous_timer.Elapsed += IEXTrading_Get_Previous;
+            this.iextrading_get_previous_timer.Enabled = true;
+
+            this.process_file_timer.Elapsed += Process_File;
+            this.process_file_timer.Enabled = true;
         }
 
         protected override void OnStop()
