@@ -9,12 +9,32 @@ namespace ProductionDatabase
 {
     public static class FileProcessor
     {
-        public static void Process_File(string file_full_name, string connection_string, string error_folder)
+        public static void Process_File(string file_full_name, string connection_string)
         {
             if (File.Exists(file_full_name))
             {
                 string filename = Path.GetFileName(file_full_name);
-                string[] sFilename = filename.Split('_');
+                string error_dir = Path.GetDirectoryName(file_full_name);
+                error_dir = Path.Combine(error_dir, "error");
+
+                string[] sFilename = { };
+                try
+                {
+                    sFilename = filename.Split('_');
+                }
+                catch
+                {
+                    /* methodfullname */
+                    MethodBase method = System.Reflection.MethodBase.GetCurrentMethod();
+                    string methodName = method.Name;
+                    string className = method.ReflectedType.Name;
+                    string fullMethodName = className + "." + methodName;
+
+                    Library.Logger.Log_Error(fullMethodName, "Couldnot split filename using '_'. Filename: " + filename);
+                    if (!Directory.Exists(error_dir)) { Directory.CreateDirectory(error_dir); }
+                    File.Move(file_full_name, Path.Combine(error_dir, filename));
+                }
+
                 if (sFilename.Length > 1)
                 {
                     if (sFilename[0].ToLower().Equals("share"))
@@ -37,12 +57,12 @@ namespace ProductionDatabase
 
                             if (Error.Count > 0)
                             {
-                                if (!Directory.Exists(error_folder))
+                                if (!Directory.Exists(error_dir))
                                 {
-                                    Directory.CreateDirectory(error_folder);
+                                    Directory.CreateDirectory(error_dir);
                                 }
                                 File.AppendAllText(
-                                    Path.Combine(error_folder, "Share_" + DateTime.UtcNow.ToString("yyyy_MM_dd_HH_mm_ss_fff") + ".txt")
+                                    Path.Combine(error_dir, "Share_" + DateTime.UtcNow.ToString("yyyy_MM_dd_HH_mm_ss_fff") + ".txt")
                                     , JsonConvert.SerializeObject(Error));
                             }
                         } catch (Exception ex)
@@ -53,6 +73,9 @@ namespace ProductionDatabase
                             string className = method.ReflectedType.Name;
                             string fullMethodName = className + "." + methodName;
                             Library.Logger.Log_Error(fullMethodName, "File Content: " + text, ex.Message);
+
+                            if (!Directory.Exists(error_dir)) { Directory.CreateDirectory(error_dir); }
+                            File.Move(file_full_name, Path.Combine(error_dir, filename));
                         }
                     }
                     else
@@ -64,6 +87,9 @@ namespace ProductionDatabase
                         string fullMethodName = className + "." + methodName;
 
                         Library.Logger.Log_Error(fullMethodName, "'" + string.Join(",", sFilename) + "'. The first word of " + file_full_name + " is invalid.");
+
+                        if (!Directory.Exists(error_dir)) { Directory.CreateDirectory(error_dir); }
+                        File.Move(file_full_name, Path.Combine(error_dir, filename));
                     }
                 }
                 else
@@ -75,6 +101,9 @@ namespace ProductionDatabase
                     string fullMethodName = className + "." + methodName;
 
                     Library.Logger.Log_Error(fullMethodName, "'" + string.Join(",", sFilename) + "' is invalid. Filename: " + file_full_name);
+
+                    if (!Directory.Exists(error_dir)) { Directory.CreateDirectory(error_dir); }
+                    File.Move(file_full_name, Path.Combine(error_dir, filename));
                 }
             }
             else

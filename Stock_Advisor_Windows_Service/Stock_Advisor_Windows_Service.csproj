@@ -51,6 +51,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.IdentityModel.Protocols">
       <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.identitymodel.protocols\2.1.4\lib\netstandard1.4\Microsoft.IdentityModel.Protocols.dll</HintPath>
     </Reference>
@@ -69,6 +70,10 @@
     <ProjectReference Include="..\Library\Library.csproj">
       <Project>{cb188e0c-5d8e-42fd-9cb2-bed3f691f11f}</Project>
       <Name>Library</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProductionDatabase\ProductionDatabase.csproj">
+      <Project>{3b764471-e1e6-42d4-acbe-ee6cf7718957}</Project>
+      <Name>ProductionDatabase</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

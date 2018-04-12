@@ -16,7 +16,7 @@ namespace IEXTrading
     {
         public static void Save_Previous_to_File(Web_Api_Version web_api_version, string folder, string symbol = "market")
         {
-            if (!Library.FileCheck.IsValidPath(folder))
+            if (!Library.FileUtility.IsValidPath(folder))
             {
                 MethodBase method = System.Reflection.MethodBase.GetCurrentMethod();
                 string fullMethodName = method.ReflectedType.Name + "." + method.Name;
@@ -97,7 +97,7 @@ namespace IEXTrading
 
         public static void Save_Chart_Range_to_File(Web_Api_Version web_api_version, string folder, string symbol, string range)
         {
-            if (!Library.FileCheck.IsValidPath(folder))
+            if (!Library.FileUtility.IsValidPath(folder))
             {
                 MethodBase method = System.Reflection.MethodBase.GetCurrentMethod();
                 string fullMethodName = method.ReflectedType.Name + "." + method.Name;
@@ -106,7 +106,7 @@ namespace IEXTrading
             }
 
             string filename = "Share_" + DateTime.UtcNow.ToString("yyyy_MM_dd_HH_mm_ss_fff") + ".txt";
-            folder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, folder);
+            //folder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, folder);
 
             if (!Directory.Exists(folder))
             {

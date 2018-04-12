@@ -18,7 +18,7 @@ namespace Stock_Advisor_Windows_Service
         {
             eventLog_i_am_active.WriteEntry("Austin Stock Windows Service started.");
 
-            this.iextrading_get_chart_Range_timer.Elapsed += IEXTrading_Get_Chart_Range;
+            //this.iextrading_get_chart_Range_timer.Elapsed += IEXTrading_Get_Chart_Range;
             this.iextrading_get_chart_Range_timer.Enabled = true;
         }
 
