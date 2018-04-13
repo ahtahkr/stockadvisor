@@ -23,7 +23,8 @@ namespace Stock_Advisor_Windows_Service
             };
             DateTime dt = DateTime.UtcNow;
 
-            if (DAYS.Contains(dt.DayOfWeek.ToString()) && (dt.Hour == 9))
+            //if (DAYS.Contains(dt.DayOfWeek.ToString()) && (dt.Hour == 9))
+            if (true)
             {
                 string input_directory = Convert.ToString(ConfigurationManager.AppSettings["Input_Directory"]);
                 IEXTrading.Operator.Save_Previous_to_File(IEXTrading.Web_Api_Version.One_point_Zero, input_directory);

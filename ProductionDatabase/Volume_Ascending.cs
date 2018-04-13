@@ -2,6 +2,7 @@
 using ProductionDatabase.Email;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Text;
 
 namespace ProductionDatabase.Email
@@ -36,14 +37,34 @@ namespace ProductionDatabase.Modal
             }
         }
 
+        private DataTable Get_Table()
+        {
+            DataTable table = new DataTable();
+            table.Columns.Add("Symbol", typeof(string));
+            table.Columns.Add("Url", typeof(string));
+            table.Columns.Add("Latest_Date", typeof(DateTime));
+            table.Columns.Add("Previous_Date", typeof(DateTime));
+            table.Columns.Add("Latest_Volume", typeof(int));
+            table.Columns.Add("Previous_Volume", typeof(int));
+            table.Columns.Add("Volume_Change_Percentage", typeof(int));
+
+            for (int a = 0; a< this.Volume_Ascendings.Count; a++)
+            {
+                table.Rows.Add(
+                    this.Volume_Ascendings[a].Symbol, this.Volume_Ascendings[a].Url, this.Volume_Ascendings[a].Latest_Date, this.Volume_Ascendings[a].Previous_Date
+                    , this.Volume_Ascendings[a].Latest_Volume, this.Volume_Ascendings[a].Previous_Volume, this.Volume_Ascendings[a].Volume_Change_Percentage
+                );
+            }
+
+            return table;
+        }
+
         public string Get_Email_Body()
         {
-            string body = Environment.NewLine + Environment.NewLine + Enum.GetName(typeof(Email_Types), (int) this.Email_Type) + Environment.NewLine;
+            string body = Environment.NewLine + Environment.NewLine 
+                            + Enum.GetName(typeof(Email_Types), (int) this.Email_Type) + Environment.NewLine;
 
-            for (int a = 0; a < this.Volume_Ascendings.Count; a++)
-            {
-                body += this.Volume_Ascendings[a].Symbol + " - " + this.Volume_Ascendings[a].Url + " Volume_Change_Percentage: [" + this.Volume_Ascendings[a].Volume_change_percentage + "] - Latest Date: [" + this.Volume_Ascendings[a].Latest_date + "] [" + this.Volume_Ascendings[a].Latest_volume + "] Previous Date: [" + this.Volume_Ascendings[a].Previous_date + "] [" + this.Volume_Ascendings[a].Previous_volume + "]" + Environment.NewLine;
-            }
+            body += Library.Table.Convert_to_CSV_String(this.Get_Table());
             return body;
         }
     }
@@ -51,11 +72,11 @@ namespace ProductionDatabase.Modal
     public class Volume_Ascending
     {
         public string Symbol { get; set; }
-        public DateTime Latest_date { get; set; }
-        public DateTime Previous_date { get; set; }
-        public int Latest_volume { get; set; }
-        public int Previous_volume { get; set; }
-        public double Volume_change_percentage { get; set; }
+        public DateTime Latest_Date { get; set; }
+        public DateTime Previous_Date { get; set; }
+        public int Latest_Volume { get; set; }
+        public int Previous_Volume { get; set; }
+        public double Volume_Change_Percentage { get; set; }
         public string Url { get; set; }
     }
 }
