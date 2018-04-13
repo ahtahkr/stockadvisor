@@ -21,12 +21,29 @@ namespace ProductionDatabase.Modal
             this.Email_Type = Email_Types.Volume_Ascending;
         }
 
-        public void Get_from_Database(string connection_string, Dictionary<string, object> parameters = null)
+        public void Get_from_Database(string _connection_string, int? _minimum_change = null, int? _minimum_volume = null, int? _maximum_close_price = null )
         {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+
+            if (_minimum_change != null && (_minimum_change >= 0 || _minimum_change <= 0))
+            {
+                parameters.Add("Minimum_Change", _minimum_change);
+            }
+
+            if (_minimum_volume != null && (_minimum_volume >= 0 || _minimum_volume <= 0))
+            {
+                parameters.Add("Volume", _minimum_volume);
+            }
+
+            if (_maximum_close_price != null && (_maximum_close_price >= 0 || _maximum_close_price <= 0))
+            {
+                parameters.Add("Max_Close_Price", _maximum_close_price);
+            }
+
             string _va = "";
             try
             {
-                _va = Library.Database.ExecuteProcedure.Get("[fsn].[Volume_Ascending]", connection_string, parameters);
+                _va = Library.Database.ExecuteProcedure.Get("[fsn].[Volume_Ascending]", _connection_string, parameters);
                 this.Volume_Ascendings =
                     JsonConvert.DeserializeObject<List<Volume_Ascending>>(_va);
             } catch (Exception ex)
