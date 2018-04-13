@@ -39,25 +39,29 @@ namespace Stock_Advisor_Windows_Service
             {
                 string result = Library.Database.ExecuteProcedure.Get("[fsn].[Company_Get_Symbol_ChartRange]", connection_string);
 
-                try
+                if (!result.Equals("[]"))
                 {
-                    dynamic stuff1 = Newtonsoft.Json.JsonConvert.DeserializeObject(result);
-                    string symbol = stuff1[0].Symbol;
-                    string range = stuff1[0].Range;
-
-                    if (symbol.Length > 0 && range.Length > 0)
+                    try
                     {
-                        IEXTrading.Operator.Save_Chart_Range_to_File(IEXTrading.Web_Api_Version.One_point_Zero, input_directory, symbol, range);
-                        ProductionDatabase.Utility.Company_Update_Share_3M(symbol, connection_string);
+                        dynamic stuff1 = Newtonsoft.Json.JsonConvert.DeserializeObject(result);
+                        string symbol = stuff1[0].Symbol;
+                        string range = stuff1[0].Range;
+
+                        if (symbol.Length > 0 && range.Length > 0)
+                        {
+                            IEXTrading.Operator.Save_Chart_Range_to_File(IEXTrading.Web_Api_Version.One_point_Zero, input_directory, symbol, range);
+                            ProductionDatabase.Utility.Company_Update_Share_3M(symbol, connection_string);
+                        }
                     }
-                } catch (Exception ex)
-                {
-                    /* MethodFullName. */
-                    string methodfullname = "[" + this.GetType().FullName + "." + System.Reflection.MethodBase.GetCurrentMethod().Name + "]";
-                    string message = "Connection String: " + connection_string;
-                    message += Environment.NewLine + "Input Directory: " + input_directory;
-                    message += Environment.NewLine + "Result: " + result;
-                    Library.Logger.Log_Error(methodfullname, message, ex.Message);
+                    catch (Exception ex)
+                    {
+                        /* MethodFullName. */
+                        string methodfullname = "[" + this.GetType().FullName + "." + System.Reflection.MethodBase.GetCurrentMethod().Name + "]";
+                        string message = "Connection String: " + connection_string;
+                        message += Environment.NewLine + "Input Directory: " + input_directory;
+                        message += Environment.NewLine + "Result: " + result;
+                        Library.Logger.Log_Error(methodfullname, message, ex.Message);
+                    }
                 }
             } else
             {
@@ -82,29 +86,34 @@ namespace Stock_Advisor_Windows_Service
 
                 string file = Library.FileUtility.GetFile(input_directory, 0, Library.FileUtility.FileExtension.TXT);
 
-                if (Library.FileUtility.IsValidPath(file))
+                if (!String.IsNullOrEmpty(file))
                 {
-                    try
+                    if (Library.FileUtility.IsValidPath(file))
                     {
-                        string file_location = Path.Combine(input_process_directory, Path.GetFileName(file));
-                        File.Move(file, file_location);
-                        ProductionDatabase.FileProcessor.Process_File(file_location, connection_string);
-                    } catch (Exception ex)
+                        try
+                        {
+                            string file_location = Path.Combine(input_process_directory, Path.GetFileName(file));
+                            File.Move(file, file_location);
+                            ProductionDatabase.FileProcessor.Process_File(file_location, connection_string);
+                        }
+                        catch (Exception ex)
+                        {
+                            /* MethodFullName. */
+                            string methodfullname = "[" + this.GetType().FullName + "." + System.Reflection.MethodBase.GetCurrentMethod().Name + "]";
+                            string message = "Connection String: " + connection_string;
+                            message += Environment.NewLine + "Input Directory: " + input_directory;
+                            message += Environment.NewLine + "File received from 'Library.FileUtility.GetFile': " + file;
+                            Library.Logger.Log_Error(methodfullname, message, ex.Message);
+                        }
+                    }
+                    else
                     {
                         /* MethodFullName. */
                         string methodfullname = "[" + this.GetType().FullName + "." + System.Reflection.MethodBase.GetCurrentMethod().Name + "]";
-                        string message = "Connection String: " + connection_string;
-                        message += Environment.NewLine + "Input Directory: " + input_directory;
-                        message += Environment.NewLine + "File received from 'Library.FileUtility.GetFile': " + file;
-                        Library.Logger.Log_Error(methodfullname, message, ex.Message);
+                        string message = "The file [" + file + "] received from 'Library.FileUtility.GetFile' is not valid.";
+                        Library.Logger.Log_Error(methodfullname, message);
                     }
-                } else
-                {
-                    /* MethodFullName. */
-                    string methodfullname = "[" + this.GetType().FullName + "." + System.Reflection.MethodBase.GetCurrentMethod().Name + "]";
-                    string message = "The file [" + file + "] received from 'Library.FileUtility.GetFile' is not valid.";
-                    Library.Logger.Log_Error(methodfullname, message);
-                }                
+                }
             }
             else
             {
