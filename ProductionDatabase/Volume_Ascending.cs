@@ -13,7 +13,7 @@ namespace ProductionDatabase.Modal
 {
     public class Volume_Ascending_Collection
     {
-        private List<Volume_Ascending> Volume_Ascendings;
+        public List<Volume_Ascending> Volume_Ascendings;
         private Email_Types Email_Type;
 
         public Volume_Ascending_Collection()
@@ -21,7 +21,7 @@ namespace ProductionDatabase.Modal
             this.Email_Type = Email_Types.Volume_Ascending;
         }
 
-        public void Get_from_Database(string _connection_string, int? _minimum_change = null, int? _minimum_volume = null, int? _maximum_close_price = null )
+        public void Get_from_Database(string _connection_string, DateTime date, int? _minimum_change = null, int? _minimum_volume = null, int? _maximum_close_price = null)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>();
 
@@ -40,6 +40,8 @@ namespace ProductionDatabase.Modal
                 parameters.Add("Max_Close_Price", _maximum_close_price);
             }
 
+            parameters.Add("_date",date.ToString("yyyy-MM-dd"));
+
             string _va = "";
             try
             {
@@ -55,10 +57,11 @@ namespace ProductionDatabase.Modal
         }
 
         private DataTable Get_Table()
-        {
+        {   
             DataTable table = new DataTable();
             table.Columns.Add("Symbol", typeof(string));
             table.Columns.Add("Url", typeof(string));
+            table.Columns.Add("Stock_Url_Data", typeof(string));
             table.Columns.Add("Latest_Date", typeof(DateTime));
             table.Columns.Add("Previous_Date", typeof(DateTime));
             table.Columns.Add("Latest_Volume", typeof(int));
@@ -68,7 +71,7 @@ namespace ProductionDatabase.Modal
             for (int a = 0; a< this.Volume_Ascendings.Count; a++)
             {
                 table.Rows.Add(
-                    this.Volume_Ascendings[a].Symbol, this.Volume_Ascendings[a].Url, this.Volume_Ascendings[a].Latest_Date, this.Volume_Ascendings[a].Previous_Date
+                    this.Volume_Ascendings[a].Symbol, this.Volume_Ascendings[a].Url, this.Volume_Ascendings[a].Stock_Url_Data, this.Volume_Ascendings[a].Latest_Date, this.Volume_Ascendings[a].Previous_Date
                     , this.Volume_Ascendings[a].Latest_Volume, this.Volume_Ascendings[a].Previous_Volume, this.Volume_Ascendings[a].Volume_Change_Percentage
                 );
             }
@@ -95,5 +98,6 @@ namespace ProductionDatabase.Modal
         public int Previous_Volume { get; set; }
         public double Volume_Change_Percentage { get; set; }
         public string Url { get; set; }
+        public string Stock_Url_Data { get; set; }
     }
 }

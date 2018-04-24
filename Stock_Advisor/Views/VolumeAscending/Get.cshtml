@@ -1,0 +1,22 @@
+﻿@model ProductionDatabase.Modal.Volume_Ascending_Collection
+
+@{
+    ViewData["Title"] = "Get";
+}
+
+<h2>Get</h2>
+
+<div>
+    <h4>Volume_Ascending_Collection</h4>
+    <hr />
+    <dl class="dl-horizontal">
+    </dl>
+</div>
+<div>
+    @{ 
+        foreach (var item in Model.Volume_Ascendings)
+        {
+            <p>@item.Symbol - <a href="@item.Url" target="_blank">Chart Url</a> - <a href="@item.Stock_Url_Data" target="_blank">Table Url</a> - @item.Latest_Volume (@item.Latest_Date) - @item.Previous_Volume (@item.Previous_Date)</p>
+        }
+    }
+</div>
