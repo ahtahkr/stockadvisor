@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 
@@ -7,6 +8,26 @@ namespace ProductionDatabase
 {
     public static class Utility
     {
+        public static List<string> Get_Class_Field_Names(Object variable)
+        {
+            var bindingFlags = BindingFlags.Instance |
+                   BindingFlags.NonPublic |
+                   BindingFlags.Public;
+            return variable.GetType().GetFields(bindingFlags)
+                            .Select(field => field.Name.Split('<')[1].Split('>')[0])           
+                            .ToList();
+        }
+        public static List<string> Get_Class_Field_Values(Object variable)
+        {
+            var bindingFlags = BindingFlags.Instance |
+                   BindingFlags.NonPublic |
+                   BindingFlags.Public;
+            return variable.GetType()
+                            .GetFields(bindingFlags)
+                            .Select(field => field.GetValue(variable).ToString())
+                            .ToList();
+        }
+
         public static bool Company_Update_Share_3M(string symbol, string connection_string)
         {
             try

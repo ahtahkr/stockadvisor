@@ -27,15 +27,15 @@ namespace Stock_Advisor_Windows_Service
                     "Saturday"
                 };
 
-                //if (DAYS.Contains(dt.DayOfWeek.ToString()) && (dt.Hour == 10))
-                    if (true)
+                if (DAYS.Contains(dt.DayOfWeek.ToString()) && (dt.Hour == 10))
+                    //if (true)
                 {
                     string connection_string = ConfigurationManager.ConnectionStrings[ConfigurationManager.AppSettings["environment"]].ConnectionString;
 
                     ProductionDatabase.Modal.Volume_Ascending_Collection volume_Ascending_Collection = new ProductionDatabase.Modal.Volume_Ascending_Collection();
-                    volume_Ascending_Collection.Get_from_Database(connection_string);
+                    volume_Ascending_Collection.Get_from_Database(connection_string, DateTime.Now);
 
-                    string body = volume_Ascending_Collection.Get_Email_Body();
+                    string body = volume_Ascending_Collection.Get_Email_Html_Body();
 
                     if (!String.IsNullOrEmpty(body))
                     {

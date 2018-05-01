@@ -17,8 +17,13 @@ namespace Library
             };
             for (int a = 0; a < recipients.Length; a++)
             {
-                client.Send(from, recipients[a], subject, body);
-            }
+                var msg = new MailMessage(from,
+                    recipients[a], "Stock Advisor",
+                    body);
+
+                msg.IsBodyHtml = true;
+                client.Send(msg);
+            }            
         }
     }
 }
