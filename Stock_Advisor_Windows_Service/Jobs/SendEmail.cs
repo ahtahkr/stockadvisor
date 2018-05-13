@@ -20,15 +20,15 @@ namespace Stock_Advisor_Windows_Service
 
                 ArrayList DAYS = new ArrayList(5)
                 {
-                    "Monday","Tuesday",
+                    "Monday",
+                    "Tuesday",
                     "Wednesday",
                     "Thursday",
-                    "Friday",
-                    "Saturday"
+                    "Friday"
                 };
 
-                //if (DAYS.Contains(dt.DayOfWeek.ToString()) && (dt.Hour == 10))
-                    if (true)
+                if (DAYS.Contains(dt.DayOfWeek.ToString()) && (dt.Hour == 10))
+                    //if (true)
                 {
                     string connection_string = ConfigurationManager.ConnectionStrings[ConfigurationManager.AppSettings["environment"]].ConnectionString;
 
