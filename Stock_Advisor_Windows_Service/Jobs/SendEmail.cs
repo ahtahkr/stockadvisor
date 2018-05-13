@@ -27,8 +27,8 @@ namespace Stock_Advisor_Windows_Service
                     "Saturday"
                 };
 
-                if (DAYS.Contains(dt.DayOfWeek.ToString()) && (dt.Hour == 10))
-                    //if (true)
+                //if (DAYS.Contains(dt.DayOfWeek.ToString()) && (dt.Hour == 10))
+                    if (true)
                 {
                     string connection_string = ConfigurationManager.ConnectionStrings[ConfigurationManager.AppSettings["environment"]].ConnectionString;
 

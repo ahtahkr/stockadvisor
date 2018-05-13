@@ -9,11 +9,11 @@ using System.Text;
 
 namespace ProductionDatabase.Modal
 {
-    public class Volume_Ascending_Collection
+    public class Vol_Asc_Next_Collection
     {
-        public List<Vol_Asc> Volume_Ascendings;
+        public List<Vol_Asc_Next> Volume_Ascendings;
 
-        public Volume_Ascending_Collection()
+        public Vol_Asc_Next_Collection()
         {
         }
 
@@ -36,59 +36,26 @@ namespace ProductionDatabase.Modal
                 parameters.Add("Max_Close_Price", _maximum_close_price);
             }
 
-            parameters.Add("_date",date.ToString("yyyy-MM-dd"));
+            parameters.Add("_date", date.ToString("yyyy-MM-dd"));
 
             string _va = "";
             try
             {
-                _va = Library.Database.ExecuteProcedure.Get("[th].[Vol_Asc]", _connection_string, parameters);
+                _va = Library.Database.ExecuteProcedure.Get("[th].[Vol_Asc_Next]", _connection_string, parameters);
                 this.Volume_Ascendings =
-                    JsonConvert.DeserializeObject<List<Vol_Asc>>(_va);
-                this.Volume_Ascendings.ForEach(vol => vol.Calculate());
+                    JsonConvert.DeserializeObject<List<Vol_Asc_Next>>(_va);
 
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 /* MethodFullName. */
                 string methodfullname = "[" + this.GetType().FullName + "." + System.Reflection.MethodBase.GetCurrentMethod().Name + "]";
                 Library.Logger.Log_Error(methodfullname, "Database returned: " + _va, ex.Message);
             }
         }
-
-        public string Get_Email_Html_Body()
-        {
-            if (this.Volume_Ascendings == null || this.Volume_Ascendings.Count == 0)
-            {
-                return "";
-            }
-            string body = "<h4>" + this.GetType().Name + "</h4>";
-            body += "<table style=\"border: 1px solid black;\"><tr style=\"border: 1px solid black;\"><th style=\"border: 1px solid black;\">";
-
-            List<string> cols = Utility.Get_Class_Field_Names(this.Volume_Ascendings[0]);
-            body += cols.Aggregate((i, j) => i + "</th><th style=\"border: 1px solid black;\">" + j);
-            body += "</th></tr>";
-
-            List<string> vals;
-
-            for (int a = 0; a < this.Volume_Ascendings.Count; a++)
-            {
-                vals = Utility.Get_Class_Field_Values(this.Volume_Ascendings[a]);
-                for (int b = 0; b < vals.Count; b++)
-                {
-                    if (vals[b].Length > 4 && vals[b].Substring(0, 4).Equals("http"))
-                    {
-                        vals[b] = "<a href=\""+ vals[b] + "\" target=\"_blank\">" + vals[b] + "</a>";
-                    }
-                }
-
-                body += "<tr style=\"border: 1px solid black;\">";
-                body += "<td style=\"border: 1px solid black;\">" + vals.Aggregate((i, j) => i + "</td><td style=\"border: 1px solid black;\">" + j) + "</td></tr>";
-            }
-            body += "</table>";
-            return body;
-        }
     }
 
-    public class Vol_Asc
+    public class Vol_Asc_Next
     {
         public string Symbol { get; set; }
         public DateTime Previous_date { get; set; }
@@ -100,6 +67,7 @@ namespace ProductionDatabase.Modal
         public double Previous_changePercentage { get; set; }
         public int Previous_volume { get; set; }
         public double Previous_vwap { get; set; }
+
         public DateTime Mark_date { get; set; }
         public double Mark_open { get; set; }
         public double Mark_close { get; set; }
@@ -109,15 +77,18 @@ namespace ProductionDatabase.Modal
         public double Mark_changePercentage { get; set; }
         public int Mark_volume { get; set; }
         public double Mark_vwap { get; set; }
+
+        public DateTime Next_Date { get; set; }
+        public double Next_open { get; set; }
+        public double Next_close { get; set; }
+        public double Next_high { get; set; }
+        public double Next_low { get; set; }
+        public double Next_change { get; set; }
+        public double Next_changePercentage { get; set; }
+        public int Next_volume { get; set; }
+        public double Next_vwap { get; set; }
+
         public string Url_Chart { get; set; }
         public string Url_Data { get; set; }
-
-        public double Volume_Change_Percentage { get; set; }
-
-        public void Calculate()
-        {
-            if (this.Previous_volume == 0) { return; }
-            this.Volume_Change_Percentage = ((this.Mark_volume - this.Previous_volume) / this.Previous_volume) * 100;
-        }
     }
 }

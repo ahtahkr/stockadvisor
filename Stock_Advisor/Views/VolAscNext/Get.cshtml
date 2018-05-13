@@ -1,0 +1,219 @@
+﻿@model ProductionDatabase.Modal.Vol_Asc_Next_Collection
+
+@{
+    ViewData["Title"] = "Get";
+}
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<h2>Get</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table table-striped table-bordered text-center">
+    <caption>Volume Ascending with Previous, Mark and Next.</caption>
+    <thead>
+        <tr>
+            <th scope="col">
+                #
+            </th>
+            <th scope="col">
+                Symbol
+            </th>
+            <th scope="col">
+                Previous_date
+            </th>
+            <th scope="col">
+                Previous_open
+            </th>
+            <th scope="col">
+                Previous_close
+            </th>
+            <th scope="col">
+                Previous_high
+            </th>
+            <th scope="col">
+                Previous_low
+            </th>
+            <th scope="col">
+                Previous_change
+            </th>
+            <th scope="col">
+                Previous_changePercentage
+            </th>
+            <th scope="col">
+                Previous_volume
+            </th>
+            <th scope="col">
+                Previous_vwap
+            </th>
+            <th scope="col">
+                Mark_date
+            </th>
+            <th scope="col">
+                Mark_open
+            </th>
+            <th scope="col">
+                Mark_close
+            </th>
+            <th scope="col">
+                Mark_high
+            </th>
+            <th scope="col">
+                Mark_low
+            </th>
+            <th scope="col">
+                Mark_change
+            </th>
+            <th scope="col">
+                Mark_changePercentage
+            </th>
+            <th scope="col">
+                Mark_volume
+            </th>
+            <th scope="col">
+                Mark_vwap
+            </th>
+            <th scope="col">
+                Next_Date
+            </th>
+            <th scope="col">
+                Next_open
+            </th>
+            <th scope="col">
+                Next_close
+            </th>
+            <th scope="col">
+                Next_high
+            </th>
+            <th scope="col">
+                Next_low
+            </th>
+            <th scope="col">
+                Next_change
+            </th>
+            <th scope="col">
+                Next_changePercentage
+            </th>
+            <th scope="col">
+                Next_volume
+            </th>
+            <th scope="col">
+                Next_vwap
+            </th>
+            <th scope="col">
+                Url_Chart
+            </th>
+            <th scope="col">
+                Url_Data
+            </th>
+        </tr>
+    </thead>
+
+
+
+    <tbody>
+        @{
+            var count = -1;
+            foreach (var item in Model.Volume_Ascendings)
+            {
+                count++;
+                <tr>
+                    <th scope="row">@count</th>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Symbol)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Previous_date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Previous_open)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Previous_close)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Previous_high)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Previous_low)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Previous_change)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Previous_changePercentage)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Previous_volume)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Previous_vwap)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Mark_date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Mark_open)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Mark_close)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Mark_high)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Mark_low)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Mark_change)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Mark_changePercentage)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Mark_volume)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Mark_vwap)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Next_Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Next_open)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Next_close)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Next_high)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Next_low)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Next_change)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Next_changePercentage)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Next_volume)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Next_vwap)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Url_Chart)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Url_Data)
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
